@@ -38,6 +38,9 @@ Tavenem.Mathematics is a collection of math utilities. It includes:
     - `Sphere`
     - `Torus`
 
+- Also includes the `FloatRange` struct, which specifies a floating point value as a minimum,
+  maximum, and average value.
+
 ## Installation
 
 Tavenem.Mathematics is available as a [NuGet package](https://www.nuget.org/packages/Tavenem.Mathematics/).

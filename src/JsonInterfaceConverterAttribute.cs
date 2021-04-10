@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Tavenem.Mathematics
+namespace Tavenem.Mathematics.Converters
 {
     /// <summary>
     /// When placed on an interface, specifies the converter type to use.

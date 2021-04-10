@@ -5,7 +5,7 @@ namespace Tavenem.Mathematics.Decimals
     /// <summary>
     /// Provides information about the properties of a geometric shape.
     /// </summary>
-    [JsonInterfaceConverter(typeof(ShapeConverter))]
+    [Converters.JsonInterfaceConverter(typeof(ShapeConverter))]
     public interface IShape : IEquatable<IShape>
     {
         /// <summary>

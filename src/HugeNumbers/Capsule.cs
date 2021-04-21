@@ -115,7 +115,7 @@ namespace Tavenem.Mathematics.HugeNumbers
             Length = _pathLength + (Radius * 2);
 
             var halfHeight = _pathLength / 2;
-            ContainingRadius = _pathLength + Radius;
+            ContainingRadius = halfHeight + Radius;
 
             var _halfPath = Vector3.Normalize(axis) * halfHeight;
             _start = Position - _halfPath;
@@ -133,7 +133,7 @@ namespace Tavenem.Mathematics.HugeNumbers
                 LowestPoint = _end - y;
             }
 
-            SmallestDimension = HugeNumber.Min(_pathLength, Radius * 2);
+            SmallestDimension = HugeNumber.Min(Length, Radius * 2);
 
             Volume = (HugeNumber.PI * Radius * Radius * _pathLength) + (HugeNumber.FourThirdsPI * HugeNumber.Pow(Radius, 3));
         }

@@ -114,7 +114,7 @@ namespace Tavenem.Mathematics.Decimals
             Length = _pathLength + (Radius * 2);
 
             var halfHeight = _pathLength / 2;
-            ContainingRadius = _pathLength + Radius;
+            ContainingRadius = halfHeight + Radius;
 
             var _halfPath = Vector3.Normalize(axis) * halfHeight;
             _start = Position - _halfPath;
@@ -132,7 +132,7 @@ namespace Tavenem.Mathematics.Decimals
                 LowestPoint = _end - y;
             }
 
-            SmallestDimension = Math.Min(_pathLength, Radius * 2);
+            SmallestDimension = Math.Min(Length, Radius * 2);
 
             Volume = (DecimalConstants.PI * Radius * Radius * _pathLength) + (DecimalConstants.FourThirdsPI * (decimal)Math.Pow((double)Radius, 3));
         }

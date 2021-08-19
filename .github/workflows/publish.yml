@@ -1,7 +1,7 @@
 name: publish
 env:
-  VERSION: '1.1.2'
-  PRERELEASE: false
+  VERSION: '2.0.0-preview.1'
+  PRERELEASE: true
 on:
   push:
     branches: [ main ]
@@ -12,11 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Setup .NET 5
+      - name: Setup .NET 6
         uses: actions/setup-dotnet@v1
         with:
           # Semantic version range syntax or exact version of a dotnet version
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
+          include-prerelease: true
 
       - name: Install dependencies
         run: dotnet restore

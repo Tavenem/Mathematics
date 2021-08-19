@@ -92,11 +92,12 @@ internal static class VectorCommon
 
     /// <summary>
     /// Determines if a vector is nearly zero (all elements closer to zero than <see
-    /// cref="IComparableToZero{TSelf}.NearlyZero"/>).
+    /// cref="NumberValues.NearlyZeroDouble"/>).
     /// </summary>
     /// <param name="value">A vector to test.</param>
-    /// <returns><see langword="true"/> if the vector is close to zero; otherwise <see
-    /// langword="false"/>.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the vector is close to zero; otherwise <see langword="false"/>.
+    /// </returns>
     public static bool IsNearlyZero<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
         where TScalar : IFloatingPoint<TScalar>

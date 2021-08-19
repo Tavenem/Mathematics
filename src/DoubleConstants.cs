@@ -78,22 +78,6 @@ public static class DoubleConstants
     public const double Ln10 = 2.3025850929940456840;
 
     /// <summary>
-    /// A floating-point value close to zero, intended to determine near-equivalence to 0.
-    /// </summary>
-    public const double NearlyZero = 1e-15;
-
-    /// <summary>
-    /// <para>
-    /// A floating-point value close to zero, intended to determine near-equivalence to 0.
-    /// </para>
-    /// <para>
-    /// This value has less precision than <see cref="NearlyZero"/>, and is better suited when
-    /// checking <see cref="float"/> values.
-    /// </para>
-    /// </summary>
-    public const float NearlyZeroFloat = 1e-6f;
-
-    /// <summary>
     /// 180/π
     /// </summary>
     public const double OneEightyOverPi = 180 / Pi;

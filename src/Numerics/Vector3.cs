@@ -272,11 +272,12 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
 
     /// <summary>
     /// Determines if a vector is nearly zero (all elements closer to zero than <see
-    /// cref="IComparableToZero{TSelf}.NearlyZero"/>).
+    /// cref="NumberValues.NearlyZeroDouble"/>).
     /// </summary>
     /// <param name="value">A vector to test.</param>
-    /// <returns><see langword="true"/> if the vector is close to zero; otherwise <see
-    /// langword="false"/>.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the vector is close to zero; otherwise <see langword="false"/>.
+    /// </returns>
     public static bool IsNearlyZero(Vector3<TScalar> value)
         => VectorCommon.IsNearlyZero<Vector3<TScalar>, TScalar>(value);
 

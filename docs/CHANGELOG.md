@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.2
+### Changed
+- Remove dependency on HugeNumber
+
 ## 2.0.0-preview.1
 ### Added
 - New interfaces which mirror the new mathematical interfaces, and generic implementations which accept any `IFloatingPoint` type:

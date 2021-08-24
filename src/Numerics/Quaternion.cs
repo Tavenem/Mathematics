@@ -651,10 +651,10 @@ public readonly struct Quaternion<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Quaternion(Quaternion<TScalar> value) => new(
-        Extensions.TypeConvert<float, TScalar>(value.X),
-        Extensions.TypeConvert<float, TScalar>(value.Y),
-        Extensions.TypeConvert<float, TScalar>(value.Z),
-        Extensions.TypeConvert<float, TScalar>(value.W));
+        Extensions.Create<float, TScalar>(value.X),
+        Extensions.Create<float, TScalar>(value.Y),
+        Extensions.Create<float, TScalar>(value.Z),
+        Extensions.Create<float, TScalar>(value.W));
 
     /// <summary>
     /// Returns a boolean indicating whether the given quaternion is equal to this quaternion instance.

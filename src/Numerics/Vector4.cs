@@ -644,10 +644,10 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector4(Vector4<TScalar> value) => new(
-        Extensions.TypeConvert<float, TScalar>(value.X),
-        Extensions.TypeConvert<float, TScalar>(value.Y),
-        Extensions.TypeConvert<float, TScalar>(value.Z),
-        Extensions.TypeConvert<float, TScalar>(value.W));
+        Extensions.Create<float, TScalar>(value.X),
+        Extensions.Create<float, TScalar>(value.Y),
+        Extensions.Create<float, TScalar>(value.Z),
+        Extensions.Create<float, TScalar>(value.W));
 
     /// <summary>
     /// Compares the current instance with another object of the same type and returns an

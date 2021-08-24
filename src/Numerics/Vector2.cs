@@ -544,8 +544,8 @@ public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector2(Vector2<TScalar> value) => new(
-        Extensions.TypeConvert<float, TScalar>(value.X),
-        Extensions.TypeConvert<float, TScalar>(value.Y));
+        Extensions.Create<float, TScalar>(value.X),
+        Extensions.Create<float, TScalar>(value.Y));
 
     /// <summary>
     /// Compares the current instance with another object of the same type and returns an

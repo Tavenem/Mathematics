@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0-preview.3
+### Added
+- Expose static abstract methods of `INumber` and `IFloatingPoint` as extension methods
+- Expose static abstract properties of `INumber` and `IFloatingPoint` as static properties of `NumberValues`
+
 ## 2.0.0-preview.2
 ### Changed
 - Remove dependency on HugeNumber

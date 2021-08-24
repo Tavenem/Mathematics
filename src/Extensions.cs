@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Numerics;
 
 namespace Tavenem.Mathematics;
 
@@ -8,6 +10,56 @@ namespace Tavenem.Mathematics;
 public static class Extensions
 {
     /// <summary>
+    /// Returns the absolute value of a number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="value">A number.</param>
+    /// <returns>
+    /// The absolute value of the given number.
+    /// </returns>
+    public static T Abs<T>(this T value) where T : INumber<T> => T.Abs(value);
+
+    /// <summary>
+    /// Returns the angle whose cosine is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">
+    /// A number representing a cosine, where x must be greater than or equal to -1,
+    /// but less than or equal to 1.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that 0 ≤ θ ≤ π.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
+    /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Acos<T>(this T x) where T : IFloatingPoint<T> => T.Acos(x);
+
+    /// <summary>
+    /// Returns the angle whose hyperbolic cosine is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">
+    /// A number representing a hyperbolic cosine, where x must be greater than or equal to 1,
+    /// but less than or equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that 0 ≤ θ ≤ ∞.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; 1 or
+    /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Acosh<T>(this T x) where T : IFloatingPoint<T> => T.Acosh(x);
+
+    /// <summary>
     /// Computes the angle between two vectors.
     /// </summary>
     /// <param name="value1">The first vector.</param>
@@ -15,6 +67,348 @@ public static class Extensions
     /// <returns>The angle between the vectors, in radians.</returns>
     public static double Angle(this Vector3 value1, Vector3 value2)
         => Math.Atan2(Vector3.Cross(value1, value2).Length(), Vector3.Dot(value1, value2));
+
+    /// <summary>
+    /// Returns the angle whose sine is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">
+    /// A number representing a sine, where x must be greater than or equal to -1,
+    /// but less than or equal to 1.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that -π/2 ≤ θ ≤ π/2.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
+    /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Asin<T>(this T x) where T : IFloatingPoint<T> => T.Asin(x);
+
+    /// <summary>
+    /// Returns the angle whose hyperbolic sine is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">
+    /// A number representing a hyperbolic sine, where x must be greater than or equal to
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, but less than or equal to
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that -∞ &lt; θ ≤ -1, or 1 ≤ θ &lt; ∞.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Asinh<T>(this T x) where T : IFloatingPoint<T> => T.Asinh(x);
+
+    /// <summary>
+    /// Returns the angle whose tangent is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number representing a tangent.</param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that -π/2 ≤ θ ≤ π/2.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>, -π/2 if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or π/2 if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// </para>
+    /// </returns>
+    public static T Atan<T>(this T x) where T : IFloatingPoint<T> => T.Atan(x);
+
+    /// <summary>
+    /// Returns the angle whose tangent is the quotient of two specified numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="y">The y coordinate of a point.</param>
+    /// <param name="x">The x coordinate of a point.</param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that -π ≤ θ ≤ π, and tan(θ) = <paramref name="y"/> /
+    /// <paramref name="x"/>, where (<paramref name="x"/>, <paramref name="y"/>) is
+    /// a point in the Cartesian plane.
+    /// </para>
+    /// <para>
+    /// Observe the following:
+    /// </para>
+    /// <para>
+    /// - For (<paramref name="x"/>, <paramref name="y"/>) in quadrant 1, 0 &lt; θ &lt; π/2.
+    /// </para>
+    /// <para>
+    /// - For (<paramref name="x"/>, <paramref name="y"/>) in quadrant 2, π/2 &lt; θ ≤ π.
+    /// </para>
+    /// <para>
+    /// - For (<paramref name="x"/>, <paramref name="y"/>) in quadrant 3, -π &lt; θ &lt; -π/2.
+    /// </para>
+    /// <para>- For (<paramref name="x"/>, <paramref name="y"/>) in quadrant 4, -π/2 &lt; θ &lt; 0.
+    /// </para>
+    /// <para>
+    /// For points on the boundaries of the quadrants, the return value is the following:
+    /// </para>
+    /// <para>
+    /// - If <paramref name="y"/> is 0 and <paramref name="x"/> is not negative, θ = 0.
+    /// </para>
+    /// <para>
+    /// - If <paramref name="y"/> is 0 and <paramref name="x"/> is negative, θ = π.
+    /// </para>
+    /// <para>
+    /// - If <paramref name="y"/> is positive and <paramref name="x"/> is 0, θ = π/2.
+    /// </para>
+    /// <para>
+    /// - If <paramref name="y"/> is negative and <paramref name="x"/> is 0, θ = -π/2.
+    /// </para>
+    /// <para>
+    /// - If <paramref name="y"/> is 0 and <paramref name="x"/> is 0, θ = 0.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> or <paramref name="y"/> is <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// or if <paramref name="x"/> and <paramref name="y"/> are either <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>
+    /// or <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, the method returns <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Atan2<T>(this T y, T x) where T : IFloatingPoint<T> => T.Atan2(y, x);
+
+    /// <summary>
+    /// Returns the angle whose hyperbolic tangent is the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">
+    /// A number representing a hyperbolic tangent, where x must be greater than or equal to -1,
+    /// but less than or equal to 1.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// An angle, θ, measured in radians, such that -∞ &lt; θ &lt; -1, or 1 &lt; θ &lt; ∞.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or d &gt; 1 or
+    /// <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Atanh<T>(this T x) where T : IFloatingPoint<T> => T.Atanh(x);
+
+    /// <summary>
+    /// Returns the next smallest value that compares less than <paramref name="x"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The value to decrement.</param>
+    /// <returns>
+    /// <para>
+    /// The next smallest value that compares less than <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T BitDecrement<T>(this T x) where T : IFloatingPoint<T> => T.BitDecrement(x);
+
+    /// <summary>
+    /// Returns the next largest value that compares greater than <paramref name="x"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The value to increment.</param>
+    /// <returns>
+    /// <para>
+    /// The next largest value that compares greater than <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T BitIncrement<T>(this T x) where T : IFloatingPoint<T> => T.BitIncrement(x);
+
+    /// <summary>
+    /// Returns the cube root of a specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose cube root is to be found.</param>
+    /// <returns>
+    /// <para>
+    /// The cube root of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Cbrt<T>(this T x) where T : IFloatingPoint<T> => T.Cbrt(x);
+
+    /// <summary>
+    /// Returns the smallest integral value that is greater than or equal to the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <para>
+    /// The smallest integral value that is greater than or equal to <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// </para>
+    /// <para>
+    /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
+    /// </para>
+    /// </returns>
+    public static T Ceiling<T>(this T x) where T : IFloatingPoint<T> => T.Ceiling(x);
+
+    /// <summary>
+    /// Returns <paramref name="value"/> clamped to the inclusive range of <paramref name="min"/>
+    /// and <paramref name="max"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="value">The value to be clamped.</param>
+    /// <param name="min">The lower bound of the result.</param>
+    /// <param name="max">The upper bound of the result.</param>
+    /// <returns>
+    /// <para>
+    /// <paramref name="value"/> if <paramref name="min"/> ≤ <paramref name="value"/> ≤ <paramref name="max"/>.
+    /// </para>
+    /// <para>
+    /// -or- <paramref name="min"/> if <paramref name="value"/> &lt; <paramref name="min"/>.
+    /// </para>
+    /// <para>
+    /// -or- <paramref name="max"/> if max &lt; <paramref name="value"/>
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <typeparamref name="T"/> implements
+    /// <see cref="IFloatingPoint{TSelf}"/> and <paramref name="value"/> is
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Clamp<T>(this T value, T min, T max) where T : INumber<T> => T.Clamp(value, min, max);
+
+    /// <summary>
+    /// Returns a value with the magnitude of <paramref name="x"/> and the sign of <paramref name="y"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number whose magnitude is used in the result.</param>
+    /// <param name="y">A number whose sign is the used in the result.</param>
+    /// <returns>
+    /// A value with the magnitude of <paramref name="x"/> and the sign of <paramref name="y"/>.
+    /// </returns>
+    public static T CopySign<T>(this T x, T y) where T : IFloatingPoint<T> => T.CopySign(x, y);
+
+    /// <summary>
+    /// Returns the cosine of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The cosine of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Cos<T>(this T x) where T : IFloatingPoint<T> => T.Cos(x);
+
+    /// <summary>
+    /// Returns the hyperbolic cosine of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The hyperbolic cosine of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/> or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>,
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> is returned.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T Cosh<T>(this T x) where T : IFloatingPoint<T> => T.Cosh(x);
+
+    /// <summary>
+    /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
+    /// </summary>
+    /// <typeparam name="TTarget">The type to create.</typeparam>
+    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
+    /// <param name="value">The value to convert.</param>
+    /// <returns>
+    /// A value of type <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
+    /// </returns>
+    /// <remarks>
+    /// This method performs a checked conversion.
+    /// </remarks>
+    public static TTarget Create<TTarget, TOther>(TOther value)
+        where TTarget : INumber<TTarget>
+        where TOther : INumber<TOther>
+        => TTarget.Create(value);
+
+    /// <summary>
+    /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
+    /// </summary>
+    /// <typeparam name="TTarget">The type to create.</typeparam>
+    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
+    /// <param name="value">The value to convert.</param>
+    /// <returns>
+    /// <para>
+    /// A value of type <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
+    /// </para>
+    /// <para>
+    /// -or- if <paramref name="value"/> is less than the minimum allowed value of
+    /// <typeparamref name="TTarget"/>, the minimum allowed value.
+    /// </para>
+    /// <para>
+    /// -or- if <paramref name="value"/> is greater than the maximum allowed value of
+    /// <typeparamref name="TTarget"/>, the maximum allowed value.
+    /// </para>
+    /// </returns>
+    /// <remarks>
+    /// This method performs a saturating (clamped) conversion.
+    /// </remarks>
+    public static TTarget CreateSaturating<TTarget, TOther>(TOther value)
+        where TTarget : INumber<TTarget>
+        where TOther : INumber<TOther>
+        => TTarget.CreateSaturating(value);
+
+    /// <summary>
+    /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
+    /// </summary>
+    /// <typeparam name="TTarget">The type to create.</typeparam>
+    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
+    /// <param name="value">The value to convert.</param>
+    /// <returns>
+    /// A value of type <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
+    /// </returns>
+    /// <remarks>
+    /// This method performs a truncating conversion.
+    /// </remarks>
+    public static TTarget CreateTruncating<TTarget, TOther>(TOther value)
+        where TTarget : INumber<TTarget>
+        where TOther : INumber<TOther>
+        => TTarget.CreateTruncating(value);
 
     /// <summary>
     /// A fast implementation of cube (a number raised to the power of 3).
@@ -80,6 +474,153 @@ public static class Extensions
     public static T Cube<T>(this T value) where T : IMultiplyOperators<T, T, T> => value * value * value;
 
     /// <summary>
+    /// Calculates the quotient and remainder of two numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="left">The dividend.</param>
+    /// <param name="right">The divisor.</param>
+    /// <returns>
+    /// <para>
+    /// The quotient of the specified numbers, and the remainder.
+    /// </para>
+    /// <para>
+    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <typeparamref name="T"/> implements
+    /// <see cref="IFloatingPoint{TSelf}"/> and <paramref name="left"/> or <paramref name="right"/>
+    /// is <see cref="IFloatingPoint{TSelf}.NaN"/>, or <paramref name="right"/> is zero.
+    /// </para>
+    /// </returns>
+    /// <exception cref="DivideByZeroException">
+    /// if <paramref name="right"/> is zero and <typeparamref name="T"/> does not implement <see cref="IFloatingPoint{TSelf}"/>
+    /// </exception>
+    public static (T Quotient, T Remainder) DivRem<T>(this T left, T right) where T : INumber<T> => T.DivRem(left, right);
+
+    /// <summary>
+    /// Returns e raised to the specified power.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number specifying a power.</param>
+    /// <returns>
+    /// <para>
+    /// The number e raised to the power <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NaN"/>
+    /// or <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, 0 is
+    /// returned.
+    /// </para>
+    /// </returns>
+    public static T Exp<T>(this T x) where T : IFloatingPoint<T> => T.Exp(x);
+
+    /// <summary>
+    /// Returns the largest integral value that is less than or equal to the specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <para>
+    /// The largest integral value that is less than or equal to <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// </para>
+    /// <para>
+    /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
+    /// </para>
+    /// </returns>
+    public static T Floor<T>(this T x) where T : IFloatingPoint<T> => T.Floor(x);
+
+    /// <summary>
+    /// Returns (x * y) + z, rounded as one ternary operation.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="left">The number to be multiplied with <paramref name="right"/>.</param>
+    /// <param name="right">The number to be multiplied with <paramref name="left"/>.</param>
+    /// <param name="addend">
+    /// The number to be added to the result of <paramref name="left"/> multiplied by <paramref name="right"/>.
+    /// </param>
+    /// <returns>
+    /// (x * y) + z, rounded as one ternary operation.
+    /// </returns>
+    public static T FusedMultiplyAdd<T>(this T left, T right, T addend) where T : IFloatingPoint<T>
+        => T.FusedMultiplyAdd(left, right, addend);
+
+    /// <summary>
+    /// Returns the remainder resulting from the division of a specified number by another specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="left">A dividend.</param>
+    /// <param name="right">A divisor.</param>
+    /// <returns>
+    /// <para>
+    /// The largest integral value that is less than or equal to <paramref name="left"/>.
+    /// </para>
+    /// <para>
+    /// A number equal to <paramref name="left"/> - (<paramref name="right"/> Q), where Q is the
+    /// quotient of <paramref name="left"/> / <paramref name="right"/> rounded to the nearest
+    /// integer (if <paramref name="left"/> / <paramref name="right"/> falls halfway between two
+    /// integers, the even integer is returned).
+    /// </para>
+    /// <para>
+    /// If <paramref name="left"/> - (<paramref name="right"/> Q) is zero, the value
+    /// <see cref="INumber{TSelf}.Zero"/> is returned if <paramref name="left"/> is positive,
+    /// or <see cref="IFloatingPoint{TSelf}.NegativeZero"/> if <paramref name="left"/> is negative.
+    /// </para>
+    /// <para>
+    /// If <paramref name="right"/> = 0, <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T IEEERemainder<T>(this T left, T right) where T : IFloatingPoint<T> => T.IEEERemainder(left, right);
+
+    /// <summary>
+    /// Returns the base 2 integer logarithm of a specified number.
+    /// </summary>
+    /// <typeparam name="TSelf">The type of number.</typeparam>
+    /// <typeparam name="TInteger">The type of integer result.</typeparam>
+    /// <param name="x">The number whose logarithm is to be found.</param>
+    /// <returns>
+    /// One of the values in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/> parameter</term>
+    /// <description>Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term>Default</term>
+    /// <description>
+    /// The base 2 integer log of <paramref name="x"/>; that is,
+    /// (<typeparamref name="TInteger"/>)log2(<paramref name="x"/>).
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Zero</term>
+    /// <description>
+    /// <see cref="IMinMaxValue{TSelf}.MinValue"/>, if <typeparamref name="TInteger"/> implements
+    /// <see cref="IMinMaxValue{TSelf}"/>.
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>
+    /// Equal to <see cref="IFloatingPoint{TSelf}.NaN"/> or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> or
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>
+    /// </term>
+    /// <description>
+    /// <see cref="IMinMaxValue{TSelf}.MaxValue"/>, if <typeparamref name="TInteger"/> implements
+    /// <see cref="IMinMaxValue{TSelf}"/>.
+    /// </description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    public static TInteger ILogB<TSelf, TInteger>(this TSelf x)
+        where TSelf : IFloatingPoint<TSelf>
+        where TInteger : IBinaryInteger<TInteger> => TSelf.ILogB<TInteger>(x);
+
+    /// <summary>
     /// Finds the weight which would produce the given <paramref name="result"/> when linearly
     /// interpolating between the two given values.
     /// </summary>
@@ -113,6 +654,94 @@ public static class Extensions
         }
         return (result - first) / difference;
     }
+
+    /// <summary>
+    /// Determines whether the specified value is finite (zero, subnormal, or normal).
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value is finite (zero, subnormal or normal);
+    /// <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool IsFinite<T>(this T x) where T : IFloatingPoint<T> => T.IsFinite(x);
+
+    /// <summary>
+    /// Returns a value indicating whether the specified number evaluates to negative or positive
+    /// infinity.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="x"/> evaluates to
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> or
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool IsInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsInfinity(x);
+
+    /// <summary>
+    /// Returns a value that indicates whether the specified value is not a number
+    /// (<see cref="IFloatingPoint{TSelf}.NaN"/>).
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="x"/> evaluates to
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool IsNaN<T>(this T x) where T : IFloatingPoint<T> => T.IsNaN(x);
+
+    /// <summary>
+    /// Determines whether the specified value is negative.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value is negative; <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool IsNegative<T>(this T x) where T : IFloatingPoint<T> => T.IsNegative(x);
+
+    /// <summary>
+    /// Determines whether the specified value is normal.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value is normal; <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool IsNormal<T>(this T x) where T : IFloatingPoint<T> => T.IsNormal(x);
+
+    /// <summary>
+    /// Returns a value indicating whether the specified number evaluates to negative infinity.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="x"/> evaluates to
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool IsNegativeInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsNegativeInfinity(x);
+
+    /// <summary>
+    /// Returns a value indicating whether the specified number evaluates to positive infinity.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="x"/> evaluates to
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>; otherwise, <see langword="false"/>.
+    /// </returns>
+    public static bool IsPositiveInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsPositiveInfinity(x);
+
+    /// <summary>
+    /// Determines whether the specified value is subnormal.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number.</param>
+    /// <returns>
+    /// <see langword="true"/> if the value is subnormal; <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool IsSubnormal<T>(this T x) where T : IFloatingPoint<T> => T.IsSubnormal(x);
 
     /// <summary>
     /// Determines if floating-point values are nearly equal, within a tolerance determined by
@@ -255,6 +884,436 @@ public static class Extensions
             ISubtractionOperators<T, T, T>,
             IMultiplyOperators<T, T, T>
         => first + ((second - first) * amount);
+
+    /// <summary>
+    /// Returns the natural (base e) logarithm of a specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose logarithm is to be found.</param>
+    /// <returns>
+    /// One of the values in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/> parameter</term>
+    /// <description>Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term>Positive</term>
+    /// <description>
+    /// The natural logarithm of <paramref name="x"/>; that is, ln <paramref name="x"/>, or log e
+    /// <paramref name="x"/>
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Zero</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Negative</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    public static T Log<T>(this T x) where T : IFloatingPoint<T> => T.Log(x);
+
+#pragma warning disable RCS1243 // Duplicate word in a comment.
+    /// <summary>
+    /// Returns the logarithm of a specified number in a specified base.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose logarithm is to be found.</param>
+    /// <param name="newBase">The base of the logarithm.</param>
+    /// <returns>
+    /// One of the values in the following table. (+Infinity denotes
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, -Infinity denotes
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, and NaN denotes
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.)
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/> parameter</term>
+    /// <description><paramref name="newBase"/> Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term><paramref name="x"/> &gt; 0</term>
+    /// <description>
+    /// (0 &lt; newBase &lt; 1) -or- (newBase &gt; 1) log<sub>newBase</sub>(<paramref name="x"/>)
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> &lt; 0</term>
+    /// <description>(any value) NaN</description>
+    /// </item>
+    /// <item>
+    /// <term>(any value)</term>
+    /// <description>newBase &lt; 0 NaN</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> != 1</term>
+    /// <description>newBase = 0 NaN</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> != 1</term>
+    /// <description>newBase = +Infinity NaN</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = NaN</term>
+    /// <description>(any value) NaN</description>
+    /// </item>
+    /// <item>
+    /// <term>(any value)</term>
+    /// <description>newBase = NaN NaN</description>
+    /// </item>
+    /// <item>
+    /// <term>(any value)</term>
+    /// <description>newBase = 1 NaN</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = 0</term>
+    /// <description>0 &lt; newBase &lt; 1 +Infinity</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = 0</term>
+    /// <description>newBase &gt; 1 -Infinity</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = +Infinity</term>
+    /// <description>0 &lt; newBase &lt; 1 -Infinity</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = +Infinity</term>
+    /// <description>newBase &gt; 1 +Infinity</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = 1</term>
+    /// <description>newBase = 0 0</description>
+    /// </item>
+    /// <item>
+    /// <term><paramref name="x"/> = 1</term>
+    /// <description>newBase = +Infinity 0</description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    public static T Log<T>(this T x, T newBase) where T : IFloatingPoint<T> => T.Log(x, newBase);
+#pragma warning restore RCS1243 // Duplicate word in a comment.
+
+    /// <summary>
+    /// Returns the base 10 logarithm of a specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose logarithm is to be found.</param>
+    /// <returns>
+    /// One of the values in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/> parameter</term>
+    /// <description>Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term>Positive</term>
+    /// <description>
+    /// The base 10 log of <paramref name="x"/>; that is, log<sub>10</sub><paramref name="x"/>.
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Zero</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Negative</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    public static T Log10<T>(this T x) where T : IFloatingPoint<T> => T.Log10(x);
+
+    /// <summary>
+    /// Returns the base 2 logarithm of a specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose logarithm is to be found.</param>
+    /// <returns>
+    /// One of the values in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/> parameter</term>
+    /// <description>Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term>Positive</term>
+    /// <description>
+    /// The base 2 log of <paramref name="x"/>; that is, log<sub>2</sub><paramref name="x"/>.
+    /// </description>
+    /// </item>
+    /// <item>
+    /// <term>Zero</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Negative</term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    public static T Log2<T>(this T x) where T : IFloatingPoint<T> => T.Log2(x);
+
+    /// <summary>
+    /// Returns the larger of two numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The first of two numbers to compare.</param>
+    /// <param name="y">The second of two numbers to compare.</param>
+    /// <returns>
+    /// <para>
+    /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever is larger.
+    /// </para>
+    /// <para>
+    /// If <typeparamref name="T"/> implements <see cref="IFloatingPoint{TSelf}"/> and
+    /// <paramref name="x"/>, <paramref name="y"/>, or both <paramref name="x"/> and
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T Max<T>(this T x, T y) where T : INumber<T> => T.Max(x, y);
+
+    /// <summary>
+    /// Returns the larger magnitude of two numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The first of two numbers to compare.</param>
+    /// <param name="y">The second of two numbers to compare.</param>
+    /// <returns>
+    /// <para>
+    /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever has the larger magnitude.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/>, or <paramref name="y"/>, or both <paramref name="x"/> and
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T MaxMagnitude<T>(this T x, T y) where T : IFloatingPoint<T> => T.MaxMagnitude(x, y);
+
+    /// <summary>
+    /// Returns the smaller of two numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The first of two numbers to compare.</param>
+    /// <param name="y">The second of two numbers to compare.</param>
+    /// <returns>
+    /// <para>
+    /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever is smaller.
+    /// </para>
+    /// <para>
+    /// If <typeparamref name="T"/> implements <see cref="IFloatingPoint{TSelf}"/> and
+    /// <paramref name="x"/>, <paramref name="y"/>, or both <paramref name="x"/> and
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T Min<T>(this T x, T y) where T : INumber<T> => T.Min(x, y);
+
+    /// <summary>
+    /// Returns the smaller magnitude of two numbers.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The first of two numbers to compare.</param>
+    /// <param name="y">The second of two numbers to compare.</param>
+    /// <returns>
+    /// <para>
+    /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever has the smaller magnitude.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/>, or <paramref name="y"/>, or both <paramref name="x"/> and
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// </para>
+    /// </returns>
+    public static T MinMagnitude<T>(this T x, T y) where T : IFloatingPoint<T> => T.MinMagnitude(x, y);
+
+    /// <summary>
+    /// Converts the string representation of a number in a specified style and culture-specific
+    /// format to its number equivalent.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="s">A string that contains a number to convert.</param>
+    /// <param name="style">
+    /// A bitwise combination of enumeration values that indicate the style elements
+    /// that can be present in <paramref name="s"/>.
+    /// </param>
+    /// <param name="provider">
+    /// An object that supplies culture-specific formatting information about <paramref name="s"/>.
+    /// </param>
+    /// <returns>
+    /// A number that is equivalent to the numeric value or symbol specified in <paramref name="s"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="s"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="FormatException">
+    /// <paramref name="s"/> does not represent a numeric value.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// <para>
+    /// <paramref name="style"/> is not a <see cref="NumberStyles"/> value.
+    /// </para>
+    /// <para>
+    /// -or- <paramref name="style"/> is not an allowed value for <typeparamref name="T"/>.
+    /// </para>
+    /// </exception>
+    public static T Parse<T>(this string s, NumberStyles style, IFormatProvider? provider)
+        where T : INumber<T> => T.Parse(s, style, provider);
+
+    /// <summary>
+    /// Converts a character span that contains the string representation of a number in a
+    /// specified style and culture-specific format to its number equivalent.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="s">A character span that contains the number to convert.</param>
+    /// <param name="style">
+    /// A bitwise combination of enumeration values that indicate the style elements
+    /// that can be present in <paramref name="s"/>.
+    /// </param>
+    /// <param name="provider">
+    /// An object that supplies culture-specific formatting information about <paramref name="s"/>.
+    /// </param>
+    /// <returns>
+    /// A number that is equivalent to the numeric value or symbol specified in <paramref name="s"/>.
+    /// </returns>
+    /// <exception cref="FormatException">
+    /// <paramref name="s"/> does not represent a numeric value.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// <para>
+    /// <paramref name="style"/> is not a <see cref="NumberStyles"/> value.
+    /// </para>
+    /// <para>
+    /// -or- <paramref name="style"/> is not an allowed value for <typeparamref name="T"/>.
+    /// </para>
+    /// </exception>
+    public static T Parse<T>(this ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider)
+        where T : INumber<T> => T.Parse(s, style, provider);
+
+    /// <summary>
+    /// Returns a specified number raised to the specified power.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number to be raised to a power.</param>
+    /// <param name="y">A number that specifies a power.</param>
+    /// <returns>
+    /// The number <paramref name="x"/> raised to the power <paramref name="y"/>.
+    /// </returns>
+    public static T Pow<T>(this T x, T y) where T : IFloatingPoint<T> => T.Pow(x, y);
+
+    /// <summary>
+    /// Rounds a value to the nearest integral value, and rounds midpoint values to the nearest even number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number to be rounded.</param>
+    /// <returns>
+    /// <para>
+    /// The integer nearest <paramref name="x"/>. If the fractional component of
+    /// <paramref name="x"/> is halfway between two integers, one of which is even and the other
+    /// odd, then the even number is returned.
+    /// </para>
+    /// <para>
+    /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
+    /// </para>
+    /// </returns>
+    public static T Round<T>(this T x) where T : IFloatingPoint<T> => T.Round(x);
+
+    /// <summary>
+    /// Rounds a value to a specified number of fractional digits, and rounds midpoint values to
+    /// the nearest even number.
+    /// </summary>
+    /// <typeparam name="TSelf">The type of number.</typeparam>
+    /// <typeparam name="TInteger">The type of <paramref name="digits"/>.</typeparam>
+    /// <param name="x">A number to be rounded.</param>
+    /// <param name="digits">The number of fractional digits in the return value.</param>
+    /// <returns>
+    /// The number nearest to <paramref name="x"/> that contains a number of fractional digits
+    /// equal to digits. If <paramref name="x"/> has fewer fractional digits than
+    /// <paramref name="digits"/>, <paramref name="x"/> is returned unchanged.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="digits"/> is less than 0 or greater than 15.
+    /// </exception>
+    public static TSelf Round<TSelf, TInteger>(this TSelf x, TInteger digits)
+        where TSelf : IFloatingPoint<TSelf>
+        where TInteger : IBinaryInteger<TInteger> => TSelf.Round(x, digits);
+
+    /// <summary>
+    /// Rounds a value to the nearest integral value, and uses the specified rounding convention
+    /// for midpoint values.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number to be rounded.</param>
+    /// <param name="mode">
+    /// Specification for how to round value if it is midway between two other numbers.
+    /// </param>
+    /// <returns>
+    /// <para>
+    /// The integer nearest <paramref name="x"/>. If the fractional component of
+    /// <paramref name="x"/> is halfway between two integers, then mode determines which of the two
+    /// is returned.
+    /// </para>
+    /// <para>
+    /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
+    /// </para>
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="mode"/> is not a valid value of <see cref="MidpointRounding"/>.
+    /// </exception>
+    public static T Round<T>(this T x, MidpointRounding mode) where T : IFloatingPoint<T> => T.Round(x, mode);
+
+    /// <summary>
+    /// Rounds a value to a specified number of fractional digits, and uses the specified rounding
+    /// convention for midpoint values.
+    /// </summary>
+    /// <typeparam name="TSelf">The type of number.</typeparam>
+    /// <typeparam name="TInteger">The type of <paramref name="digits"/>.</typeparam>
+    /// <param name="x">A number to be rounded.</param>
+    /// <param name="digits">The number of fractional digits in the return value.</param>
+    /// <param name="mode">
+    /// Specification for how to round value if it is midway between two other numbers.
+    /// </param>
+    /// <returns>
+    /// The number nearest to <paramref name="x"/> that contains a number of fractional digits
+    /// equal to digits. If <paramref name="x"/> has fewer fractional digits than
+    /// <paramref name="digits"/>, <paramref name="x"/> is returned unchanged.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="digits"/> is less than 0 or greater than 15.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="mode"/> is not a valid value of <see cref="MidpointRounding"/>.
+    /// </exception>
+    public static TSelf Round<TSelf, TInteger>(this TSelf x, TInteger digits, MidpointRounding mode)
+        where TSelf : IFloatingPoint<TSelf>
+        where TInteger : IBinaryInteger<TInteger> => TSelf.Round(x, digits, mode);
 
     /// <summary>
     /// Rounds this floating-point value to the nearest <see cref="int"/>. Truncates to <see
@@ -525,6 +1584,87 @@ public static class Extensions
     }
 
     /// <summary>
+    /// Returns x * 2^n computed efficiently.
+    /// </summary>
+    /// <typeparam name="TSelf">The type of number.</typeparam>
+    /// <typeparam name="TInteger">The type of <paramref name="n"/>.</typeparam>
+    /// <param name="x">A number that specifies the base value.</param>
+    /// <param name="n">An integer that specifies the power.</param>
+    /// <returns>
+    /// x * 2^n computed efficiently.
+    /// </returns>
+    public static TSelf ScaleB<TSelf, TInteger>(this TSelf x, TInteger n)
+        where TSelf : IFloatingPoint<TSelf>
+        where TInteger : IBinaryInteger<TInteger> => TSelf.ScaleB(x, n);
+
+    /// <summary>
+    /// Returns an integer that indicates the sign of a number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="value">A signed number.</param>
+    /// <returns>
+    /// A number that indicates the sign of value, as shown in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term>Return value</term>
+    /// <description>Meaning</description>
+    /// </listheader>
+    /// <item>
+    /// <term>-1</term>
+    /// <description>value is less than zero.</description>
+    /// </item>
+    /// <item>
+    /// <term>0</term>
+    /// <description>value is equal to zero.</description>
+    /// </item>
+    /// <item>
+    /// <term>1</term>
+    /// <description>value is greater than zero.</description>
+    /// </item>
+    /// </list>
+    /// </returns>
+    /// <exception cref="ArithmeticException">
+    /// <paramref name="value"/> is <see cref="IFloatingPoint{TSelf}.NaN"/>
+    /// </exception>
+    public static T Sign<T>(this T value) where T : INumber<T> => T.Sign(value);
+
+    /// <summary>
+    /// Returns the sine of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The sine of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Sin<T>(this T x) where T : IFloatingPoint<T> => T.Sin(x);
+
+    /// <summary>
+    /// Returns the hyperbolic sine of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The hyperbolic sine of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
+    /// <paramref name="x"/>.
+    /// </para>
+    /// </returns>
+    public static T Sinh<T>(this T x) where T : IFloatingPoint<T> => T.Sinh(x);
+
+    /// <summary>
     /// Returns <paramref name="target"/> if <paramref name="value"/> is nearly equal to it (cf.
     /// <see cref="IsNearlyEqualTo(double, double)"/>), or <paramref name="value"/> itself if not.
     /// </summary>
@@ -682,54 +1822,191 @@ public static class Extensions
     /// <summary>
     /// Returns the square root of a specified number.
     /// </summary>
-    /// <param name="value">The number whose square root is to be found.</param>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">The number whose square root is to be found.</param>
     /// <returns>
     /// One of the values in the following table.
     /// <list type="table">
     /// <listheader>
-    /// <term><paramref name="value"/> parameter</term>
+    /// <term><paramref name="x"/> parameter</term>
     /// <description>Return value</description>
     /// </listheader>
     /// <item>
     /// <term>Zero or positive</term>
-    /// <description>The positive square root of <paramref name="value"/></description>
+    /// <description>
+    /// The positive square root of <paramref name="x"/>.
+    /// </description>
     /// </item>
     /// <item>
     /// <term>Negative</term>
-    /// <description>An <see cref="ArgumentOutOfRangeException"/></description>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// </returns>
-    /// <remarks>
-    /// Uses the <see cref="Math.Sqrt(double)"/> function, then corrects the result using
-    /// addition and division in a loop until the result is accurate to within the precision of
-    /// a <see cref="decimal"/> value. In the worst case, the loop will iterate at most three
-    /// times.
-    /// </remarks>
-    public static decimal Sqrt(this decimal value)
-    {
-        if (value < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(value));
-        }
-        var current = (decimal)Math.Sqrt((double)value);
-        decimal previous;
-        do
-        {
-            previous = current;
-            if (previous == 0m)
-            {
-                return 0;
-            }
-            current = (previous + (value / previous)) / 2;
-        } while (Math.Abs(previous - current) > 0);
-        return current;
-    }
+    public static T Sqrt<T>(this T x) where T : IFloatingPoint<T> => T.Sqrt(x);
 
-    internal static TTarget TypeConvert<TTarget, TOther>(TOther value)
+    /// <summary>
+    /// Returns the tangent of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The tangent of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Tan<T>(this T x) where T : IFloatingPoint<T> => T.Tan(x);
+
+    /// <summary>
+    /// Returns the hyperbolic tangent of the specified angle.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">An angle, measured in radians.</param>
+    /// <returns>
+    /// <para>
+    /// The hyperbolic tangent of <paramref name="x"/>.
+    /// </para>
+    /// <para>
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>,
+    /// this method returns -1. If <paramref name="x"/> is equal to
+    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns 1. If
+    /// <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>, this method
+    /// returns <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// </para>
+    /// </returns>
+    public static T Tanh<T>(this T x) where T : IFloatingPoint<T> => T.Tanh(x);
+
+    /// <summary>
+    /// Calculates the integral part of a specified number.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="x">A number to truncate.</param>
+    /// <returns>
+    /// The integral part of <paramref name="x"/>; that is, the number that remains after any
+    /// fractional digits have been discarded, or one of the values listed in the following table.
+    /// <list type="table">
+    /// <listheader>
+    /// <term><paramref name="x"/></term>
+    /// <description>Return value</description>
+    /// </listheader>
+    /// <item>
+    /// <term><see cref="IFloatingPoint{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// </item>
+    /// <item>
+    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// </item>
+    /// </list>
+    /// <para>
+    /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
+    /// </para>
+    /// </returns>
+    public static T Truncate<T>(this T x) where T : IFloatingPoint<T> => T.Truncate(x);
+
+    /// <summary>
+    /// Attempts to create a new instance of <typeparamref name="TTarget"/> from the given
+    /// <paramref name="value"/>.
+    /// </summary>
+    /// <typeparam name="TTarget">The type to create.</typeparam>
+    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
+    /// <param name="value">The value to convert.</param>
+    /// <param name="result">
+    /// If this method returns <see langword="true"/>, this will be set to a value of type
+    /// <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> if the conversion succeeded; otherwise <see langword="false"/>.
+    /// </returns>
+    public static bool TryCreate<TTarget, TOther>(TOther value, out TTarget result)
         where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther>
-        => TTarget.Create(value);
+        where TOther : INumber<TOther> => TTarget.TryCreate(value, out result);
+
+    /// <summary>
+    /// Converts the string representation of a number in a specified style and culture-specific
+    /// format to its number equivalent. A return value indicates whether the conversion succeeded
+    /// or failed.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="s">A string that contains a number to convert.</param>
+    /// <param name="style">
+    /// A bitwise combination of enumeration values that indicate the style elements
+    /// that can be present in <paramref name="s"/>.
+    /// </param>
+    /// <param name="provider">
+    /// An object that supplies culture-specific formatting information about <paramref name="s"/>.
+    /// </param>
+    /// <param name="result">
+    /// When this method returns, contains a number equivalent of the numeric value or symbol
+    /// contained in <paramref name="s"/>, if the conversion succeeded, or zero if the conversion
+    /// failed. The conversion fails if the <paramref name="s"/> parameter is
+    /// <see langword="null"/> or <see cref="string.Empty"/> or is not in a format compliant with
+    /// <paramref name="style"/>, or if <paramref name="style"/> is not a valid combination of
+    /// <see cref="NumberStyles"/> enumeration constants. This parameter is passed uninitialized;
+    /// any value originally supplied in <paramref name="result"/> will be overwritten.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="s"/> was converted successfully; otherwise,
+    /// <see langword="false"/>.
+    /// </returns>
+    public static bool TryParse<T>(
+        [NotNullWhen(true)] this string? s,
+        NumberStyles style,
+        IFormatProvider? provider,
+        out T result)
+        where T : INumber<T> => T.TryParse(s, style, provider, out result);
+
+    /// <summary>
+    /// Converts a character span containing the string representation of a number in a specified
+    /// style and culture-specific format to its number equivalent. A return value indicates
+    /// whether the conversion succeeded or failed.
+    /// </summary>
+    /// <typeparam name="T">The type of number.</typeparam>
+    /// <param name="s">A read-only character span that contains the number to convert.</param>
+    /// <param name="style">
+    /// A bitwise combination of enumeration values that indicate the style elements
+    /// that can be present in <paramref name="s"/>.
+    /// </param>
+    /// <param name="provider">
+    /// An object that supplies culture-specific formatting information about <paramref name="s"/>.
+    /// </param>
+    /// <param name="result">
+    /// When this method returns, contains a number equivalent of the numeric value or symbol
+    /// contained in <paramref name="s"/>, if the conversion succeeded, or zero if the conversion
+    /// failed. The conversion fails if the <paramref name="s"/> parameter is empty or is not in a
+    /// format compliant with <paramref name="style"/>, or if <paramref name="style"/> is not a valid
+    /// combination of <see cref="NumberStyles"/> enumeration constants. This parameter is passed
+    /// uninitialized; any value originally supplied in <paramref name="result"/> will be
+    /// overwritten.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> if <paramref name="s"/> was converted successfully; otherwise,
+    /// <see langword="false"/>.
+    /// </returns>
+    public static bool TryParse<T>(
+        this ReadOnlySpan<char> s,
+        NumberStyles style,
+        IFormatProvider? provider,
+        out T result)
+        where T : INumber<T> => T.TryParse(s, style, provider, out result);
 
     internal static TTarget SafeTypeConvert<TTarget, TOther>(TOther value)
         where TTarget : INumber<TTarget>

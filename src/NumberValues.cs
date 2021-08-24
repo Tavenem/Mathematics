@@ -29,6 +29,18 @@ public static class NumberValues
 
     #region Numbers
 
+    /// <summary>-∞</summary>
+    public static T NegativeInfinity<T>() where T : IFloatingPoint<T> => T.NegativeInfinity;
+
+    /// <summary>-1</summary>
+    public static T NegativeOne<T>() where T : ISignedNumber<T> => T.NegativeOne;
+
+    /// <summary>-0</summary>
+    public static T NegativeZero<T>() where T : IFloatingPoint<T> => T.NegativeZero;
+
+    /// <summary>0</summary>
+    public static T Zero<T>() where T : INumber<T> => T.Zero;
+
     /// <summary>⅓</summary>
     public static T Third<T>() where T : IFloatingPoint<T>
     {
@@ -64,6 +76,9 @@ public static class NumberValues
         }
         return T.One / (T.One + T.One);
     }
+
+    /// <summary>1</summary>
+    public static T One<T>() where T : INumber<T> => T.One;
 
     /// <summary>2</summary>
     public static T Two<T>() where T : INumber<T>
@@ -703,6 +718,9 @@ public static class NumberValues
         return Thousand<T>() * Ten<T>();
     }
 
+    /// <summary>∞</summary>
+    public static T PositiveInfinity<T>() where T : IFloatingPoint<T> => T.PositiveInfinity;
+
     #endregion Numbers
 
     #region E
@@ -1007,6 +1025,11 @@ public static class NumberValues
     #endregion Pi / Tau
 
     /// <summary>
+    /// Represents the smallest positive <typeparamref name="T"/> value that is greater than zero.
+    /// </summary>
+    public static T Epsilon<T>() where T : IFloatingPoint<T> => T.Epsilon;
+
+    /// <summary>
     /// The natural logarithm of 2.
     /// </summary>
     public static T Ln2<T>() where T : IFloatingPoint<T>
@@ -1046,6 +1069,9 @@ public static class NumberValues
         return T.Log(Ten<T>());
     }
 
+    /// <summary>Not a number (NaN)</summary>
+    public static T NaN<T>() where T : IFloatingPoint<T> => T.NaN;
+
     /// <summary>
     /// Represents the golden ratio, specified by the constant, φ.
     /// </summary>
@@ -1066,9 +1092,7 @@ public static class NumberValues
         return (T.One + T.Sqrt(Five<T>())) / Two<T>();
     }
 
-    /// <summary>
-    /// √2
-    /// </summary>
+    /// <summary>√2</summary>
     public static T Root2<T>() where T : IFloatingPoint<T>
     {
         if (typeof(T) == typeof(decimal))

@@ -421,10 +421,10 @@ public readonly struct Plane<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator System.Numerics.Plane(Plane<TScalar> value) => new(
-        Extensions.Create<float, TScalar>(value.Normal.X),
-        Extensions.Create<float, TScalar>(value.Normal.Y),
-        Extensions.Create<float, TScalar>(value.Normal.Z),
-        Extensions.Create<float, TScalar>(value.D));
+        value.Normal.X.Create<TScalar, float>(),
+        value.Normal.Y.Create<TScalar, float>(),
+        value.Normal.Z.Create<TScalar, float>(),
+        value.D.Create<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether the given plane is equal to this plane instance.

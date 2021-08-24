@@ -1985,22 +1985,22 @@ public struct Matrix4x4<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Matrix4x4(Matrix4x4<TScalar> value) => new(
-        Extensions.Create<float, TScalar>(value.M11),
-        Extensions.Create<float, TScalar>(value.M12),
-        Extensions.Create<float, TScalar>(value.M13),
-        Extensions.Create<float, TScalar>(value.M14),
-        Extensions.Create<float, TScalar>(value.M21),
-        Extensions.Create<float, TScalar>(value.M22),
-        Extensions.Create<float, TScalar>(value.M23),
-        Extensions.Create<float, TScalar>(value.M24),
-        Extensions.Create<float, TScalar>(value.M31),
-        Extensions.Create<float, TScalar>(value.M32),
-        Extensions.Create<float, TScalar>(value.M33),
-        Extensions.Create<float, TScalar>(value.M34),
-        Extensions.Create<float, TScalar>(value.M41),
-        Extensions.Create<float, TScalar>(value.M42),
-        Extensions.Create<float, TScalar>(value.M43),
-        Extensions.Create<float, TScalar>(value.M44));
+        value.M11.Create<TScalar, float>(),
+        value.M12.Create<TScalar, float>(),
+        value.M13.Create<TScalar, float>(),
+        value.M14.Create<TScalar, float>(),
+        value.M21.Create<TScalar, float>(),
+        value.M22.Create<TScalar, float>(),
+        value.M23.Create<TScalar, float>(),
+        value.M24.Create<TScalar, float>(),
+        value.M31.Create<TScalar, float>(),
+        value.M32.Create<TScalar, float>(),
+        value.M33.Create<TScalar, float>(),
+        value.M34.Create<TScalar, float>(),
+        value.M41.Create<TScalar, float>(),
+        value.M42.Create<TScalar, float>(),
+        value.M43.Create<TScalar, float>(),
+        value.M44.Create<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether this matrix instance is equal to the other given matrix.

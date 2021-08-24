@@ -352,8 +352,8 @@ public static class Extensions
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
     /// </summary>
+    /// <typeparam name="TSelf">The type of <paramref name="value"/>.</typeparam>
     /// <typeparam name="TTarget">The type to create.</typeparam>
-    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
     /// <param name="value">The value to convert.</param>
     /// <returns>
     /// A value of type <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
@@ -361,16 +361,16 @@ public static class Extensions
     /// <remarks>
     /// This method performs a checked conversion.
     /// </remarks>
-    public static TTarget Create<TTarget, TOther>(TOther value)
+    public static TTarget Create<TSelf, TTarget>(this TSelf value)
+        where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther>
         => TTarget.Create(value);
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
     /// </summary>
+    /// <typeparam name="TSelf">The type of <paramref name="value"/>.</typeparam>
     /// <typeparam name="TTarget">The type to create.</typeparam>
-    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
     /// <param name="value">The value to convert.</param>
     /// <returns>
     /// <para>
@@ -388,16 +388,16 @@ public static class Extensions
     /// <remarks>
     /// This method performs a saturating (clamped) conversion.
     /// </remarks>
-    public static TTarget CreateSaturating<TTarget, TOther>(TOther value)
+    public static TTarget CreateSaturating<TSelf, TTarget>(TSelf value)
+        where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther>
         => TTarget.CreateSaturating(value);
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
     /// </summary>
+    /// <typeparam name="TSelf">The type of <paramref name="value"/>.</typeparam>
     /// <typeparam name="TTarget">The type to create.</typeparam>
-    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
     /// <param name="value">The value to convert.</param>
     /// <returns>
     /// A value of type <typeparamref name="TTarget"/> with the same value as <paramref name="value"/>.
@@ -405,9 +405,9 @@ public static class Extensions
     /// <remarks>
     /// This method performs a truncating conversion.
     /// </remarks>
-    public static TTarget CreateTruncating<TTarget, TOther>(TOther value)
+    public static TTarget CreateTruncating<TSelf, TTarget>(TSelf value)
+        where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther>
         => TTarget.CreateTruncating(value);
 
     /// <summary>
@@ -1926,8 +1926,8 @@ public static class Extensions
     /// Attempts to create a new instance of <typeparamref name="TTarget"/> from the given
     /// <paramref name="value"/>.
     /// </summary>
+    /// <typeparam name="TSelf">The type of <paramref name="value"/>.</typeparam>
     /// <typeparam name="TTarget">The type to create.</typeparam>
-    /// <typeparam name="TOther">The type of <paramref name="value"/>.</typeparam>
     /// <param name="value">The value to convert.</param>
     /// <param name="result">
     /// If this method returns <see langword="true"/>, this will be set to a value of type
@@ -1936,9 +1936,9 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if the conversion succeeded; otherwise <see langword="false"/>.
     /// </returns>
-    public static bool TryCreate<TTarget, TOther>(TOther value, out TTarget result)
-        where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther> => TTarget.TryCreate(value, out result);
+    public static bool TryCreate<TSelf, TTarget>(this TSelf value, out TTarget result)
+        where TSelf : INumber<TSelf>
+        where TTarget : INumber<TTarget> => TTarget.TryCreate(value, out result);
 
     /// <summary>
     /// Converts the string representation of a number in a specified style and culture-specific

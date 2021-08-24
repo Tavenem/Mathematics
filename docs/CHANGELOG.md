@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.4
+### Changed
+- Make the create number methods extensions
+
 ## 2.0.0-preview.3
 ### Added
 - Expose static abstract methods of `INumber` and `IFloatingPoint` as extension methods

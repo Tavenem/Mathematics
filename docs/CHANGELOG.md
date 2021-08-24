@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0-preview.6
+### Added
+- Add science constants to the `NumberValues` extensions
+### Removed
+- Removed the more obscure precalculated science values (now located in the `Universe` library)
+
 ## 2.0.0-preview.5
 ### Added
 - Average and Sum extension methods for `INumber` in the `System.Linq` namespace

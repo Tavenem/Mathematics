@@ -181,16 +181,6 @@ public static class DecimalConstants
     public const decimal k = BoltzmannConstant;
 
     /// <summary>
-    /// The specific heat multiplied by the specific gas constant of dry air at constant pressure, in SI base units.
-    /// </summary>
-    public const decimal CpTimesRSpecificDryAir = CpDryAir * RSpecificDryAir;
-
-    /// <summary>
-    /// The heat of vaporization of water, squared, in SI base units.
-    /// </summary>
-    public const decimal DeltaHvapWaterSquared = (decimal)DeltaHvapWater * DeltaHvapWater;
-
-    /// <summary>
     /// The mass of a electron, in kg.
     /// </summary>
     public const decimal ElectronMass = 9.10938356e-31m;
@@ -205,11 +195,6 @@ public static class DecimalConstants
     public const decimal qe = ElementaryCharge;
 
     /// <summary>
-    /// Four times The Stefan–Boltzmann constant, in SI base units.
-    /// </summary>
-    public const decimal FourSigma = 4 * sigma;
-
-    /// <summary>
     /// The gravitational constant, in SI base units.
     /// </summary>
     public const decimal GravitationalConstant = 6.67408e-11m;
@@ -217,10 +202,6 @@ public static class DecimalConstants
     /// The gravitational constant, in SI base units.
     /// </summary>
     public const decimal G = GravitationalConstant;
-    /// <summary>
-    /// Twice the gravitational constant, in SI base units.
-    /// </summary>
-    public const decimal TwoG = 2 * G;
 
     /// <summary>
     /// The heat of vaporization of water, in SI base units.
@@ -250,11 +231,6 @@ public static class DecimalConstants
     public const decimal MAir = MolarMassOfAir;
 
     /// <summary>
-    /// The molar mass of air divided by the universal gas constant, in SI base units.
-    /// </summary>
-    public const decimal MAirOverR = MAir / R;
-
-    /// <summary>
     /// The mass of a neutron, in kg.
     /// </summary>
     public const decimal NeutronMass = 1.674927471e-27m;
@@ -272,16 +248,6 @@ public static class DecimalConstants
     /// The mass of a proton, in kg.
     /// </summary>
     public const decimal ProtonMass = 1.672621898e-27m;
-
-    /// <summary>
-    /// The specific gas constant divided by the specific heat of dry air at constant pressure, in SI base units.
-    /// </summary>
-    public const decimal RSpecificOverCpDryAir = RSpecificDryAir / CpDryAir;
-
-    /// <summary>
-    /// The ratio of the specific gas constants of dry air to water, in SI base units.
-    /// </summary>
-    public const decimal RSpecificRatioOfDryAirToWater = RSpecificDryAir / RSpecificWater;
 
     /// <summary>
     /// The specific gas constant of dry air, in SI base units.

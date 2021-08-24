@@ -27,6 +27,14 @@ public static class NumberValues
     /// </summary>
     public const float NearlyZeroFloat = 1e-6f;
 
+    /// <summary>
+    /// Represents the smallest positive <typeparamref name="T"/> value that is greater than zero.
+    /// </summary>
+    public static T Epsilon<T>() where T : IFloatingPoint<T> => T.Epsilon;
+
+    /// <summary>Not a number (NaN)</summary>
+    public static T NaN<T>() where T : IFloatingPoint<T> => T.NaN;
+
     #region Numbers
 
     /// <summary>-∞</summary>
@@ -56,7 +64,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.Third;
         }
-        return T.One / (T.One + T.One + T.One);
+        return T.One / Three<T>();
     }
 
     /// <summary>½</summary>
@@ -74,7 +82,7 @@ public static class NumberValues
         {
             return (T)(object)0.5f;
         }
-        return T.One / (T.One + T.One);
+        return T.One / Two<T>();
     }
 
     /// <summary>1</summary>
@@ -135,7 +143,7 @@ public static class NumberValues
         {
             return (T)(object)2UL;
         }
-        return T.One + T.One;
+        return T.Create(2);
     }
 
     /// <summary>3</summary>
@@ -193,7 +201,7 @@ public static class NumberValues
         {
             return (T)(object)3UL;
         }
-        return T.One + T.One + T.One;
+        return T.Create(3);
     }
 
     /// <summary>4</summary>
@@ -251,7 +259,7 @@ public static class NumberValues
         {
             return (T)(object)4UL;
         }
-        return T.One + T.One + T.One + T.One;
+        return T.Create(4);
     }
 
     /// <summary>5</summary>
@@ -309,7 +317,7 @@ public static class NumberValues
         {
             return (T)(object)5UL;
         }
-        return T.One + T.One + T.One + T.One + T.One;
+        return T.Create(5);
     }
 
     /// <summary>6</summary>
@@ -367,7 +375,7 @@ public static class NumberValues
         {
             return (T)(object)6UL;
         }
-        return T.One + T.One + T.One + T.One + T.One + T.One;
+        return T.Create(6);
     }
 
     /// <summary>8</summary>
@@ -425,7 +433,7 @@ public static class NumberValues
         {
             return (T)(object)8UL;
         }
-        return T.One + T.One + T.One + T.One + T.One + T.One + T.One + T.One;
+        return T.Create(8);
     }
 
     /// <summary>10</summary>
@@ -483,7 +491,7 @@ public static class NumberValues
         {
             return (T)(object)10UL;
         }
-        return T.One + T.One + T.One + T.One + T.One + T.One + T.One + T.One + T.One + T.One;
+        return T.Create(10);
     }
 
     /// <summary>100</summary>
@@ -541,7 +549,7 @@ public static class NumberValues
         {
             return (T)(object)100UL;
         }
-        return Ten<T>() * Ten<T>();
+        return T.Create(100);
     }
 
     /// <summary>180</summary>
@@ -599,7 +607,7 @@ public static class NumberValues
         {
             return (T)(object)180UL;
         }
-        return Three<T>() * Six<T>() * Ten<T>();
+        return T.Create(180);
     }
 
     /// <summary>1000</summary>
@@ -657,7 +665,7 @@ public static class NumberValues
         {
             return (T)(object)1000UL;
         }
-        return Hundred<T>() * Ten<T>();
+        return T.Create(1000);
     }
 
     /// <summary>10000</summary>
@@ -715,7 +723,7 @@ public static class NumberValues
         {
             return (T)(object)10000UL;
         }
-        return Thousand<T>() * Ten<T>();
+        return T.Create(10000);
     }
 
     /// <summary>∞</summary>
@@ -1025,11 +1033,6 @@ public static class NumberValues
     #endregion Pi / Tau
 
     /// <summary>
-    /// Represents the smallest positive <typeparamref name="T"/> value that is greater than zero.
-    /// </summary>
-    public static T Epsilon<T>() where T : IFloatingPoint<T> => T.Epsilon;
-
-    /// <summary>
     /// The natural logarithm of 2.
     /// </summary>
     public static T Ln2<T>() where T : IFloatingPoint<T>
@@ -1069,9 +1072,6 @@ public static class NumberValues
         return T.Log(Ten<T>());
     }
 
-    /// <summary>Not a number (NaN)</summary>
-    public static T NaN<T>() where T : IFloatingPoint<T> => T.NaN;
-
     /// <summary>
     /// Represents the golden ratio, specified by the constant, φ.
     /// </summary>
@@ -1109,4 +1109,476 @@ public static class NumberValues
         }
         return T.Sqrt(Two<T>());
     }
+
+    #region Science
+
+    /// <summary>
+    /// The Avogadro constant (<i>N</i><sub>A</sub>, <i>L</i>), in SI base units.
+    /// </summary>
+    public static T AvogadroConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.AvogadroConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.AvogadroConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.AvogadroConstant;
+        }
+        return T.Create(DoubleConstants.AvogadroConstant);
+    }
+
+    /// <summary>
+    /// The Boltzmann constant (<i>k</i><sub>B</sub>, <i>k</i>), in SI base units.
+    /// </summary>
+    public static T BoltzmannConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.BoltzmannConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.BoltzmannConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.BoltzmannConstant;
+        }
+        return T.Create(DoubleConstants.BoltzmannConstant);
+    }
+
+    /// <summary>
+    /// The mass of a electron, in kg.
+    /// </summary>
+    public static T ElectronMass<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.ElectronMass;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.ElectronMass;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.ElectronMass;
+        }
+        return T.Create(DoubleConstants.ElectronMass);
+    }
+
+    /// <summary>
+    /// The elementary charge (<i>e</i>, <i>q</i><sub>e</sub>), in coulombs.
+    /// </summary>
+    public static T ElementaryCharge<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.ElementaryCharge;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.ElementaryCharge;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.ElementaryCharge;
+        }
+        return T.Create(DoubleConstants.ElementaryCharge);
+    }
+
+    /// <summary>
+    /// The gravitational constant, in SI base units.
+    /// </summary>
+    public static T GravitationalConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.GravitationalConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.GravitationalConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.GravitationalConstant;
+        }
+        return T.Create(DoubleConstants.GravitationalConstant);
+    }
+
+    /// <summary>
+    /// The heat of vaporization of water, in SI base units.
+    /// </summary>
+    public static T HeatOfVaporizationOfWater<T>() where T : INumber<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(int))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(long))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(nint))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(nuint))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(uint))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        if (typeof(T) == typeof(ulong))
+        {
+            return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
+        }
+        return T.Create(DoubleConstants.HeatOfVaporizationOfWater);
+    }
+
+    /// <summary>
+    /// The distance light travels in a Julian year, in m.
+    /// </summary>
+    public static T LightYear<T>() where T : INumber<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.LightYear;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.LightYear;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.LightYear;
+        }
+        if (typeof(T) == typeof(long))
+        {
+            return (T)(object)DoubleConstants.LightYear;
+        }
+        if (typeof(T) == typeof(ulong))
+        {
+            return (T)(object)DoubleConstants.LightYear;
+        }
+        return T.Create(DoubleConstants.LightYear);
+    }
+
+    /// <summary>
+    /// The molar mass of air, in SI base units.
+    /// </summary>
+    public static T MolarMassOfAir<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.MolarMassOfAir;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.MolarMassOfAir;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.MolarMassOfAir;
+        }
+        return T.Create(DoubleConstants.MolarMassOfAir);
+    }
+
+    /// <summary>
+    /// The mass of a neutron, in kg.
+    /// </summary>
+    public static T NeutronMass<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.NeutronMass;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.NeutronMass;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.NeutronMass;
+        }
+        return T.Create(DoubleConstants.NeutronMass);
+    }
+
+    /// <summary>
+    /// The Planck constant (<i>h</i>) in SI base units.
+    /// </summary>
+    public static T PlanckConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.PlanckConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.PlanckConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.PlanckConstant;
+        }
+        return T.Create(DoubleConstants.PlanckConstant);
+    }
+
+    /// <summary>
+    /// The mass of a proton, in kg.
+    /// </summary>
+    public static T ProtonMass<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.ProtonMass;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.ProtonMass;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.ProtonMass;
+        }
+        return T.Create(DoubleConstants.ProtonMass);
+    }
+
+    /// <summary>
+    /// The specific gas constant of dry air, in SI base units.
+    /// </summary>
+    public static T SpecificGasConstantOfDryAir<T>() where T : INumber<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(int))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(long))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(nint))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(nuint))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(short))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(ushort))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(uint))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        if (typeof(T) == typeof(ulong))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
+        }
+        return T.Create(DoubleConstants.SpecificGasConstantOfDryAir);
+    }
+
+    /// <summary>
+    /// The specific gas constant of water, in SI base units.
+    /// </summary>
+    public static T SpecificGasConstantOfWater<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.SpecificGasConstantOfWater;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.SpecificGasConstantOfWater;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.SpecificGasConstantOfWater;
+        }
+        return T.Create(DoubleConstants.SpecificGasConstantOfWater);
+    }
+
+    /// <summary>
+    /// The specific heat of dry air at constant pressure, in SI base units.
+    /// </summary>
+    public static T SpecificHeatOfDryAir<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.SpecificHeatOfDryAir;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.SpecificHeatOfDryAir;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.SpecificHeatOfDryAir;
+        }
+        return T.Create(DoubleConstants.SpecificHeatOfDryAir);
+    }
+
+    /// <summary>
+    /// The speed of light in a vacuum, in m/s.
+    /// </summary>
+    public static T SpeedOfLight<T>() where T : INumber<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(int))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(long))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(nint))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(nuint))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(uint))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        if (typeof(T) == typeof(ulong))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLight;
+        }
+        return T.Create(DoubleConstants.SpeedOfLight);
+    }
+
+    /// <summary>
+    /// The speed of light in a vacuum, squared, in m/s.
+    /// </summary>
+    public static T SpeedOfLightSquared<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.SpeedOfLightSquared;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.SpeedOfLightSquared;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.SpeedOfLightSquared;
+        }
+        return SpeedOfLight<T>().Square();
+    }
+
+    /// <summary>
+    /// The standard atmospheric pressure, in SI base units.
+    /// </summary>
+    public static T StandardAtmosphericPressure<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.StandardAtmosphericPressure;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.StandardAtmosphericPressure;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.StandardAtmosphericPressure;
+        }
+        return T.Create(DoubleConstants.StandardAtmosphericPressure);
+    }
+
+    /// <summary>
+    /// The Stefan–Boltzmann constant, in SI base units.
+    /// </summary>
+    public static T StefanBoltzmannConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.StefanBoltzmannConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.StefanBoltzmannConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.StefanBoltzmannConstant;
+        }
+        return T.Create(DoubleConstants.StefanBoltzmannConstant);
+    }
+
+    /// <summary>
+    /// The universal gas constant, in SI base units.
+    /// </summary>
+    public static T UniversalGasConstant<T>() where T : IFloatingPoint<T>
+    {
+        if (typeof(T) == typeof(decimal))
+        {
+            return (T)(object)DecimalConstants.UniversalGasConstant;
+        }
+        if (typeof(T) == typeof(double))
+        {
+            return (T)(object)DoubleConstants.UniversalGasConstant;
+        }
+        if (typeof(T) == typeof(float))
+        {
+            return (T)(object)FloatConstants.UniversalGasConstant;
+        }
+        return T.Create(DoubleConstants.UniversalGasConstant);
+    }
+
+    #endregion Science
 }

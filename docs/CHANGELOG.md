@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.5
+### Added
+- Average and Sum extension methods for `INumber` in the `System.Linq` namespace
+
 ## 2.0.0-preview.4
 ### Changed
 - Make the create number methods extensions

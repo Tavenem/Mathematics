@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.7
+### Changed
+- Improve JSON deserialization of `IShape` with `JsonPropertyOrder`
+
 ## 2.0.0-preview.6
 ### Added
 - Add science constants to the `NumberValues` extensions

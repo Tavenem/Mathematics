@@ -51,6 +51,7 @@ public readonly struct HollowSphere<TScalar> : IShape<HollowSphere<TScalar>, TSc
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.HollowSphere;
 
     /// <summary>

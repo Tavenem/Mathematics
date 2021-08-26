@@ -66,6 +66,7 @@ public readonly struct Line<TScalar> : IShape<Line<TScalar>, TScalar>
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.Line;
 
     /// <summary>

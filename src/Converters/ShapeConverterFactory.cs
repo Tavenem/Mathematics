@@ -68,43 +68,30 @@ public class ShapeConverterFactory : JsonConverterFactory
             }
 
             var readerCopy = reader;
-            while (readerCopy.Read())
+            readerCopy.Read();
+            if (readerCopy.TokenType != JsonTokenType.PropertyName
+                || !readerCopy.Read()
+                || !readerCopy.TryGetInt32(out var classTypeInt)
+                || !Enum.IsDefined(typeof(ShapeType), classTypeInt))
             {
-                if (readerCopy.TokenType == JsonTokenType.PropertyName)
-                {
-                    var prop = readerCopy.GetString();
-                    if (string.Equals(
-                        prop,
-                        nameof(IShape<TScalar>.ShapeType),
-                        options.PropertyNameCaseInsensitive
-                            ? StringComparison.OrdinalIgnoreCase
-                            : StringComparison.Ordinal))
-                    {
-                        if (!readerCopy.Read()
-                            || !readerCopy.TryGetInt32(out var classTypeInt)
-                            || !Enum.IsDefined(typeof(ShapeType), classTypeInt))
-                        {
-                            throw new JsonException("Type discriminator missing or invalid");
-                        }
-                        return (ShapeType)classTypeInt switch
-                        {
-                            ShapeType.Capsule => JsonSerializer.Deserialize(ref reader, typeof(Capsule<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Cone => JsonSerializer.Deserialize(ref reader, typeof(Cone<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Cuboid => JsonSerializer.Deserialize(ref reader, typeof(Cuboid<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Cylinder => JsonSerializer.Deserialize(ref reader, typeof(Cylinder<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Ellipsoid => JsonSerializer.Deserialize(ref reader, typeof(Ellipsoid<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Frustum => JsonSerializer.Deserialize(ref reader, typeof(Frustum<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.HollowSphere => JsonSerializer.Deserialize(ref reader, typeof(HollowSphere<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Line => JsonSerializer.Deserialize(ref reader, typeof(Line<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.SinglePoint => JsonSerializer.Deserialize(ref reader, typeof(SinglePoint<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Sphere => JsonSerializer.Deserialize(ref reader, typeof(Sphere<TScalar>), options) as IShape<TScalar>,
-                            ShapeType.Torus => JsonSerializer.Deserialize(ref reader, typeof(Torus<TScalar>), options) as IShape<TScalar>,
-                            _ => throw new JsonException("Type discriminator invalid"),
-                        };
-                    }
-                }
+                throw new JsonException("Type discriminator missing or invalid");
             }
-            throw new JsonException("Type discriminator missing");
+            var type = (ShapeType)classTypeInt switch
+            {
+                ShapeType.Capsule => typeof(Capsule<TScalar>),
+                ShapeType.Cone => typeof(Cone<TScalar>),
+                ShapeType.Cuboid => typeof(Cuboid<TScalar>),
+                ShapeType.Cylinder => typeof(Cylinder<TScalar>),
+                ShapeType.Ellipsoid => typeof(Ellipsoid<TScalar>),
+                ShapeType.Frustum => typeof(Frustum<TScalar>),
+                ShapeType.HollowSphere => typeof(HollowSphere<TScalar>),
+                ShapeType.Line => typeof(Line<TScalar>),
+                ShapeType.SinglePoint => typeof(SinglePoint<TScalar>),
+                ShapeType.Sphere => typeof(Sphere<TScalar>),
+                ShapeType.Torus => typeof(Torus<TScalar>),
+                _ => throw new JsonException("Type discriminator invalid"),
+            };
+            return JsonSerializer.Deserialize(ref reader, type, options) as IShape<TScalar>;
         }
 
         /// <summary>Writes an <see cref="IShape{TScalar}"/> as JSON.</summary>

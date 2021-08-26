@@ -60,6 +60,7 @@ public readonly struct Cone<TScalar> : IShape<Cone<TScalar>, TScalar>
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.Cone;
 
     /// <summary>

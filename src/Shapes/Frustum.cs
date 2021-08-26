@@ -93,6 +93,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.Frustum;
 
     /// <summary>

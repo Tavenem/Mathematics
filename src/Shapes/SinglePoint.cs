@@ -51,6 +51,7 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TSelf, TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.SinglePoint;
 
     /// <summary>

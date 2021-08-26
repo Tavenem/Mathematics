@@ -46,6 +46,7 @@ public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
     /// <summary>
     /// Identifies the type of this <see cref="IShape{TScalar}"/>.
     /// </summary>
+    [JsonPropertyOrder(-1)]
     public ShapeType ShapeType => ShapeType.Sphere;
 
     /// <summary>

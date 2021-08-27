@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.8
+### Added
+- Instance methods on `Numerics` types which call the static equivalents
+
 ## 2.0.0-preview.7
 ### Changed
 - Improve JSON deserialization of `IShape` with `JsonPropertyOrder`

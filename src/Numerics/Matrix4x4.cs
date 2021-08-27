@@ -1413,7 +1413,9 @@ public struct Matrix4x4<TScalar> :
     /// <param name="scale">The scaling component of the transformation matrix.</param>
     /// <param name="rotation">The rotation component of the transformation matrix.</param>
     /// <param name="translation">The translation component of the transformation matrix</param>
-    /// <returns>True if the source matrix was successfully decomposed; False otherwise.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the source matrix was successfully decomposed; otherwise <see langword="false"/>.
+    /// </returns>
     public static bool Decompose(
         Matrix4x4<TScalar> matrix,
         out Vector3<TScalar> scale,
@@ -1630,11 +1632,29 @@ public struct Matrix4x4<TScalar> :
     }
 
     /// <summary>
+    /// Attempts to extract the scale, translation, and rotation components from this scale/rotation/translation matrix.
+    /// If successful, the out parameters will contained the extracted values.
+    /// </summary>
+    /// <param name="scale">The scaling component of the transformation matrix.</param>
+    /// <param name="rotation">The rotation component of the transformation matrix.</param>
+    /// <param name="translation">The translation component of the transformation matrix</param>
+    /// <returns>
+    /// <see langword="true"/> if this instance was successfully decomposed; otherwise <see langword="false"/>.
+    /// </returns>
+    public bool Decompose(
+        out Vector3<TScalar> scale,
+        out Quaternion<TScalar> rotation,
+        out Vector3<TScalar> translation)
+        => Decompose(this, out scale, out rotation, out translation);
+
+    /// <summary>
     /// Attempts to calculate the inverse of the given matrix. If successful, result will contain the inverted matrix.
     /// </summary>
     /// <param name="matrix">The source matrix to invert.</param>
     /// <param name="result">If successful, contains the inverted matrix.</param>
-    /// <returns>True if the source matrix could be inverted; False otherwise.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the source matrix could be inverted; otherwise <see langword="false"/>.
+    /// </returns>
     public static bool Invert(Matrix4x4<TScalar> matrix, out Matrix4x4<TScalar> result)
     {
         TScalar a = matrix.M11, b = matrix.M12, c = matrix.M13, d = matrix.M14;
@@ -1702,7 +1722,16 @@ public struct Matrix4x4<TScalar> :
     }
 
     /// <summary>
-    /// Transforms the given matrix by applying the given Quaternion rotation.
+    /// Attempts to calculate the inverse of this instance. If successful, result will contain the inverted matrix.
+    /// </summary>
+    /// <param name="result">If successful, contains the inverted matrix.</param>
+    /// <returns>
+    /// <see langword="true"/> if this instance could be inverted; otherwise <see langword="false"/>.
+    /// </returns>
+    public bool Invert(out Matrix4x4<TScalar> result) => Invert(this, out result);
+
+    /// <summary>
+    /// Transforms the given matrix by applying the given quaternion rotation.
     /// </summary>
     /// <param name="value">The source matrix to transform.</param>
     /// <param name="rotation">The rotation to apply.</param>
@@ -1758,6 +1787,14 @@ public struct Matrix4x4<TScalar> :
     }
 
     /// <summary>
+    /// Transforms this instance by applying the given quaternion rotation.
+    /// </summary>
+    /// <param name="rotation">The rotation to apply.</param>
+    /// <returns>The transformed matrix.</returns>
+    public Matrix4x4<TScalar> Transform(Quaternion<TScalar> rotation)
+        => Transform(this, rotation);
+
+    /// <summary>
     /// Transposes the rows and columns of a matrix.
     /// </summary>
     /// <param name="matrix">The source matrix.</param>
@@ -1781,6 +1818,12 @@ public struct Matrix4x4<TScalar> :
         M43 = matrix.M34,
         M44 = matrix.M44,
     };
+
+    /// <summary>
+    /// Transposes the rows and columns of this instance.
+    /// </summary>
+    /// <returns>The transposed matrix.</returns>
+    public Matrix4x4<TScalar> Transpose() => Transpose(this);
 
     /// <summary>
     /// Linearly interpolates between the corresponding values of two matrices.
@@ -1808,6 +1851,15 @@ public struct Matrix4x4<TScalar> :
         M43 = matrix1.M43 + ((matrix2.M43 - matrix1.M43) * amount),
         M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount),
     };
+
+    /// <summary>
+    /// Linearly interpolates between the corresponding values of this instance and another matrix.
+    /// </summary>
+    /// <param name="other">The other source matrix.</param>
+    /// <param name="amount">The relative weight of the second source matrix.</param>
+    /// <returns>The interpolated matrix.</returns>
+    public Matrix4x4<TScalar> Lerp(Matrix4x4<TScalar> other, TScalar amount)
+        => Lerp(this, other, amount);
 
     /// <summary>
     /// Returns a new matrix with the negated elements of the given matrix.

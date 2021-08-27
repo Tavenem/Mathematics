@@ -525,7 +525,9 @@ public readonly struct Matrix3x2<TScalar> :
     /// </summary>
     /// <param name="matrix">The source matrix.</param>
     /// <param name="result">The output matrix.</param>
-    /// <returns>True if the operation succeeded, False otherwise.</returns>
+    /// <returns>
+    /// <see langword="true"/> if the operation succeeded; otherwise <see langword="false"/>.
+    /// </returns>
     public static bool Invert(Matrix3x2<TScalar> matrix, out Matrix3x2<TScalar> result)
     {
         var det = matrix.GetDeterminant();
@@ -552,6 +554,16 @@ public readonly struct Matrix3x2<TScalar> :
     }
 
     /// <summary>
+    /// Attempts to invert this instance. If the operation succeeds, the inverted matrix is stored in the result parameter.
+    /// </summary>
+    /// <param name="result">The output matrix.</param>
+    /// <returns>
+    /// <see langword="true"/> if the operation succeeded; otherwise <see langword="false"/>.
+    /// </returns>
+    public bool Invert(out Matrix3x2<TScalar> result)
+        => Invert(this, out result);
+
+    /// <summary>
     /// Linearly interpolates from matrix1 to matrix2, based on the third parameter.
     /// </summary>
     /// <param name="matrix1">The first source matrix.</param>
@@ -567,6 +579,15 @@ public readonly struct Matrix3x2<TScalar> :
         M31 = matrix1.M31 + ((matrix2.M31 - matrix1.M31) * amount),
         M32 = matrix1.M32 + ((matrix2.M32 - matrix1.M32) * amount),
     };
+
+    /// <summary>
+    /// Linearly interpolates from this instance to another matrix, based on the third parameter.
+    /// </summary>
+    /// <param name="other">The other source matrix.</param>
+    /// <param name="amount">The relative weighting of matrix2.</param>
+    /// <returns>The interpolated matrix.</returns>
+    public Matrix3x2<TScalar> Lerp(Matrix3x2<TScalar> other, TScalar amount)
+        => Lerp(this, other, amount);
 
     /// <summary>
     /// Negates the given matrix by multiplying all values by -1.

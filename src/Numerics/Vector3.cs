@@ -308,11 +308,11 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
 
     /// <summary>
     /// Returns a vector whose elements are the maximum of each of the pairs of elements in the
-    /// two source vectors
+    /// two source vectors.
     /// </summary>
     /// <param name="left">The first vector.</param>
     /// <param name="right">The second vector.</param>
-    /// <returns>The maximized vector</returns>
+    /// <returns>The maximized vector.</returns>
     public static Vector3<TScalar> Max(Vector3<TScalar> left, Vector3<TScalar> right)
         => VectorCommon.Max<Vector3<TScalar>, TScalar>(left, right);
 
@@ -616,6 +616,46 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
         value.Z.Create<TScalar, float>());
 
     /// <summary>
+    /// Returns a vector whose elements are the absolute values of each of this instance's
+    /// elements.
+    /// </summary>
+    /// <returns>The absolute value vector.</returns>
+    public Vector3<TScalar> Abs() => Abs(this);
+
+    /// <summary>
+    /// Returns the angle between this instance and the given vector.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <returns>The angle between the vectors, in radians.</returns>
+    public TScalar Angle(Vector3<TScalar> other) => Angle(this, other);
+
+    /// <summary>
+    /// Determines if this instance and the given vector are parallel.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <param name="allowSmallError">If <see langword="true"/>, a small amount of error is
+    /// disregarded, to account for floating point errors.</param>
+    /// <returns><see langword="true"/> if the vectors are parallel; otherwise <see
+    /// langword="false"/>.</returns>
+    public bool AreParallel(Vector3<TScalar> other, bool allowSmallError = true)
+        => AreParallel(this, other, allowSmallError);
+
+    /// <summary>
+    /// Restricts this instance between a min and max value.
+    /// </summary>
+    /// <param name="min">The minimum value.</param>
+    /// <param name="max">The maximum value.</param>
+    public Vector3<TScalar> Clamp(Vector3<TScalar> min, Vector3<TScalar> max)
+        => Clamp(this, min, max);
+
+    /// <summary>
+    /// Computes the cross product of this instance and the given vector.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <returns>The cross product.</returns>
+    public Vector3<TScalar> Cross(Vector3<TScalar> other) => Cross(this, other);
+
+    /// <summary>
     /// Compares the current instance with another object of the same type and returns an
     /// integer that indicates whether the current instance precedes, follows, or occurs in the
     /// same position in the sort order as the other object.
@@ -693,6 +733,27 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
         => ((ISpatialVector<Vector3<TScalar>, TScalar>)this).CopyTo(destination);
 
     /// <summary>
+    /// Returns the Euclidean distance between this instance and another point.
+    /// </summary>
+    /// <param name="other">The other point.</param>
+    /// <returns>The distance.</returns>
+    public TScalar Distance(Vector3<TScalar> other) => Distance(this, other);
+
+    /// <summary>
+    /// Returns the Euclidean distance squared between this instance and another point.
+    /// </summary>
+    /// <param name="other">The other point.</param>
+    /// <returns>The distance squared.</returns>
+    public TScalar DistanceSquared(Vector3<TScalar> other) => DistanceSquared(this, other);
+
+    /// <summary>
+    /// Returns the dot product of this instance and another vector.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <returns>The dot product.</returns>
+    public TScalar Dot(Vector3<TScalar> other) => Dot(this, other);
+
+    /// <summary>
     /// Returns a boolean indicating whether the given vector is equal to this instance.
     /// </summary>
     /// <param name="other">The vector to compare with this instance.</param>
@@ -713,6 +774,79 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// <summary>Returns the hash code for this instance.</summary>
     /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
     public override int GetHashCode() => HashCode.Combine(X, Y, Z);
+
+    /// <summary>
+    /// Determines if this instance is nearly zero (all elements closer to zero than <see
+    /// cref="NumberValues.NearlyZeroDouble"/>).
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> if this instance is close to zero; otherwise <see langword="false"/>.
+    /// </returns>
+    public bool IsNearlyZero() => IsNearlyZero(this);
+
+    /// <summary>
+    /// Returns the length of this instance.
+    /// </summary>
+    /// <returns>This instance's length.</returns>
+    public TScalar Length() => Length(this);
+
+    /// <summary>
+    /// Returns the length of this instance squared.
+    /// </summary>
+    /// <returns>This instance's length squared.</returns>
+    public TScalar LengthSquared() => LengthSquared(this);
+
+    /// <summary>
+    /// Linearly interpolates between this instance and another vector based on the given weighting.
+    /// </summary>
+    /// <param name="other">The other source vector.</param>
+    /// <param name="amount">Value between 0 and 1 indicating the weight of the second source
+    /// vector.</param>
+    /// <returns>The interpolated vector.</returns>
+    public Vector3<TScalar> Lerp(Vector3<TScalar> other, TScalar amount)
+        => Lerp(this, other, amount);
+
+    /// <summary>
+    /// Returns a vector whose elements are the maximum of each of the pairs of elements in the
+    /// two source vectors.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <returns>The maximized vector.</returns>
+    public Vector3<TScalar> Max(Vector3<TScalar> other) => Max(this, other);
+
+    /// <summary>
+    /// Returns a vector whose elements are the minimum of each of the pairs of elements in the
+    /// two source vectors.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    /// <returns>The minimized vector.</returns>
+    public Vector3<TScalar> Min(Vector3<TScalar> other) => Min(this, other);
+
+    /// <summary>
+    /// Returns a vector with the same direction as this instance, but with a length of 1.
+    /// </summary>
+    /// <returns>The normalized vector.</returns>
+    public Vector3<TScalar> Normalize() => Normalize(this);
+
+    /// <summary>
+    /// Returns the reflection of this instance off a surface that has the specified normal.
+    /// </summary>
+    /// <param name="normal">The normal of the surface being reflected off.</param>
+    /// <returns>The reflected vector.</returns>
+    public Vector3<TScalar> Reflect(Vector3<TScalar> normal) => Reflect(this, normal);
+
+    /// <summary>
+    /// Calculates the quaternion which represents the rotation from this instance to another vector.
+    /// </summary>
+    /// <param name="other">The other vector.</param>
+    public Quaternion<TScalar> RotationTo(Vector3<TScalar> other) => RotationTo(this, other);
+
+    /// <summary>
+    /// Returns a vector whose elements are the square root of each of this instance's
+    /// elements.
+    /// </summary>
+    /// <returns>The square root vector.</returns>
+    public Vector3<TScalar> SquareRoot() => SquareRoot(this);
 
     /// <summary>
     /// Returns a <see cref="string"/> representing this instance, using the specified
@@ -739,6 +873,28 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// </summary>
     /// <returns>The <see cref="string"/> representation.</returns>
     public override string ToString() => ToString(null, null);
+
+    /// <summary>
+    /// Transforms this instance by the given matrix.
+    /// </summary>
+    /// <param name="matrix">The transformation matrix.</param>
+    /// <returns>The transformed vector.</returns>
+    public Vector3<TScalar> Transform(Matrix4x4<TScalar> matrix) => Transform(this, matrix);
+
+    /// <summary>
+    /// Transforms this instance by the given Quaternion rotation value.
+    /// </summary>
+    /// <param name="rotation">The rotation to apply.</param>
+    /// <returns>The transformed vector.</returns>
+    public Vector3<TScalar> Transform(Quaternion<TScalar> rotation) => Transform(this, rotation);
+
+    /// <summary>
+    /// Transforms this instance as a normal vector by the given matrix.
+    /// </summary>
+    /// <param name="matrix">The transformation matrix.</param>
+    /// <returns>The transformed vector.</returns>
+    public Vector3<TScalar> TransformNormal(Matrix4x4<TScalar> matrix)
+        => TransformNormal(this, matrix);
 
     /// <summary>
     /// Attempts to copy the values of this vector to the given span.

@@ -240,8 +240,15 @@ public readonly struct Plane<TScalar> :
         + (plane.D * value.W);
 
     /// <summary>
+    /// Calculates the dot product of this instance and <see cref="Vector4{TScalar}"/>.
+    /// </summary>
+    /// <param name="value">The vector.</param>
+    /// <returns>The dot product.</returns>
+    public TScalar Dot(Vector4<TScalar> value) => Dot(this, value);
+
+    /// <summary>
     /// Returns the dot product of a specified <see cref="Vector3{TScalar}"/> and the
-    /// normal vector of this plane plus the distance value of the plane.
+    /// normal vector of a plane plus the distance value of the plane.
     /// </summary>
     /// <param name="plane">The plane.</param>
     /// <param name="value">The vector.</param>
@@ -253,8 +260,17 @@ public readonly struct Plane<TScalar> :
         + plane.D;
 
     /// <summary>
+    /// Returns the dot product of a specified <see cref="Vector3{TScalar}"/> and the
+    /// normal vector of this instance plus the distance value of this instance.
+    /// </summary>
+    /// <param name="value">The vector.</param>
+    /// <returns>The resulting value.</returns>
+    public TScalar DotCoordinate(Vector3<TScalar> value)
+        => DotCoordinate(this, value);
+
+    /// <summary>
     /// Returns the dot product of a specified <see cref="Vector3{TScalar}"/>
-    /// and the normal vector of this plane.
+    /// and the normal vector of a plane.
     /// </summary>
     /// <param name="plane">The plane.</param>
     /// <param name="value">The vector.</param>
@@ -263,6 +279,14 @@ public readonly struct Plane<TScalar> :
         => (plane.Normal.X * value.X)
         + (plane.Normal.Y * value.Y)
         + (plane.Normal.Z * value.Z);
+
+    /// <summary>
+    /// Returns the dot product of a specified <see cref="Vector3{TScalar}"/>
+    /// and the normal vector of this instance.
+    /// </summary>
+    /// <param name="value">The vector.</param>
+    /// <returns>The resulting dot product.</returns>
+    public TScalar DotNormal(Vector3<TScalar> value) => DotNormal(this, value);
 
     /// <summary>
     /// Creates a new plane whose normal vector is the source plane's normal vector normalized.
@@ -291,6 +315,12 @@ public readonly struct Plane<TScalar> :
             D = value.D * fInv,
         };
     }
+
+    /// <summary>
+    /// Creates a new plane whose normal vector is this instance's normal vector normalized.
+    /// </summary>
+    /// <returns>The normalized plane.</returns>
+    public Plane<TScalar> Normalize() => Normalize(this);
 
     /// <summary>
     /// Transforms a normalized plane by a matrix.
@@ -322,6 +352,17 @@ public readonly struct Plane<TScalar> :
             D = (x * m.M41) + (y * m.M42) + (z * m.M43) + (w * m.M44),
         };
     }
+
+    /// <summary>
+    /// Transforms this instance by a matrix.
+    /// </summary>
+    /// <param name="matrix">The transformation matrix to apply to the plane.</param>
+    /// <returns>The transformed plane.</returns>
+    /// <remarks>
+    /// This plane must already be normalized, so that its Normal vector is of unit length, before
+    /// this method is called.
+    /// </remarks>
+    public Plane<TScalar> Transform(Matrix4x4<TScalar> matrix) => Transform(this, matrix);
 
     /// <summary>
     ///  Transforms a normalized plane by a quaternion rotation.
@@ -378,6 +419,17 @@ public readonly struct Plane<TScalar> :
             D = plane.D,
         };
     }
+
+    /// <summary>
+    ///  Transforms a normalized plane by a quaternion rotation.
+    /// </summary>
+    /// <param name="rotation">The wuaternion rotation to apply to the Plane.</param>
+    /// <returns>A new plane that results from applying the rotation.</returns>
+    /// <remarks>
+    /// This plane must already be normalized, so that its Normal vector is of unit length, before
+    /// this method is called.
+    /// </remarks>
+    public Plane<TScalar> Transform(Quaternion<TScalar> rotation) => Transform(this, rotation);
 
     /// <summary>
     /// Returns a boolean indicating whether the two given planes are equal.

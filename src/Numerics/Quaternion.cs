@@ -190,6 +190,18 @@ public readonly struct Quaternion<TScalar> :
     }
 
     /// <summary>
+    /// Concatenates this instance with another quaternion; the result represents this instance
+    /// followed by the <paramref name="other"/> rotation.
+    /// </summary>
+    /// <param name="other">The second quaternion rotation in the series.</param>
+    /// <returns>
+    /// A new quaternion representing the concatenation of this instance
+    /// rotation followed by the <paramref name="other"/> rotation.
+    /// </returns>
+    public Quaternion<TScalar> Concatenate(Quaternion<TScalar> other)
+        => Concatenate(this, other);
+
+    /// <summary>
     /// Creates the conjugate of a specified quaternion.
     /// </summary>
     /// <param name="value">The quaternion of which to return the conjugate.</param>
@@ -201,6 +213,12 @@ public readonly struct Quaternion<TScalar> :
         Z = -value.Z,
         W = value.W,
     };
+
+    /// <summary>
+    /// Creates the conjugate of this instance.
+    /// </summary>
+    /// <returns>A new quaternion that is the conjugate of this instance.</returns>
+    public Quaternion<TScalar> Conjugate() => Conjugate(this);
 
     /// <summary>
     /// Creates a quaternion from a normalized vector axis and an angle to rotate about the vector.
@@ -322,7 +340,7 @@ public readonly struct Quaternion<TScalar> :
     }
 
     /// <summary>
-    /// Calculates the dot product of two Quaternions.
+    /// Calculates the dot product of two quaternions.
     /// </summary>
     /// <param name="quaternion1">The first source quaternion.</param>
     /// <param name="quaternion2">The second source quaternion.</param>
@@ -332,6 +350,13 @@ public readonly struct Quaternion<TScalar> :
         + (quaternion1.Y * quaternion2.Y)
         + (quaternion1.Z * quaternion2.Z)
         + (quaternion1.W * quaternion2.W);
+
+    /// <summary>
+    /// Calculates the dot product of this instance and another quaternion.
+    /// </summary>
+    /// <param name="other">The other source quaternion.</param>
+    /// <returns>The dot product of the quaternions.</returns>
+    public TScalar Dot(Quaternion<TScalar> other) => Dot(this, other);
 
     /// <summary>
     /// Returns the inverse of a quaternion.
@@ -353,10 +378,22 @@ public readonly struct Quaternion<TScalar> :
     }
 
     /// <summary>
+    /// Returns the inverse of this instance.
+    /// </summary>
+    /// <returns>The inverted quaternion.</returns>
+    public Quaternion<TScalar> Inverse() => Inverse(this);
+
+    /// <summary>
     /// Calculates the length of the quaternion.
     /// </summary>
     /// <returns>The computed length of the quaternion.</returns>
     public static TScalar Length(Quaternion<TScalar> value) => TScalar.Sqrt(LengthSquared(value));
+
+    /// <summary>
+    /// Calculates the length of this instance.
+    /// </summary>
+    /// <returns>The computed length of this instance.</returns>
+    public TScalar Length() => Length(this);
 
     /// <summary>
     /// Calculates the length squared of the quaternion. This operation is cheaper than Length().
@@ -364,6 +401,12 @@ public readonly struct Quaternion<TScalar> :
     /// <returns>The length squared of the quaternion.</returns>
     public static TScalar LengthSquared(Quaternion<TScalar> value)
         => (value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z) + (value.W * value.W);
+
+    /// <summary>
+    /// Calculates the length squared of this instance. This operation is cheaper than Length().
+    /// </summary>
+    /// <returns>The length squared of this instance.</returns>
+    public TScalar LengthSquared() => LengthSquared(this);
 
     /// <summary>
     ///  Linearly interpolates between two quaternions.
@@ -411,6 +454,15 @@ public readonly struct Quaternion<TScalar> :
     }
 
     /// <summary>
+    ///  Linearly interpolates between this instance and another quaternion.
+    /// </summary>
+    /// <param name="other">The other source quaternion.</param>
+    /// <param name="amount">The relative weight of the second source quaternion in the interpolation.</param>
+    /// <returns>The interpolated quaternion.</returns>
+    public Quaternion<TScalar> Lerp(Quaternion<TScalar> other, TScalar amount)
+        => Lerp(this, other, amount);
+
+    /// <summary>
     /// Divides each component of the quaternion by the length of the quaternion.
     /// </summary>
     /// <param name="value">The source quaternion.</param>
@@ -429,6 +481,12 @@ public readonly struct Quaternion<TScalar> :
             W = value.W * invNorm,
         };
     }
+
+    /// <summary>
+    /// Divides each component of this instance by the length of this instance.
+    /// </summary>
+    /// <returns>The normalized quaternion.</returns>
+    public Quaternion<TScalar> Normalize() => Normalize(this);
 
     /// <summary>
     /// Interpolates between two quaternions, using spherical linear interpolation.
@@ -479,6 +537,15 @@ public readonly struct Quaternion<TScalar> :
             W = (s1 * quaternion1.W) + (s2 * quaternion2.W),
         };
     }
+
+    /// <summary>
+    /// Interpolates between this instance and another quaternion, using spherical linear interpolation.
+    /// </summary>
+    /// <param name="other">The other source quaternion.</param>
+    /// <param name="amount">The relative weight of the second source quaternion in the interpolation.</param>
+    /// <returns>The interpolated quaternion.</returns>
+    public Quaternion<TScalar> Slerp(Quaternion<TScalar> other, TScalar amount)
+        => Slerp(this, other, amount);
 
     /// <summary>
     /// Flips the sign of each component of the quaternion.

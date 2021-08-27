@@ -861,7 +861,7 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
     /// </param>
     /// <returns>The <see cref="string"/> representation.</returns>
     public string ToString(string? format, IFormatProvider? formatProvider)
-        => ((ISpatialVector<Vector4<TScalar>, TScalar>)this).ToString(format, formatProvider);
+        => VectorCommon.ToString<Vector4<TScalar>, TScalar>(this, format, formatProvider);
 
     /// <summary>
     /// Returns a <see cref="string"/> representing this instance, using the specified

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.10
+### Added
+- `ICreateOther` interface to allow number types to define their own conversion to standard numeric types
+
 ## 2.0.0-preview.9
 ### Fixed
 - vector `ToString`

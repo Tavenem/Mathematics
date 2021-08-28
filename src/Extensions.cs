@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
+using static Tavenem.Mathematics.Extensions;
 
 namespace Tavenem.Mathematics;
 
@@ -364,7 +365,16 @@ public static class Extensions
     public static TTarget Create<TSelf, TTarget>(this TSelf value)
         where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        => TTarget.Create(value);
+    {
+        try
+        {
+            return TTarget.Create(value);
+        }
+        catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
+        {
+            return createOther.Create<TTarget>();
+        }
+    }
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
@@ -391,7 +401,16 @@ public static class Extensions
     public static TTarget CreateSaturating<TSelf, TTarget>(TSelf value)
         where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        => TTarget.CreateSaturating(value);
+    {
+        try
+        {
+            return TTarget.CreateSaturating(value);
+        }
+        catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
+        {
+            return createOther.CreateSaturating<TTarget>();
+        }
+    }
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
@@ -408,7 +427,16 @@ public static class Extensions
     public static TTarget CreateTruncating<TSelf, TTarget>(TSelf value)
         where TSelf : INumber<TSelf>
         where TTarget : INumber<TTarget>
-        => TTarget.CreateTruncating(value);
+    {
+        try
+        {
+            return TTarget.CreateTruncating(value);
+        }
+        catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
+        {
+            return createOther.CreateTruncating<TTarget>();
+        }
+    }
 
     /// <summary>
     /// A fast implementation of cube (a number raised to the power of 3).
@@ -1938,7 +1966,17 @@ public static class Extensions
     /// </returns>
     public static bool TryCreate<TSelf, TTarget>(this TSelf value, out TTarget result)
         where TSelf : INumber<TSelf>
-        where TTarget : INumber<TTarget> => TTarget.TryCreate(value, out result);
+        where TTarget : INumber<TTarget>
+    {
+        try
+        {
+            return TTarget.TryCreate(value, out result);
+        }
+        catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
+        {
+            return createOther.TryCreate(out result);
+        }
+    }
 
     /// <summary>
     /// Converts the string representation of a number in a specified style and culture-specific

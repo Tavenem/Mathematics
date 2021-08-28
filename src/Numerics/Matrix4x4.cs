@@ -45,7 +45,25 @@ public struct Matrix4x4<TScalar> :
     /// <summary>
     /// Returns a matrix with zero for all elements.
     /// </summary>
-    public static Matrix4x4<TScalar> Zero { get; } = new();
+    public static Matrix4x4<TScalar> Zero { get; } = new()
+    {
+        M11 = TScalar.Zero,
+        M12 = TScalar.Zero,
+        M13 = TScalar.Zero,
+        M14 = TScalar.Zero,
+        M21 = TScalar.Zero,
+        M22 = TScalar.Zero,
+        M23 = TScalar.Zero,
+        M24 = TScalar.Zero,
+        M31 = TScalar.Zero,
+        M32 = TScalar.Zero,
+        M33 = TScalar.Zero,
+        M34 = TScalar.Zero,
+        M41 = TScalar.Zero,
+        M42 = TScalar.Zero,
+        M43 = TScalar.Zero,
+        M44 = TScalar.Zero,
+    };
     /// <summary>
     /// Returns the additive identity matrix.
     /// </summary>

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0-preview.11
+### Added
+- Made Zero vector and matrix initiatlization explicit rather than the default constructor
+
 ## 2.0.0-preview.10
 ### Added
 - `ICreateOther` interface to allow number types to define their own conversion to standard numeric types

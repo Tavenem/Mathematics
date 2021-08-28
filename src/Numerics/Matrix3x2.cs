@@ -22,17 +22,18 @@ public readonly struct Matrix3x2<TScalar> :
     /// <summary>
     /// Returns the multiplicative identity matrix.
     /// </summary>
-    public static Matrix3x2<TScalar> MultiplicativeIdentity { get; } = Matrix3x2<TScalar>.Create
-    (
+    public static Matrix3x2<TScalar> MultiplicativeIdentity { get; } = new(
         TScalar.One, TScalar.Zero,
         TScalar.Zero, TScalar.One,
-        TScalar.Zero, TScalar.Zero
-    );
+        TScalar.Zero, TScalar.Zero);
 
     /// <summary>
     /// Returns a matrix with zero for all elements.
     /// </summary>
-    public static Matrix3x2<TScalar> Zero { get; } = new();
+    public static Matrix3x2<TScalar> Zero { get; } = new(
+        TScalar.Zero, TScalar.Zero,
+        TScalar.Zero, TScalar.Zero,
+        TScalar.Zero, TScalar.Zero);
     /// <summary>
     /// Returns the additive identity matrix.
     /// </summary>

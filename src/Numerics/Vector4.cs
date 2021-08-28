@@ -44,7 +44,7 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
     /// <summary>
     /// Returns a vector with 0 in all positions.
     /// </summary>
-    public static Vector4<TScalar> Zero => new();
+    public static Vector4<TScalar> Zero => new() { X = TScalar.Zero, Y = TScalar.Zero, Z = TScalar.Zero, W = TScalar.Zero };
     /// <summary>
     /// Returns a vector with 0 in all positions.
     /// </summary>

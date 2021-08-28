@@ -14,7 +14,7 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     /// A <see cref="SinglePoint{TScalar}"/> representing the origin: a point at <see
     /// cref="Vector3{TScalar}.Zero"/>.
     /// </summary>
-    public static SinglePoint<TScalar> Origin { get; } = new();
+    public static SinglePoint<TScalar> Origin { get; } = new(Vector3<TScalar>.Zero);
 
     /// <summary>
     /// A circular radius which fully contains the shape. Always 0 for a <see cref="SinglePoint{TScalar}"/>.

@@ -10,7 +10,7 @@ namespace Tavenem.Mathematics;
 /// <typeparam name="TScalar">The type of the scalar value.</typeparam>
 public interface ISpatialVector<TSelf, TScalar> : IVector<TSelf, TScalar>
     where TSelf : ISpatialVector<TSelf, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// Restricts a vector between a min and max value.

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a line as a shape.
 /// </summary>
 public readonly struct Line<TScalar> : IShape<Line<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     private readonly Vector3<TScalar> _start;
     private readonly Vector3<TScalar> _end;
@@ -419,7 +420,7 @@ public readonly struct Line<TScalar> : IShape<Line<TScalar>, TScalar>
         return new Line<TScalar>(
             factor == TScalar.Zero
                 ? Vector3<TScalar>.Zero
-                :Path * factor,
+                : Path * factor,
             Position);
     }
 

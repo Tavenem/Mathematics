@@ -1,9 +1,11 @@
-﻿namespace Tavenem.Mathematics;
+﻿using System.Numerics;
+
+namespace Tavenem.Mathematics;
 
 /// <summary>
 /// Extends <see cref="INumber{TSelf}"/> by allowing the creation of other types.
 /// </summary>
-public interface ICreateOther<TSelf> : INumber<TSelf> where TSelf : INumber<TSelf>
+public interface ICreateOther<TSelf> : INumberBase<TSelf> where TSelf : INumberBase<TSelf>
 {
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from this instance.
@@ -15,7 +17,7 @@ public interface ICreateOther<TSelf> : INumber<TSelf> where TSelf : INumber<TSel
     /// <remarks>
     /// This method performs a checked conversion.
     /// </remarks>
-    TTarget Create<TTarget>();
+    TTarget CreateChecked<TTarget>();
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from this instance.

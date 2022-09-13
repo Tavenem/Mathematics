@@ -1,6 +1,6 @@
 name: publish
 env:
-  VERSION: '2.0.0'
+  VERSION: '2.1.0-preview.1'
 on:
   push:
     branches: [ main ]
@@ -11,11 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Setup .NET 6
+      - name: Setup .NET 7
         uses: actions/setup-dotnet@v1
         with:
           # Semantic version range syntax or exact version of a dotnet version
-          dotnet-version: '6.0.x'
+          dotnet-version: '7.0.x'
+          include-prerelease: true
 
       - name: Install dependencies
         run: dotnet restore
@@ -29,21 +30,34 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
         working-directory: ./src
 
+      - name: Fetch tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - name: Check tag
+        id: tagged
+        shell: bash
+        run: git show-ref --tags --verify --quiet -- "refs/tags/v${{ env.VERSION }}" && echo "::set-output name=tagged::0" || echo "::set-output name=tagged::1"
+
       - name: Pack
+        if: steps.tagged.outputs.tagged == 1
         run: dotnet pack --include-symbols -p:SymbolPackageFormat=snupkg -p:PackageVersion=${{ env.VERSION }} --configuration Release --no-build --nologo --output .
         working-directory: ./src
 
       - name: Push to NuGet
+        if: steps.tagged.outputs.tagged == 1
         run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
         working-directory: ./src
 
       - name: Git tag
+        if: steps.tagged.outputs.tagged == 1
         run: git tag v${{ env.VERSION }}
 
       - name: Push tag
+        if: steps.tagged.outputs.tagged == 1
         run: git push origin v${{ env.VERSION }}
 
       - name: Release
+        if: steps.tagged.outputs.tagged == 1
         id: create_release
         uses: actions/create-release@latest
         env:

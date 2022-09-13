@@ -1,4 +1,6 @@
-﻿namespace System.Linq;
+﻿using System.Numerics;
+
+namespace System.Linq;
 
 /// <summary>
 /// Mathematical extension methods to <see cref="IEnumerable{T}"/>.
@@ -20,7 +22,7 @@ public static class TavenemMathematicsEnumerableExtensions
     /// <exception cref="OverflowException">
     /// The sum of the elements in the sequence is larger than the maximum value of <typeparamref name="T"/>.
     /// </exception>
-    public static T Average<T>(this IEnumerable<T> source) where T : INumber<T>
+    public static T Average<T>(this IEnumerable<T> source) where T : INumberBase<T>
     {
         if (source is null)
         {
@@ -37,7 +39,7 @@ public static class TavenemMathematicsEnumerableExtensions
             sum += value;
             count++;
         }
-        return sum / T.Create(count);
+        return sum / T.CreateChecked(count);
     }
 
     /// <summary>
@@ -59,7 +61,7 @@ public static class TavenemMathematicsEnumerableExtensions
     /// The sum of the elements in the sequence is larger than the maximum value of <typeparamref name="TScalar"/>.
     /// </exception>
     public static TScalar Average<TSource, TScalar>(this IEnumerable<TSource> source, Func<TSource, TScalar> selector)
-        where TScalar : INumber<TScalar> => source.Select(selector).Average();
+        where TScalar : INumberBase<TScalar> => source.Select(selector).Average();
 
     /// <summary>
     /// Computes the sum of a sequence of values.
@@ -73,7 +75,7 @@ public static class TavenemMathematicsEnumerableExtensions
     /// <exception cref="OverflowException">
     /// The sum of the elements in the sequence is larger than the maximum value of <typeparamref name="T"/>.
     /// </exception>
-    public static T Sum<T>(this IEnumerable<T> source) where T : INumber<T>
+    public static T Sum<T>(this IEnumerable<T> source) where T : INumberBase<T>
     {
         if (source is null)
         {
@@ -103,5 +105,5 @@ public static class TavenemMathematicsEnumerableExtensions
     /// The sum of the elements in the sequence is larger than the maximum value of <typeparamref name="TScalar"/>.
     /// </exception>
     public static TScalar Sum<TSource, TScalar>(this IEnumerable<TSource> source, Func<TSource, TScalar> selector)
-        where TScalar : INumber<TScalar> => source.Select(selector).Sum();
+        where TScalar : INumberBase<TScalar> => source.Select(selector).Sum();
 }

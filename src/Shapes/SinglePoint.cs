@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Numerics;
 using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
@@ -8,7 +9,7 @@ namespace Tavenem.Mathematics;
 /// </summary>
 [DebuggerDisplay("{Position}")]
 public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// A <see cref="SinglePoint{TScalar}"/> representing the origin: a point at <see

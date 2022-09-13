@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a cylinder.
 /// </summary>
 public readonly struct Cylinder<TScalar> : IShape<Cylinder<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     internal readonly Vector3<TScalar> _start;
     internal readonly Vector3<TScalar> _end;

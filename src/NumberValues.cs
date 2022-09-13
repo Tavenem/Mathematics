@@ -1,4 +1,6 @@
-﻿namespace Tavenem.Mathematics;
+﻿using System.Numerics;
+
+namespace Tavenem.Mathematics;
 
 /// <summary>
 /// A collection of mathematical and scientific values, as well as the results of some
@@ -30,24 +32,24 @@ public static class NumberValues
     /// <summary>
     /// Represents the smallest positive <typeparamref name="T"/> value that is greater than zero.
     /// </summary>
-    public static T Epsilon<T>() where T : IFloatingPoint<T> => T.Epsilon;
+    public static T Epsilon<T>() where T : IFloatingPointIeee754<T> => T.Epsilon;
 
     /// <summary>Not a number (NaN)</summary>
-    public static T NaN<T>() where T : IFloatingPoint<T> => T.NaN;
+    public static T NaN<T>() where T : IFloatingPointIeee754<T> => T.NaN;
 
     #region Numbers
 
     /// <summary>-∞</summary>
-    public static T NegativeInfinity<T>() where T : IFloatingPoint<T> => T.NegativeInfinity;
+    public static T NegativeInfinity<T>() where T : IFloatingPointIeee754<T> => T.NegativeInfinity;
 
     /// <summary>-1</summary>
     public static T NegativeOne<T>() where T : ISignedNumber<T> => T.NegativeOne;
 
     /// <summary>-0</summary>
-    public static T NegativeZero<T>() where T : IFloatingPoint<T> => T.NegativeZero;
+    public static T NegativeZero<T>() where T : IFloatingPointIeee754<T> => T.NegativeZero;
 
     /// <summary>0</summary>
-    public static T Zero<T>() where T : INumber<T> => T.Zero;
+    public static T Zero<T>() where T : INumberBase<T> => T.Zero;
 
     /// <summary>⅓</summary>
     public static T Third<T>() where T : IFloatingPoint<T>
@@ -86,10 +88,10 @@ public static class NumberValues
     }
 
     /// <summary>1</summary>
-    public static T One<T>() where T : INumber<T> => T.One;
+    public static T One<T>() where T : INumberBase<T> => T.One;
 
     /// <summary>2</summary>
-    public static T Two<T>() where T : INumber<T>
+    public static T Two<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -143,11 +145,11 @@ public static class NumberValues
         {
             return (T)(object)2UL;
         }
-        return T.Create(2);
+        return T.CreateChecked(2);
     }
 
     /// <summary>3</summary>
-    public static T Three<T>() where T : INumber<T>
+    public static T Three<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -201,11 +203,11 @@ public static class NumberValues
         {
             return (T)(object)3UL;
         }
-        return T.Create(3);
+        return T.CreateChecked(3);
     }
 
     /// <summary>4</summary>
-    public static T Four<T>() where T : INumber<T>
+    public static T Four<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -259,11 +261,11 @@ public static class NumberValues
         {
             return (T)(object)4UL;
         }
-        return T.Create(4);
+        return T.CreateChecked(4);
     }
 
     /// <summary>5</summary>
-    public static T Five<T>() where T : INumber<T>
+    public static T Five<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -317,11 +319,11 @@ public static class NumberValues
         {
             return (T)(object)5UL;
         }
-        return T.Create(5);
+        return T.CreateChecked(5);
     }
 
     /// <summary>6</summary>
-    public static T Six<T>() where T : INumber<T>
+    public static T Six<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -375,11 +377,11 @@ public static class NumberValues
         {
             return (T)(object)6UL;
         }
-        return T.Create(6);
+        return T.CreateChecked(6);
     }
 
     /// <summary>8</summary>
-    public static T Eight<T>() where T : INumber<T>
+    public static T Eight<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -433,11 +435,11 @@ public static class NumberValues
         {
             return (T)(object)8UL;
         }
-        return T.Create(8);
+        return T.CreateChecked(8);
     }
 
     /// <summary>10</summary>
-    public static T Ten<T>() where T : INumber<T>
+    public static T Ten<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -491,11 +493,11 @@ public static class NumberValues
         {
             return (T)(object)10UL;
         }
-        return T.Create(10);
+        return T.CreateChecked(10);
     }
 
     /// <summary>100</summary>
-    public static T Hundred<T>() where T : INumber<T>
+    public static T Hundred<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -549,11 +551,11 @@ public static class NumberValues
         {
             return (T)(object)100UL;
         }
-        return T.Create(100);
+        return T.CreateChecked(100);
     }
 
     /// <summary>180</summary>
-    public static T OneHundredEighty<T>() where T : INumber<T>
+    public static T OneHundredEighty<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
@@ -589,7 +591,7 @@ public static class NumberValues
         }
         if (typeof(T) == typeof(sbyte))
         {
-            return (T)(object)180;
+            throw new ArgumentOutOfRangeException();
         }
         if (typeof(T) == typeof(short))
         {
@@ -607,15 +609,15 @@ public static class NumberValues
         {
             return (T)(object)180UL;
         }
-        return T.Create(180);
+        return T.CreateChecked(180);
     }
 
     /// <summary>1000</summary>
-    public static T Thousand<T>() where T : INumber<T>
+    public static T Thousand<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
-            return (T)(object)1000;
+            throw new ArgumentOutOfRangeException();
         }
         if (typeof(T) == typeof(decimal))
         {
@@ -647,7 +649,7 @@ public static class NumberValues
         }
         if (typeof(T) == typeof(sbyte))
         {
-            return (T)(object)1000;
+            throw new ArgumentOutOfRangeException();
         }
         if (typeof(T) == typeof(short))
         {
@@ -665,15 +667,15 @@ public static class NumberValues
         {
             return (T)(object)1000UL;
         }
-        return T.Create(1000);
+        return T.CreateChecked(1000);
     }
 
     /// <summary>10000</summary>
-    public static T TenThousand<T>() where T : INumber<T>
+    public static T TenThousand<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(byte))
         {
-            return (T)(object)10000;
+            throw new ArgumentOutOfRangeException();
         }
         if (typeof(T) == typeof(decimal))
         {
@@ -705,7 +707,7 @@ public static class NumberValues
         }
         if (typeof(T) == typeof(sbyte))
         {
-            return (T)(object)10000;
+            throw new ArgumentOutOfRangeException();
         }
         if (typeof(T) == typeof(short))
         {
@@ -723,11 +725,11 @@ public static class NumberValues
         {
             return (T)(object)10000UL;
         }
-        return T.Create(10000);
+        return T.CreateChecked(10000);
     }
 
     /// <summary>∞</summary>
-    public static T PositiveInfinity<T>() where T : IFloatingPoint<T> => T.PositiveInfinity;
+    public static T PositiveInfinity<T>() where T : IFloatingPointIeee754<T> => T.PositiveInfinity;
 
     #endregion Numbers
 
@@ -736,10 +738,10 @@ public static class NumberValues
     /// <summary>
     /// The natural logarithmic base, specified by the constant, e.
     /// </summary>
-    public static T E<T>() where T : IFloatingPoint<T> => T.E;
+    public static T E<T>() where T : IFloatingPointConstants<T> => T.E;
 
     /// <summary>1/e</summary>
-    public static T InverseE<T>() where T : IFloatingPoint<T>
+    public static T InverseE<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -761,7 +763,7 @@ public static class NumberValues
     #region Pi / Tau
 
     /// <summary>1/8π</summary>
-    public static T EighthPi<T>() where T : IFloatingPoint<T>
+    public static T EighthPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -779,7 +781,7 @@ public static class NumberValues
     }
 
     /// <summary>4π</summary>
-    public static T FourPi<T>() where T : IFloatingPoint<T>
+    public static T FourPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -793,11 +795,11 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.FourPi;
         }
-        return T.Pi / Four<T>();
+        return T.Tau * Two<T>();
     }
 
     /// <summary>π+⅓π</summary>
-    public static T FourThirdsPi<T>() where T : IFloatingPoint<T>
+    public static T FourThirdsPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -811,11 +813,11 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.FourThirdsPi;
         }
-        return T.Pi * Four<T>() / Three<T>();
+        return T.Tau * Two<T>() / Three<T>();
     }
 
     /// <summary>½π</summary>
-    public static T HalfPi<T>() where T : IFloatingPoint<T>
+    public static T HalfPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -833,7 +835,7 @@ public static class NumberValues
     }
 
     /// <summary>1/π</summary>
-    public static T InversePi<T>() where T : IFloatingPoint<T>
+    public static T InversePi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -851,7 +853,7 @@ public static class NumberValues
     }
 
     /// <summary>180/π</summary>
-    public static T OneEightyOverPi<T>() where T : IFloatingPoint<T>
+    public static T OneEightyOverPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -869,7 +871,7 @@ public static class NumberValues
     }
 
     /// <summary>π/180</summary>
-    public static T PiOver180<T>() where T : IFloatingPoint<T>
+    public static T PiOver180<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -887,7 +889,7 @@ public static class NumberValues
     }
 
     /// <summary>π²</summary>
-    public static T PiSquared<T>() where T : IFloatingPoint<T>
+    public static T PiSquared<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -905,7 +907,7 @@ public static class NumberValues
     }
 
     /// <summary>¼π</summary>
-    public static T QuarterPi<T>() where T : IFloatingPoint<T>
+    public static T QuarterPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -923,7 +925,7 @@ public static class NumberValues
     }
 
     /// <summary>1/6π</summary>
-    public static T SixthPi<T>() where T : IFloatingPoint<T>
+    public static T SixthPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -941,7 +943,7 @@ public static class NumberValues
     }
 
     /// <summary>⅓π</summary>
-    public static T ThirdPi<T>() where T : IFloatingPoint<T>
+    public static T ThirdPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -959,7 +961,7 @@ public static class NumberValues
     }
 
     /// <summary>3π</summary>
-    public static T ThreePi<T>() where T : IFloatingPoint<T>
+    public static T ThreePi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -973,11 +975,11 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.ThreePi;
         }
-        return T.Pi + T.Pi + T.Pi;
+        return T.Tau + T.Pi;
     }
 
-    /// <summary>3/2π</summary>
-    public static T ThreeHalvesPi<T>() where T : IFloatingPoint<T>
+    /// <summary>3π/2</summary>
+    public static T ThreeHalvesPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -994,8 +996,8 @@ public static class NumberValues
         return ThreePi<T>() / Two<T>();
     }
 
-    /// <summary>3/4π</summary>
-    public static T ThreeQuartersPi<T>() where T : IFloatingPoint<T>
+    /// <summary>3π/4</summary>
+    public static T ThreeQuartersPi<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1013,7 +1015,7 @@ public static class NumberValues
     }
 
     /// <summary>2π²</summary>
-    public static T TwoPiSquared<T>() where T : IFloatingPoint<T>
+    public static T TwoPiSquared<T>() where T : IFloatingPointConstants<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1035,7 +1037,7 @@ public static class NumberValues
     /// <summary>
     /// The natural logarithm of 2.
     /// </summary>
-    public static T Ln2<T>() where T : IFloatingPoint<T>
+    public static T Ln2<T>() where T : ILogarithmicFunctions<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1055,7 +1057,7 @@ public static class NumberValues
     /// <summary>
     /// The natural logarithm of 10.
     /// </summary>
-    public static T Ln10<T>() where T : IFloatingPoint<T>
+    public static T Ln10<T>() where T : ILogarithmicFunctions<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1075,7 +1077,7 @@ public static class NumberValues
     /// <summary>
     /// Represents the golden ratio, specified by the constant, φ.
     /// </summary>
-    public static T Phi<T>() where T : IFloatingPoint<T>
+    public static T Phi<T>() where T : IRootFunctions<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1093,7 +1095,7 @@ public static class NumberValues
     }
 
     /// <summary>√2</summary>
-    public static T Root2<T>() where T : IFloatingPoint<T>
+    public static T Root2<T>() where T : IRootFunctions<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1129,7 +1131,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.AvogadroConstant;
         }
-        return T.Create(DoubleConstants.AvogadroConstant);
+        return T.CreateChecked(DoubleConstants.AvogadroConstant);
     }
 
     /// <summary>
@@ -1149,7 +1151,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.BoltzmannConstant;
         }
-        return T.Create(DoubleConstants.BoltzmannConstant);
+        return T.CreateChecked(DoubleConstants.BoltzmannConstant);
     }
 
     /// <summary>
@@ -1169,7 +1171,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.ElectronMass;
         }
-        return T.Create(DoubleConstants.ElectronMass);
+        return T.CreateChecked(DoubleConstants.ElectronMass);
     }
 
     /// <summary>
@@ -1189,7 +1191,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.ElementaryCharge;
         }
-        return T.Create(DoubleConstants.ElementaryCharge);
+        return T.CreateChecked(DoubleConstants.ElementaryCharge);
     }
 
     /// <summary>
@@ -1209,7 +1211,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.GravitationalConstant;
         }
-        return T.Create(DoubleConstants.GravitationalConstant);
+        return T.CreateChecked(DoubleConstants.GravitationalConstant);
     }
 
     /// <summary>
@@ -1253,13 +1255,13 @@ public static class NumberValues
         {
             return (T)(object)DoubleConstants.HeatOfVaporizationOfWater;
         }
-        return T.Create(DoubleConstants.HeatOfVaporizationOfWater);
+        return T.CreateChecked(DoubleConstants.HeatOfVaporizationOfWater);
     }
 
     /// <summary>
     /// The distance light travels in a Julian year, in m.
     /// </summary>
-    public static T LightYear<T>() where T : INumber<T>
+    public static T LightYear<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1281,7 +1283,7 @@ public static class NumberValues
         {
             return (T)(object)DoubleConstants.LightYear;
         }
-        return T.Create(DoubleConstants.LightYear);
+        return T.CreateChecked(DoubleConstants.LightYear);
     }
 
     /// <summary>
@@ -1301,7 +1303,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.MolarMassOfAir;
         }
-        return T.Create(DoubleConstants.MolarMassOfAir);
+        return T.CreateChecked(DoubleConstants.MolarMassOfAir);
     }
 
     /// <summary>
@@ -1321,7 +1323,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.NeutronMass;
         }
-        return T.Create(DoubleConstants.NeutronMass);
+        return T.CreateChecked(DoubleConstants.NeutronMass);
     }
 
     /// <summary>
@@ -1341,7 +1343,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.PlanckConstant;
         }
-        return T.Create(DoubleConstants.PlanckConstant);
+        return T.CreateChecked(DoubleConstants.PlanckConstant);
     }
 
     /// <summary>
@@ -1361,13 +1363,13 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.ProtonMass;
         }
-        return T.Create(DoubleConstants.ProtonMass);
+        return T.CreateChecked(DoubleConstants.ProtonMass);
     }
 
     /// <summary>
     /// The specific gas constant of dry air, in SI base units.
     /// </summary>
-    public static T SpecificGasConstantOfDryAir<T>() where T : INumber<T>
+    public static T SpecificGasConstantOfDryAir<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1413,7 +1415,7 @@ public static class NumberValues
         {
             return (T)(object)DoubleConstants.SpecificGasConstantOfDryAir;
         }
-        return T.Create(DoubleConstants.SpecificGasConstantOfDryAir);
+        return T.CreateChecked(DoubleConstants.SpecificGasConstantOfDryAir);
     }
 
     /// <summary>
@@ -1433,7 +1435,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.SpecificGasConstantOfWater;
         }
-        return T.Create(DoubleConstants.SpecificGasConstantOfWater);
+        return T.CreateChecked(DoubleConstants.SpecificGasConstantOfWater);
     }
 
     /// <summary>
@@ -1453,13 +1455,13 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.SpecificHeatOfDryAir;
         }
-        return T.Create(DoubleConstants.SpecificHeatOfDryAir);
+        return T.CreateChecked(DoubleConstants.SpecificHeatOfDryAir);
     }
 
     /// <summary>
     /// The speed of light in a vacuum, in m/s.
     /// </summary>
-    public static T SpeedOfLight<T>() where T : INumber<T>
+    public static T SpeedOfLight<T>() where T : INumberBase<T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1497,13 +1499,13 @@ public static class NumberValues
         {
             return (T)(object)DoubleConstants.SpeedOfLight;
         }
-        return T.Create(DoubleConstants.SpeedOfLight);
+        return T.CreateChecked(DoubleConstants.SpeedOfLight);
     }
 
     /// <summary>
     /// The speed of light in a vacuum, squared, in m/s.
     /// </summary>
-    public static T SpeedOfLightSquared<T>() where T : IFloatingPoint<T>
+    public static T SpeedOfLightSquared<T>() where T : INumberBase<T>, IMultiplyOperators<T, T, T>
     {
         if (typeof(T) == typeof(decimal))
         {
@@ -1537,7 +1539,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.StandardAtmosphericPressure;
         }
-        return T.Create(DoubleConstants.StandardAtmosphericPressure);
+        return T.CreateChecked(DoubleConstants.StandardAtmosphericPressure);
     }
 
     /// <summary>
@@ -1557,7 +1559,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.StefanBoltzmannConstant;
         }
-        return T.Create(DoubleConstants.StefanBoltzmannConstant);
+        return T.CreateChecked(DoubleConstants.StefanBoltzmannConstant);
     }
 
     /// <summary>
@@ -1577,7 +1579,7 @@ public static class NumberValues
         {
             return (T)(object)FloatConstants.UniversalGasConstant;
         }
-        return T.Create(DoubleConstants.UniversalGasConstant);
+        return T.CreateChecked(DoubleConstants.UniversalGasConstant);
     }
 
     #endregion Science

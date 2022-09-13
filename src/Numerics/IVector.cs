@@ -7,7 +7,7 @@
 public interface IVector<TSelf, TScalar> :
     IAdditionOperators<TSelf, TSelf, TSelf>,
     IAdditiveIdentity<TSelf, TSelf>,
-    IComparisonOperators<TSelf, TSelf>,
+    IComparisonOperators<TSelf, TSelf, bool>,
     IDivisionOperators<TSelf, TSelf, TSelf>,
     IMultiplyOperators<TSelf, TSelf, TSelf>,
     IMultiplicativeIdentity<TSelf, TSelf>,

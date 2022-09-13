@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a geometric shape.
 /// </summary>
 [JsonConverter(typeof(ShapeConverterFactory))]
-public interface IShape<TScalar> : IEquatable<IShape<TScalar>> where TScalar : IFloatingPoint<TScalar>
+public interface IShape<TScalar> : IEquatable<IShape<TScalar>> where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// A circular radius which fully contains the shape.

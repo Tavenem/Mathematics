@@ -8,7 +8,7 @@ namespace Tavenem.Mathematics;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The number of values represented by this vector.
@@ -601,9 +601,9 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// <param name="value">The value to convert.</param>
     public static implicit operator Vector3<TScalar>(Vector3 value) => new()
     {
-        X = TScalar.Create(value.X),
-        Y = TScalar.Create(value.Y),
-        Z = TScalar.Create(value.Z),
+        X = TScalar.CreateChecked(value.X),
+        Y = TScalar.CreateChecked(value.Y),
+        Z = TScalar.CreateChecked(value.Z),
     };
 
     /// <summary>
@@ -611,9 +611,9 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector3(Vector3<TScalar> value) => new(
-        value.X.Create<TScalar, float>(),
-        value.Y.Create<TScalar, float>(),
-        value.Z.Create<TScalar, float>());
+        value.X.CreateChecked<TScalar, float>(),
+        value.Y.CreateChecked<TScalar, float>(),
+        value.Z.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a vector whose elements are the absolute values of each of this instance's

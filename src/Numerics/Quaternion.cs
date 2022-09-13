@@ -11,14 +11,14 @@ namespace Tavenem.Mathematics;
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Quaternion<TScalar> :
     IAdditionOperators<Quaternion<TScalar>, Quaternion<TScalar>, Quaternion<TScalar>>,
-    IEqualityOperators<Quaternion<TScalar>, Quaternion<TScalar>>,
+    IEqualityOperators<Quaternion<TScalar>, Quaternion<TScalar>, bool>,
     IMultiplicativeIdentity<Quaternion<TScalar>, Quaternion<TScalar>>,
     IMultiplyOperators<Quaternion<TScalar>, Quaternion<TScalar>, Quaternion<TScalar>>,
     IMultiplyOperators<Quaternion<TScalar>, TScalar, Quaternion<TScalar>>,
     ISpanFormattable,
     ISubtractionOperators<Quaternion<TScalar>, Quaternion<TScalar>, Quaternion<TScalar>>,
     IUnaryNegationOperators<Quaternion<TScalar>, Quaternion<TScalar>>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// Returns a quaternion representing no rotation.
@@ -707,10 +707,10 @@ public readonly struct Quaternion<TScalar> :
     /// <param name="value">The value to convert.</param>
     public static implicit operator Quaternion<TScalar>(Quaternion value) => new()
     {
-        X = TScalar.Create(value.X),
-        Y = TScalar.Create(value.Y),
-        Z = TScalar.Create(value.Z),
-        W = TScalar.Create(value.W),
+        X = TScalar.CreateChecked(value.X),
+        Y = TScalar.CreateChecked(value.Y),
+        Z = TScalar.CreateChecked(value.Z),
+        W = TScalar.CreateChecked(value.W),
     };
 
     /// <summary>
@@ -718,10 +718,10 @@ public readonly struct Quaternion<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Quaternion(Quaternion<TScalar> value) => new(
-        value.X.Create<TScalar, float>(),
-        value.Y.Create<TScalar, float>(),
-        value.Z.Create<TScalar, float>(),
-        value.W.Create<TScalar, float>());
+        value.X.CreateChecked<TScalar, float>(),
+        value.Y.CreateChecked<TScalar, float>(),
+        value.Z.CreateChecked<TScalar, float>(),
+        value.W.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether the given quaternion is equal to this quaternion instance.

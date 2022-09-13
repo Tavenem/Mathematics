@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Numerics;
 
 namespace Tavenem.Mathematics;
 
@@ -7,9 +8,9 @@ namespace Tavenem.Mathematics;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Plane<TScalar> :
-    IEqualityOperators<Plane<TScalar>, Plane<TScalar>>,
+    IEqualityOperators<Plane<TScalar>, Plane<TScalar>, bool>,
     ISpanFormattable
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The normal vector of the plane.
@@ -457,26 +458,26 @@ public readonly struct Plane<TScalar> :
     /// Converts between implementations of planes.
     /// </summary>
     /// <param name="value">The value to convert.</param>
-    public static implicit operator Plane<TScalar>(System.Numerics.Plane value) => new()
+    public static implicit operator Plane<TScalar>(Plane value) => new()
     {
         Normal = new()
         {
-            X = TScalar.Create(value.Normal.X),
-            Y = TScalar.Create(value.Normal.Y),
-            Z = TScalar.Create(value.Normal.Z),
+            X = TScalar.CreateChecked(value.Normal.X),
+            Y = TScalar.CreateChecked(value.Normal.Y),
+            Z = TScalar.CreateChecked(value.Normal.Z),
         },
-        D = TScalar.Create(value.D),
+        D = TScalar.CreateChecked(value.D),
     };
 
     /// <summary>
     /// Converts between implementations of planes.
     /// </summary>
     /// <param name="value">The value to convert.</param>
-    public static explicit operator System.Numerics.Plane(Plane<TScalar> value) => new(
-        value.Normal.X.Create<TScalar, float>(),
-        value.Normal.Y.Create<TScalar, float>(),
-        value.Normal.Z.Create<TScalar, float>(),
-        value.D.Create<TScalar, float>());
+    public static explicit operator Plane(Plane<TScalar> value) => new(
+        value.Normal.X.CreateChecked<TScalar, float>(),
+        value.Normal.Y.CreateChecked<TScalar, float>(),
+        value.Normal.Z.CreateChecked<TScalar, float>(),
+        value.D.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether the given plane is equal to this plane instance.

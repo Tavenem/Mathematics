@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a rectangular (view) frustum.
 /// </summary>
 public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The ratio of the horizontal (x-axis) angle to the vertical (y-axis) angle.
@@ -256,7 +257,8 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
             fieldOfViewAngle,
             nearPlaneDistance,
             position,
-            Quaternion<TScalar>.MultiplicativeIdentity) { }
+            Quaternion<TScalar>.MultiplicativeIdentity)
+    { }
 
     /// <summary>
     /// Initializes a new instance of frustum with the given parameters.
@@ -286,7 +288,8 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
             fieldOfViewAngle,
             nearPlaneDistance,
             Vector3<TScalar>.Zero,
-            Quaternion<TScalar>.MultiplicativeIdentity) { }
+            Quaternion<TScalar>.MultiplicativeIdentity)
+    { }
 
     /// <summary>
     /// Initializes a new instance of frustum.
@@ -295,7 +298,8 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
         TScalar.Zero,
         Vector3<TScalar>.Zero,
         TScalar.Zero,
-        TScalar.Zero) { }
+        TScalar.Zero)
+    { }
 
     private static TScalar GetDistance(
         Frustum<TScalar> frustum,

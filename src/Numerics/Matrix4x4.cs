@@ -10,14 +10,14 @@ namespace Tavenem.Mathematics;
 [DebuggerDisplay("{ToString()}")]
 public struct Matrix4x4<TScalar> :
     IAdditionOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
-    IEqualityOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
+    IEqualityOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, bool>,
     IMultiplicativeIdentity<Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
     IMultiplyOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
     IMultiplyOperators<Matrix4x4<TScalar>, TScalar, Matrix4x4<TScalar>>,
     ISpanFormattable,
     ISubtractionOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
     IUnaryNegationOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// Returns the multiplicative identity matrix.
@@ -2032,22 +2032,22 @@ public struct Matrix4x4<TScalar> :
     /// <param name="value">The value to convert.</param>
     public static implicit operator Matrix4x4<TScalar>(Matrix4x4 value) => new()
     {
-        M11 = TScalar.Create(value.M11),
-        M12 = TScalar.Create(value.M12),
-        M13 = TScalar.Create(value.M13),
-        M14 = TScalar.Create(value.M14),
-        M21 = TScalar.Create(value.M21),
-        M22 = TScalar.Create(value.M22),
-        M23 = TScalar.Create(value.M23),
-        M24 = TScalar.Create(value.M24),
-        M31 = TScalar.Create(value.M31),
-        M32 = TScalar.Create(value.M32),
-        M33 = TScalar.Create(value.M33),
-        M34 = TScalar.Create(value.M34),
-        M41 = TScalar.Create(value.M41),
-        M42 = TScalar.Create(value.M42),
-        M43 = TScalar.Create(value.M43),
-        M44 = TScalar.Create(value.M44),
+        M11 = TScalar.CreateChecked(value.M11),
+        M12 = TScalar.CreateChecked(value.M12),
+        M13 = TScalar.CreateChecked(value.M13),
+        M14 = TScalar.CreateChecked(value.M14),
+        M21 = TScalar.CreateChecked(value.M21),
+        M22 = TScalar.CreateChecked(value.M22),
+        M23 = TScalar.CreateChecked(value.M23),
+        M24 = TScalar.CreateChecked(value.M24),
+        M31 = TScalar.CreateChecked(value.M31),
+        M32 = TScalar.CreateChecked(value.M32),
+        M33 = TScalar.CreateChecked(value.M33),
+        M34 = TScalar.CreateChecked(value.M34),
+        M41 = TScalar.CreateChecked(value.M41),
+        M42 = TScalar.CreateChecked(value.M42),
+        M43 = TScalar.CreateChecked(value.M43),
+        M44 = TScalar.CreateChecked(value.M44),
     };
 
     /// <summary>
@@ -2055,22 +2055,22 @@ public struct Matrix4x4<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Matrix4x4(Matrix4x4<TScalar> value) => new(
-        value.M11.Create<TScalar, float>(),
-        value.M12.Create<TScalar, float>(),
-        value.M13.Create<TScalar, float>(),
-        value.M14.Create<TScalar, float>(),
-        value.M21.Create<TScalar, float>(),
-        value.M22.Create<TScalar, float>(),
-        value.M23.Create<TScalar, float>(),
-        value.M24.Create<TScalar, float>(),
-        value.M31.Create<TScalar, float>(),
-        value.M32.Create<TScalar, float>(),
-        value.M33.Create<TScalar, float>(),
-        value.M34.Create<TScalar, float>(),
-        value.M41.Create<TScalar, float>(),
-        value.M42.Create<TScalar, float>(),
-        value.M43.Create<TScalar, float>(),
-        value.M44.Create<TScalar, float>());
+        value.M11.CreateChecked<TScalar, float>(),
+        value.M12.CreateChecked<TScalar, float>(),
+        value.M13.CreateChecked<TScalar, float>(),
+        value.M14.CreateChecked<TScalar, float>(),
+        value.M21.CreateChecked<TScalar, float>(),
+        value.M22.CreateChecked<TScalar, float>(),
+        value.M23.CreateChecked<TScalar, float>(),
+        value.M24.CreateChecked<TScalar, float>(),
+        value.M31.CreateChecked<TScalar, float>(),
+        value.M32.CreateChecked<TScalar, float>(),
+        value.M33.CreateChecked<TScalar, float>(),
+        value.M34.CreateChecked<TScalar, float>(),
+        value.M41.CreateChecked<TScalar, float>(),
+        value.M42.CreateChecked<TScalar, float>(),
+        value.M43.CreateChecked<TScalar, float>(),
+        value.M44.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether this matrix instance is equal to the other given matrix.

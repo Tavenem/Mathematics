@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Numerics;
 using System.Text;
 
 namespace Tavenem.Mathematics;
@@ -13,7 +14,7 @@ internal static class VectorCommon
     /// <returns>The absolute value vector.</returns>
     public static TSelf Abs<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -31,7 +32,7 @@ internal static class VectorCommon
     /// <param name="max">The maximum value.</param>
     public static TSelf Clamp<TSelf, TScalar>(TSelf value1, TSelf min, TSelf max)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -51,7 +52,7 @@ internal static class VectorCommon
     /// <returns>The distance.</returns>
     public static TScalar Distance<TSelf, TScalar>(TSelf value1, TSelf value2)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
         => TScalar.Sqrt(DistanceSquared<TSelf, TScalar>(value1, value2));
 
     /// <summary>
@@ -62,7 +63,7 @@ internal static class VectorCommon
     /// <returns>The distance squared.</returns>
     public static TScalar DistanceSquared<TSelf, TScalar>(TSelf value1, TSelf value2)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var sum = TScalar.Zero;
         for (var i = 0; i < TSelf.Count; i++)
@@ -80,7 +81,7 @@ internal static class VectorCommon
     /// <returns>The dot product.</returns>
     public static TScalar Dot<TSelf, TScalar>(TSelf left, TSelf right)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var sum = TScalar.Zero;
         for (var i = 0; i < TSelf.Count; i++)
@@ -100,7 +101,7 @@ internal static class VectorCommon
     /// </returns>
     public static bool IsNearlyZero<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         for (var i = 0; i < TSelf.Count; i++)
         {
@@ -118,7 +119,7 @@ internal static class VectorCommon
     /// <returns>The vector's length.</returns>
     public static TScalar Length<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar> => TScalar.Sqrt(LengthSquared<TSelf, TScalar>(value));
+        where TScalar : IFloatingPointIeee754<TScalar> => TScalar.Sqrt(LengthSquared<TSelf, TScalar>(value));
 
     /// <summary>
     /// Returns the length of the vector squared.
@@ -126,7 +127,7 @@ internal static class VectorCommon
     /// <returns>The vector's length squared.</returns>
     public static TScalar LengthSquared<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar> => Dot<TSelf, TScalar>(value, value);
+        where TScalar : IFloatingPointIeee754<TScalar> => Dot<TSelf, TScalar>(value, value);
 
     /// <summary>
     /// Linearly interpolates between two vectors based on the given weighting.
@@ -138,7 +139,7 @@ internal static class VectorCommon
     /// <returns>The interpolated vector.</returns>
     public static TSelf Lerp<TSelf, TScalar>(TSelf value1, TSelf value2, TScalar amount)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -157,7 +158,7 @@ internal static class VectorCommon
     /// <returns>The maximized vector</returns>
     public static TSelf Max<TSelf, TScalar>(TSelf left, TSelf right)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -176,7 +177,7 @@ internal static class VectorCommon
     /// <returns>The minimized vector.</returns>
     public static TSelf Min<TSelf, TScalar>(TSelf left, TSelf right)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -193,7 +194,7 @@ internal static class VectorCommon
     /// <returns>The normalized vector.</returns>
     public static TSelf Normalize<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var ls = TSelf.Dot(value, value);
         var norm = TScalar.Sqrt(ls);
@@ -214,7 +215,7 @@ internal static class VectorCommon
     /// <returns>The reflected vector.</returns>
     public static TSelf Reflect<TSelf, TScalar>(TSelf vector, TSelf normal)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var dot = Dot<TSelf, TScalar>(vector, normal);
 
@@ -235,7 +236,7 @@ internal static class VectorCommon
     /// <returns>The square root vector.</returns>
     public static TSelf SquareRoot<TSelf, TScalar>(TSelf value)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var elements = new TScalar[TSelf.Count];
         for (var i = 0; i < TSelf.Count; i++)
@@ -255,7 +256,7 @@ internal static class VectorCommon
     /// </exception>
     public static void CopyTo<TSelf, TScalar>(TSelf value, TScalar[] destination)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (destination.Length < TSelf.Count)
         {
@@ -283,7 +284,7 @@ internal static class VectorCommon
     /// </exception>
     public static void CopyTo<TSelf, TScalar>(TSelf value, TScalar[] destination, int startIndex)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (destination.Length < TSelf.Count)
         {
@@ -309,7 +310,7 @@ internal static class VectorCommon
     /// <exception cref="ArgumentException"></exception>
     public static void CopyTo<TSelf, TScalar>(TSelf value, Span<TScalar> destination)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (!TryCopyTo(value, destination))
         {
@@ -331,7 +332,7 @@ internal static class VectorCommon
     /// <returns>The <see cref="string"/> representation.</returns>
     public static string ToString<TSelf, TScalar>(TSelf value, string? format, IFormatProvider? formatProvider)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         var sb = new StringBuilder()
           .Append('<');
@@ -355,7 +356,7 @@ internal static class VectorCommon
     /// <param name="destination">An array.</param>
     public static bool TryCopyTo<TSelf, TScalar>(TSelf value, Span<TScalar> destination)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         if (destination.Length < TSelf.Count)
         {
@@ -391,7 +392,7 @@ internal static class VectorCommon
         ReadOnlySpan<char> format,
         IFormatProvider? provider)
         where TSelf : ISpatialVector<TSelf, TScalar>
-        where TScalar : IFloatingPoint<TScalar>
+        where TScalar : IFloatingPointIeee754<TScalar>
     {
         charsWritten = 0;
         if (destination.Length < 2 + TSelf.Count - 1)

@@ -53,7 +53,7 @@ public static class FloatConstants
     /// <summary>
     /// π+⅓π
     /// </summary>
-    public const float FourThirdsPi = Pi * 4 / 3;
+    public const float FourThirdsPi = Tau * 2 / 3;
 
     /// <summary>
     /// ½π

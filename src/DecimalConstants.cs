@@ -53,7 +53,7 @@ public static class DecimalConstants
     /// <summary>
     /// π+⅓π
     /// </summary>
-    public const decimal FourThirdsPi = Pi * 4 / 3;
+    public const decimal FourThirdsPi = Tau * 2 / 3;
 
     /// <summary>
     /// ½π

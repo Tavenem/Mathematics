@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Numerics;
 using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
@@ -10,18 +11,38 @@ namespace Tavenem.Mathematics;
 /// </summary>
 [JsonConverter(typeof(Converters.FloatRangeConverter))]
 [DebuggerDisplay("{ToString()}")]
-public readonly struct FloatRange : IEquatable<FloatRange>
+public readonly struct FloatRange :
+    IEquatable<FloatRange>,
+    IEqualityOperators<FloatRange, FloatRange, bool>,
+    IFormattable,
+    IMinMaxValue<FloatRange>,
+    IParsable<FloatRange>
 {
+    /// <summary>
+    /// A <see cref="FloatRange"/> with all values set to <see cref="float.MaxValue"/>.
+    /// </summary>
+    public static FloatRange MaxValue { get; } = new(float.MaxValue, float.MaxValue, float.MaxValue);
+
+    /// <summary>
+    /// A <see cref="FloatRange"/> with all values set to <see cref="float.MinValue"/>.
+    /// </summary>
+    public static FloatRange MinValue { get; } = new(float.MinValue, float.MinValue, float.MinValue);
+
+    /// <summary>
+    /// A <see cref="FloatRange"/> with all values set to one.
+    /// </summary>
+    public static FloatRange One { get; } = new(1f, 1f, 1f);
+
     /// <summary>
     /// A <see cref="FloatRange"/> with all values set to zero.
     /// </summary>
-    public static readonly FloatRange Zero;
+    public static FloatRange Zero { get; } = new();
 
     /// <summary>
     /// A <see cref="FloatRange"/> with the minimum set to 0, the average set to 0.5, and the
     /// maximum set to 1.
     /// </summary>
-    public static readonly FloatRange ZeroToOne = new(0, 1);
+    public static FloatRange ZeroToOne { get; } = new(0f, 0.5f, 1f);
 
     /// <summary>
     /// The average value.
@@ -31,6 +52,10 @@ public readonly struct FloatRange : IEquatable<FloatRange>
     /// <summary>
     /// Whether this range begins and ends at zero.
     /// </summary>
+    /// <remarks>
+    /// Uses <see cref="Extensions.IsNearlyZero(float)"/> to determine near-equivalence with zero,
+    /// rather than strict equality.
+    /// </remarks>
     public bool IsZero => Min.IsNearlyZero() && Max.IsNearlyZero();
 
     /// <summary>
@@ -52,10 +77,13 @@ public readonly struct FloatRange : IEquatable<FloatRange>
         : Max - Min;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="FloatRange"/> with  set to the same value.
+    /// Initializes a new instance of <see cref="FloatRange"/> with all properties set to the same
+    /// value.
     /// </summary>
-    /// <param name="value">The value to set for all three properties (<see cref="Average"/>,
-    /// <see cref="Min"/> and <see cref="Max"/>).</param>
+    /// <param name="value">
+    /// The value to set for all three properties (<see cref="Average"/>, <see cref="Min"/> and <see
+    /// cref="Max"/>).
+    /// </param>
     public FloatRange(float value) : this(value, value, value) { }
 
     /// <summary>
@@ -63,6 +91,10 @@ public readonly struct FloatRange : IEquatable<FloatRange>
     /// </summary>
     /// <param name="min">The value at which <see cref="Min"/> is to be set.</param>
     /// <param name="max">The value at which <see cref="Max"/> is to be set.</param>
+    /// <remarks>
+    /// <see cref="Average"/> is set to the mathematical average of <paramref name="min"/> and
+    /// <paramref name="max"/>.
+    /// </remarks>
     public FloatRange(float min, float max) : this(min, (min + max) / 2, max) { }
 
     /// <summary>
@@ -71,6 +103,11 @@ public readonly struct FloatRange : IEquatable<FloatRange>
     /// <param name="min">The value at which <see cref="Min"/> is to be set.</param>
     /// <param name="average">The value at which <see cref="Average"/> is to be set.</param>
     /// <param name="max">The value at which <see cref="Max"/> is to be set.</param>
+    /// <remarks>
+    /// The relationship of <paramref name="average"/> to <paramref name="min"/> and <paramref
+    /// name="max"/> is not checked. When using this constructor, it is left to the implementer to
+    /// verify that the given average satisfies any requirements for its usage.
+    /// </remarks>
     public FloatRange(float min, float average, float max)
     {
         Average = average;

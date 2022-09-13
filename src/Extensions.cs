@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
-using static Tavenem.Mathematics.Extensions;
 
 namespace Tavenem.Mathematics;
 
@@ -18,7 +17,7 @@ public static class Extensions
     /// <returns>
     /// The absolute value of the given number.
     /// </returns>
-    public static T Abs<T>(this T value) where T : INumber<T> => T.Abs(value);
+    public static T Abs<T>(this T value) where T : INumberBase<T> => T.Abs(value);
 
     /// <summary>
     /// Returns the angle whose cosine is the specified number.
@@ -33,12 +32,12 @@ public static class Extensions
     /// An angle, θ, measured in radians, such that 0 ≤ θ ≤ π.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
     /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Acos<T>(this T x) where T : IFloatingPoint<T> => T.Acos(x);
+    public static T Acos<T>(this T x) where T : ITrigonometricFunctions<T> => T.Acos(x);
 
     /// <summary>
     /// Returns the angle whose hyperbolic cosine is the specified number.
@@ -46,19 +45,19 @@ public static class Extensions
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">
     /// A number representing a hyperbolic cosine, where x must be greater than or equal to 1,
-    /// but less than or equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// but less than or equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>.
     /// </param>
     /// <returns>
     /// <para>
     /// An angle, θ, measured in radians, such that 0 ≤ θ ≤ ∞.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; 1 or
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> &lt; 1 or
     /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Acosh<T>(this T x) where T : IFloatingPoint<T> => T.Acosh(x);
+    public static T Acosh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Acosh(x);
 
     /// <summary>
     /// Computes the angle between two vectors.
@@ -82,12 +81,12 @@ public static class Extensions
     /// An angle, θ, measured in radians, such that -π/2 ≤ θ ≤ π/2.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or
     /// <paramref name="x"/> &gt; 1 or <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Asin<T>(this T x) where T : IFloatingPoint<T> => T.Asin(x);
+    public static T Asin<T>(this T x) where T : ITrigonometricFunctions<T> => T.Asin(x);
 
     /// <summary>
     /// Returns the angle whose hyperbolic sine is the specified number.
@@ -95,19 +94,19 @@ public static class Extensions
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">
     /// A number representing a hyperbolic sine, where x must be greater than or equal to
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, but less than or equal to
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, but less than or equal to
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>.
     /// </param>
     /// <returns>
     /// <para>
     /// An angle, θ, measured in radians, such that -∞ &lt; θ ≤ -1, or 1 ≤ θ &lt; ∞.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Asinh<T>(this T x) where T : IFloatingPoint<T> => T.Asinh(x);
+    public static T Asinh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Asinh(x);
 
     /// <summary>
     /// Returns the angle whose tangent is the specified number.
@@ -119,13 +118,13 @@ public static class Extensions
     /// An angle, θ, measured in radians, such that -π/2 ≤ θ ≤ π/2.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>, -π/2 if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or π/2 if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>, -π/2 if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or π/2 if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>.
     /// </para>
     /// </returns>
-    public static T Atan<T>(this T x) where T : IFloatingPoint<T> => T.Atan(x);
+    public static T Atan<T>(this T x) where T : ITrigonometricFunctions<T> => T.Atan(x);
 
     /// <summary>
     /// Returns the angle whose tangent is the quotient of two specified numbers.
@@ -172,12 +171,12 @@ public static class Extensions
     /// - If <paramref name="y"/> is 0 and <paramref name="x"/> is 0, θ = 0.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> or <paramref name="y"/> is <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// or if <paramref name="x"/> and <paramref name="y"/> are either <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>
-    /// or <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, the method returns <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// If <paramref name="x"/> or <paramref name="y"/> is <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// or if <paramref name="x"/> and <paramref name="y"/> are either <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>
+    /// or <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, the method returns <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Atan2<T>(this T y, T x) where T : IFloatingPoint<T> => T.Atan2(y, x);
+    public static T Atan2<T>(this T y, T x) where T : IFloatingPointIeee754<T> => T.Atan2(y, x);
 
     /// <summary>
     /// Returns the angle whose hyperbolic tangent is the specified number.
@@ -192,11 +191,11 @@ public static class Extensions
     /// An angle, θ, measured in radians, such that -∞ &lt; θ &lt; -1, or 1 &lt; θ &lt; ∞.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or d &gt; 1 or
-    /// <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> &lt; -1 or d &gt; 1 or
+    /// <paramref name="x"/> equals <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Atanh<T>(this T x) where T : IFloatingPoint<T> => T.Atanh(x);
+    public static T Atanh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Atanh(x);
 
     /// <summary>
     /// Returns the next smallest value that compares less than <paramref name="x"/>.
@@ -208,15 +207,15 @@ public static class Extensions
     /// The next smallest value that compares less than <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T BitDecrement<T>(this T x) where T : IFloatingPoint<T> => T.BitDecrement(x);
+    public static T BitDecrement<T>(this T x) where T : IFloatingPointIeee754<T> => T.BitDecrement(x);
 
     /// <summary>
     /// Returns the next largest value that compares greater than <paramref name="x"/>.
@@ -228,15 +227,15 @@ public static class Extensions
     /// The next largest value that compares greater than <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T BitIncrement<T>(this T x) where T : IFloatingPoint<T> => T.BitIncrement(x);
+    public static T BitIncrement<T>(this T x) where T : IFloatingPointIeee754<T> => T.BitIncrement(x);
 
     /// <summary>
     /// Returns the cube root of a specified number.
@@ -248,11 +247,11 @@ public static class Extensions
     /// The cube root of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <paramref name="x"/> equals
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <paramref name="x"/> equals
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Cbrt<T>(this T x) where T : IFloatingPoint<T> => T.Cbrt(x);
+    public static T Cbrt<T>(this T x) where T : IRootFunctions<T> => T.Cbrt(x);
 
     /// <summary>
     /// Returns the smallest integral value that is greater than or equal to the specified number.
@@ -264,9 +263,9 @@ public static class Extensions
     /// The smallest integral value that is greater than or equal to <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, that value is returned.
     /// </para>
     /// <para>
     /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
@@ -293,9 +292,9 @@ public static class Extensions
     /// -or- <paramref name="max"/> if max &lt; <paramref name="value"/>
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <typeparamref name="T"/> implements
-    /// <see cref="IFloatingPoint{TSelf}"/> and <paramref name="value"/> is
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <typeparamref name="T"/> implements
+    /// <see cref="IFloatingPointIeee754{TSelf}"/> and <paramref name="value"/> is
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
     public static T Clamp<T>(this T value, T min, T max) where T : INumber<T> => T.Clamp(value, min, max);
@@ -309,7 +308,7 @@ public static class Extensions
     /// <returns>
     /// A value with the magnitude of <paramref name="x"/> and the sign of <paramref name="y"/>.
     /// </returns>
-    public static T CopySign<T>(this T x, T y) where T : IFloatingPoint<T> => T.CopySign(x, y);
+    public static T CopySign<T>(this T x, T y) where T : INumber<T> => T.CopySign(x, y);
 
     /// <summary>
     /// Returns the cosine of the specified angle.
@@ -321,13 +320,13 @@ public static class Extensions
     /// The cosine of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Cos<T>(this T x) where T : IFloatingPoint<T> => T.Cos(x);
+    public static T Cos<T>(this T x) where T : ITrigonometricFunctions<T> => T.Cos(x);
 
     /// <summary>
     /// Returns the hyperbolic cosine of the specified angle.
@@ -339,16 +338,16 @@ public static class Extensions
     /// The hyperbolic cosine of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/> or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>,
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> is returned.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/> or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/> is returned.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
-    public static T Cosh<T>(this T x) where T : IFloatingPoint<T> => T.Cosh(x);
+    public static T Cosh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Cosh(x);
 
     /// <summary>
     /// Create a new instance of <typeparamref name="TTarget"/> from the given <paramref name="value"/>.
@@ -362,17 +361,17 @@ public static class Extensions
     /// <remarks>
     /// This method performs a checked conversion.
     /// </remarks>
-    public static TTarget Create<TSelf, TTarget>(this TSelf value)
-        where TSelf : INumber<TSelf>
-        where TTarget : INumber<TTarget>
+    public static TTarget CreateChecked<TSelf, TTarget>(this TSelf value)
+        where TSelf : INumberBase<TSelf>
+        where TTarget : INumberBase<TTarget>
     {
         try
         {
-            return TTarget.Create(value);
+            return TTarget.CreateChecked(value);
         }
         catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
         {
-            return createOther.Create<TTarget>();
+            return createOther.CreateChecked<TTarget>();
         }
     }
 
@@ -399,8 +398,8 @@ public static class Extensions
     /// This method performs a saturating (clamped) conversion.
     /// </remarks>
     public static TTarget CreateSaturating<TSelf, TTarget>(TSelf value)
-        where TSelf : INumber<TSelf>
-        where TTarget : INumber<TTarget>
+        where TSelf : INumberBase<TSelf>
+        where TTarget : INumberBase<TTarget>
     {
         try
         {
@@ -425,8 +424,8 @@ public static class Extensions
     /// This method performs a truncating conversion.
     /// </remarks>
     public static TTarget CreateTruncating<TSelf, TTarget>(TSelf value)
-        where TSelf : INumber<TSelf>
-        where TTarget : INumber<TTarget>
+        where TSelf : INumberBase<TSelf>
+        where TTarget : INumberBase<TTarget>
     {
         try
         {
@@ -512,15 +511,15 @@ public static class Extensions
     /// The quotient of the specified numbers, and the remainder.
     /// </para>
     /// <para>
-    /// -or- <see cref="IFloatingPoint{TSelf}.NaN"/> if <typeparamref name="T"/> implements
-    /// <see cref="IFloatingPoint{TSelf}"/> and <paramref name="left"/> or <paramref name="right"/>
-    /// is <see cref="IFloatingPoint{TSelf}.NaN"/>, or <paramref name="right"/> is zero.
+    /// -or- <see cref="IFloatingPointIeee754{TSelf}.NaN"/> if <typeparamref name="T"/> implements
+    /// <see cref="IFloatingPointIeee754{TSelf}"/> and <paramref name="left"/> or <paramref name="right"/>
+    /// is <see cref="IFloatingPointIeee754{TSelf}.NaN"/>, or <paramref name="right"/> is zero.
     /// </para>
     /// </returns>
     /// <exception cref="DivideByZeroException">
-    /// if <paramref name="right"/> is zero and <typeparamref name="T"/> does not implement <see cref="IFloatingPoint{TSelf}"/>
+    /// if <paramref name="right"/> is zero and <typeparamref name="T"/> does not implement <see cref="IFloatingPointIeee754{TSelf}"/>
     /// </exception>
-    public static (T Quotient, T Remainder) DivRem<T>(this T left, T right) where T : INumber<T> => T.DivRem(left, right);
+    public static (T Quotient, T Remainder) DivRem<T>(this T left, T right) where T : IBinaryInteger<T> => T.DivRem(left, right);
 
     /// <summary>
     /// Returns e raised to the specified power.
@@ -532,15 +531,15 @@ public static class Extensions
     /// The number e raised to the power <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NaN"/>
-    /// or <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// If <paramref name="x"/> equals <see cref="IFloatingPointIeee754{TSelf}.NaN"/>
+    /// or <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, that value is returned.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> equals <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, 0 is
+    /// If <paramref name="x"/> equals <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, 0 is
     /// returned.
     /// </para>
     /// </returns>
-    public static T Exp<T>(this T x) where T : IFloatingPoint<T> => T.Exp(x);
+    public static T Exp<T>(this T x) where T : IExponentialFunctions<T> => T.Exp(x);
 
     /// <summary>
     /// Returns the largest integral value that is less than or equal to the specified number.
@@ -552,9 +551,9 @@ public static class Extensions
     /// The largest integral value that is less than or equal to <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, that value is returned.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, that value is returned.
     /// </para>
     /// <para>
     /// Note that this method returns <typeparamref name="T"/> instead of an integral type.
@@ -574,7 +573,7 @@ public static class Extensions
     /// <returns>
     /// (x * y) + z, rounded as one ternary operation.
     /// </returns>
-    public static T FusedMultiplyAdd<T>(this T left, T right, T addend) where T : IFloatingPoint<T>
+    public static T FusedMultiplyAdd<T>(this T left, T right, T addend) where T : IFloatingPointIeee754<T>
         => T.FusedMultiplyAdd(left, right, addend);
 
     /// <summary>
@@ -595,20 +594,19 @@ public static class Extensions
     /// </para>
     /// <para>
     /// If <paramref name="left"/> - (<paramref name="right"/> Q) is zero, the value
-    /// <see cref="INumber{TSelf}.Zero"/> is returned if <paramref name="left"/> is positive,
-    /// or <see cref="IFloatingPoint{TSelf}.NegativeZero"/> if <paramref name="left"/> is negative.
+    /// <see cref="INumberBase{TSelf}.Zero"/> is returned if <paramref name="left"/> is positive,
+    /// or <see cref="IFloatingPointIeee754{TSelf}.NegativeZero"/> if <paramref name="left"/> is negative.
     /// </para>
     /// <para>
-    /// If <paramref name="right"/> = 0, <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// If <paramref name="right"/> = 0, <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
-    public static T IEEERemainder<T>(this T left, T right) where T : IFloatingPoint<T> => T.IEEERemainder(left, right);
+    public static T Ieee754Remainder<T>(this T left, T right) where T : IFloatingPointIeee754<T> => T.Ieee754Remainder(left, right);
 
     /// <summary>
     /// Returns the base 2 integer logarithm of a specified number.
     /// </summary>
     /// <typeparam name="TSelf">The type of number.</typeparam>
-    /// <typeparam name="TInteger">The type of integer result.</typeparam>
     /// <param name="x">The number whose logarithm is to be found.</param>
     /// <returns>
     /// One of the values in the following table.
@@ -621,32 +619,29 @@ public static class Extensions
     /// <term>Default</term>
     /// <description>
     /// The base 2 integer log of <paramref name="x"/>; that is,
-    /// (<typeparamref name="TInteger"/>)log2(<paramref name="x"/>).
+    /// (int)log2(<paramref name="x"/>).
     /// </description>
     /// </item>
     /// <item>
     /// <term>Zero</term>
     /// <description>
-    /// <see cref="IMinMaxValue{TSelf}.MinValue"/>, if <typeparamref name="TInteger"/> implements
-    /// <see cref="IMinMaxValue{TSelf}"/>.
+    /// <see cref="int.MinValue"/>.
     /// </description>
     /// </item>
     /// <item>
     /// <term>
-    /// Equal to <see cref="IFloatingPoint{TSelf}.NaN"/> or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> or
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>
+    /// Equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/> or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/> or
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>
     /// </term>
     /// <description>
-    /// <see cref="IMinMaxValue{TSelf}.MaxValue"/>, if <typeparamref name="TInteger"/> implements
-    /// <see cref="IMinMaxValue{TSelf}"/>.
+    /// <see cref="int.MaxValue"/>.
     /// </description>
     /// </item>
     /// </list>
     /// </returns>
-    public static TInteger ILogB<TSelf, TInteger>(this TSelf x)
-        where TSelf : IFloatingPoint<TSelf>
-        where TInteger : IBinaryInteger<TInteger> => TSelf.ILogB<TInteger>(x);
+    public static int ILogB<TSelf>(this TSelf x)
+        where TSelf : IFloatingPointIeee754<TSelf> => TSelf.ILogB(x);
 
     /// <summary>
     /// Finds the weight which would produce the given <paramref name="result"/> when linearly
@@ -659,14 +654,14 @@ public static class Extensions
     /// <returns>
     /// The weight which would produce <paramref name="result"/> when linearly
     /// interpolating between <paramref name="first"/> and <paramref name="second"/>; or <see
-    /// cref="IFloatingPoint{TSelf}.NaN"/> if the weight cannot be computed for the given parameters.
+    /// cref="IFloatingPointIeee754{TSelf}.NaN"/> if the weight cannot be computed for the given parameters.
     /// </returns>
     /// <remarks>
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> will be returned if the given values are nearly equal, but the
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> will be returned if the given values are nearly equal, but the
     /// given result is not also nearly equal to them, since the calculation in that case would
     /// require a division by zero.
     /// </remarks>
-    public static T InverseLerp<T>(this T first, T second, T result) where T : IFloatingPoint<T>
+    public static T InverseLerp<T>(this T first, T second, T result) where T : IFloatingPointIeee754<T>
     {
         var difference = second - first;
         if (IsNearlyZero(difference))
@@ -692,7 +687,7 @@ public static class Extensions
     /// <see langword="true"/> if the value is finite (zero, subnormal or normal);
     /// <see langword="false"/> otherwise.
     /// </returns>
-    public static bool IsFinite<T>(this T x) where T : IFloatingPoint<T> => T.IsFinite(x);
+    public static bool IsFinite<T>(this T x) where T : INumberBase<T> => T.IsFinite(x);
 
     /// <summary>
     /// Returns a value indicating whether the specified number evaluates to negative or positive
@@ -702,22 +697,22 @@ public static class Extensions
     /// <param name="x">A number.</param>
     /// <returns>
     /// <see langword="true"/> if <paramref name="x"/> evaluates to
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/> or
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/> or
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
     /// </returns>
-    public static bool IsInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsInfinity(x);
+    public static bool IsInfinity<T>(this T x) where T : INumberBase<T> => T.IsInfinity(x);
 
     /// <summary>
     /// Returns a value that indicates whether the specified value is not a number
-    /// (<see cref="IFloatingPoint{TSelf}.NaN"/>).
+    /// (<see cref="IFloatingPointIeee754{TSelf}.NaN"/>).
     /// </summary>
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">A number.</param>
     /// <returns>
     /// <see langword="true"/> if <paramref name="x"/> evaluates to
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>; otherwise, <see langword="false"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>; otherwise, <see langword="false"/>.
     /// </returns>
-    public static bool IsNaN<T>(this T x) where T : IFloatingPoint<T> => T.IsNaN(x);
+    public static bool IsNaN<T>(this T x) where T : INumberBase<T> => T.IsNaN(x);
 
     /// <summary>
     /// Determines whether the specified value is negative.
@@ -727,7 +722,7 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if the value is negative; <see langword="false"/> otherwise.
     /// </returns>
-    public static bool IsNegative<T>(this T x) where T : IFloatingPoint<T> => T.IsNegative(x);
+    public static bool IsNegative<T>(this T x) where T : INumberBase<T> => T.IsNegative(x);
 
     /// <summary>
     /// Determines whether the specified value is normal.
@@ -737,7 +732,7 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if the value is normal; <see langword="false"/> otherwise.
     /// </returns>
-    public static bool IsNormal<T>(this T x) where T : IFloatingPoint<T> => T.IsNormal(x);
+    public static bool IsNormal<T>(this T x) where T : INumberBase<T> => T.IsNormal(x);
 
     /// <summary>
     /// Returns a value indicating whether the specified number evaluates to negative infinity.
@@ -746,9 +741,9 @@ public static class Extensions
     /// <param name="x">A number.</param>
     /// <returns>
     /// <see langword="true"/> if <paramref name="x"/> evaluates to
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>; otherwise, <see langword="false"/>.
     /// </returns>
-    public static bool IsNegativeInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsNegativeInfinity(x);
+    public static bool IsNegativeInfinity<T>(this T x) where T : INumberBase<T> => T.IsNegativeInfinity(x);
 
     /// <summary>
     /// Returns a value indicating whether the specified number evaluates to positive infinity.
@@ -757,9 +752,9 @@ public static class Extensions
     /// <param name="x">A number.</param>
     /// <returns>
     /// <see langword="true"/> if <paramref name="x"/> evaluates to
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>; otherwise, <see langword="false"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>; otherwise, <see langword="false"/>.
     /// </returns>
-    public static bool IsPositiveInfinity<T>(this T x) where T : IFloatingPoint<T> => T.IsPositiveInfinity(x);
+    public static bool IsPositiveInfinity<T>(this T x) where T : INumberBase<T> => T.IsPositiveInfinity(x);
 
     /// <summary>
     /// Determines whether the specified value is subnormal.
@@ -769,7 +764,7 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if the value is subnormal; <see langword="false"/> otherwise.
     /// </returns>
-    public static bool IsSubnormal<T>(this T x) where T : IFloatingPoint<T> => T.IsSubnormal(x);
+    public static bool IsSubnormal<T>(this T x) where T : INumberBase<T> => T.IsSubnormal(x);
 
     /// <summary>
     /// Determines if floating-point values are nearly equal, within a tolerance determined by
@@ -816,7 +811,10 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if this value and the other are nearly equal; otherwise <see langword="false"/>.
     /// </returns>
-    public static bool IsNearlyEqualTo<T>(this T value, T other, T epsilon) where T : INumber<T>
+    public static bool IsNearlyEqualTo<T>(this T value, T other, T epsilon) where T :
+        INumberBase<T>,
+        IComparisonOperators<T, T, bool>,
+        IEqualityOperators<T, T, bool>
         => value == other || T.Abs(value - other) < epsilon;
 
     /// <summary>
@@ -879,7 +877,7 @@ public static class Extensions
     /// </remarks>
     public static bool IsNearlyZero<T>(this T value) where T : IFloatingPoint<T>
     {
-        var nearlyZero = T.TryCreate(NumberValues.NearlyZeroDouble, out var nz)
+        var nearlyZero = NumberValues.NearlyZeroDouble.TryCreate(out T? nz)
             ? nz
             : T.Zero;
         return value < nearlyZero && value > (-nearlyZero);
@@ -934,23 +932,23 @@ public static class Extensions
     /// </item>
     /// <item>
     /// <term>Zero</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/></description>
     /// </item>
     /// <item>
     /// <term>Negative</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// </returns>
-    public static T Log<T>(this T x) where T : IFloatingPoint<T> => T.Log(x);
+    public static T Log<T>(this T x) where T : ILogarithmicFunctions<T> => T.Log(x);
 
 #pragma warning disable RCS1243 // Duplicate word in a comment.
     /// <summary>
@@ -961,9 +959,9 @@ public static class Extensions
     /// <param name="newBase">The base of the logarithm.</param>
     /// <returns>
     /// One of the values in the following table. (+Infinity denotes
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, -Infinity denotes
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, and NaN denotes
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.)
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, -Infinity denotes
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, and NaN denotes
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.)
     /// <list type="table">
     /// <listheader>
     /// <term><paramref name="x"/> parameter</term>
@@ -1029,7 +1027,7 @@ public static class Extensions
     /// </item>
     /// </list>
     /// </returns>
-    public static T Log<T>(this T x, T newBase) where T : IFloatingPoint<T> => T.Log(x, newBase);
+    public static T Log<T>(this T x, T newBase) where T : ILogarithmicFunctions<T> => T.Log(x, newBase);
 #pragma warning restore RCS1243 // Duplicate word in a comment.
 
     /// <summary>
@@ -1052,23 +1050,23 @@ public static class Extensions
     /// </item>
     /// <item>
     /// <term>Zero</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/></description>
     /// </item>
     /// <item>
     /// <term>Negative</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// </returns>
-    public static T Log10<T>(this T x) where T : IFloatingPoint<T> => T.Log10(x);
+    public static T Log10<T>(this T x) where T : ILogarithmicFunctions<T> => T.Log10(x);
 
     /// <summary>
     /// Returns the base 2 logarithm of a specified number.
@@ -1090,23 +1088,23 @@ public static class Extensions
     /// </item>
     /// <item>
     /// <term>Zero</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/></description>
     /// </item>
     /// <item>
     /// <term>Negative</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// </returns>
-    public static T Log2<T>(this T x) where T : IFloatingPoint<T> => T.Log2(x);
+    public static T Log2<T>(this T x) where T : ILogarithmicFunctions<T> => T.Log2(x);
 
     /// <summary>
     /// Returns the larger of two numbers.
@@ -1119,10 +1117,10 @@ public static class Extensions
     /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever is larger.
     /// </para>
     /// <para>
-    /// If <typeparamref name="T"/> implements <see cref="IFloatingPoint{TSelf}"/> and
+    /// If <typeparamref name="T"/> implements <see cref="IFloatingPointIeee754{TSelf}"/> and
     /// <paramref name="x"/>, <paramref name="y"/>, or both <paramref name="x"/> and
-    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
     public static T Max<T>(this T x, T y) where T : INumber<T> => T.Max(x, y);
@@ -1139,11 +1137,11 @@ public static class Extensions
     /// </para>
     /// <para>
     /// If <paramref name="x"/>, or <paramref name="y"/>, or both <paramref name="x"/> and
-    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
-    public static T MaxMagnitude<T>(this T x, T y) where T : IFloatingPoint<T> => T.MaxMagnitude(x, y);
+    public static T MaxMagnitude<T>(this T x, T y) where T : INumberBase<T> => T.MaxMagnitude(x, y);
 
     /// <summary>
     /// Returns the smaller of two numbers.
@@ -1156,10 +1154,10 @@ public static class Extensions
     /// Parameter <paramref name="x"/> or <paramref name="y"/>, whichever is smaller.
     /// </para>
     /// <para>
-    /// If <typeparamref name="T"/> implements <see cref="IFloatingPoint{TSelf}"/> and
+    /// If <typeparamref name="T"/> implements <see cref="IFloatingPointIeee754{TSelf}"/> and
     /// <paramref name="x"/>, <paramref name="y"/>, or both <paramref name="x"/> and
-    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
     public static T Min<T>(this T x, T y) where T : INumber<T> => T.Min(x, y);
@@ -1176,11 +1174,11 @@ public static class Extensions
     /// </para>
     /// <para>
     /// If <paramref name="x"/>, or <paramref name="y"/>, or both <paramref name="x"/> and
-    /// <paramref name="y"/> are equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/> is returned.
+    /// <paramref name="y"/> are equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/> is returned.
     /// </para>
     /// </returns>
-    public static T MinMagnitude<T>(this T x, T y) where T : IFloatingPoint<T> => T.MinMagnitude(x, y);
+    public static T MinMagnitude<T>(this T x, T y) where T : INumberBase<T> => T.MinMagnitude(x, y);
 
     /// <summary>
     /// Converts the string representation of a number in a specified style and culture-specific
@@ -1243,7 +1241,7 @@ public static class Extensions
     /// </para>
     /// </exception>
     public static T Parse<T>(this ReadOnlySpan<char> s, NumberStyles style, IFormatProvider? provider)
-        where T : INumber<T> => T.Parse(s, style, provider);
+        where T : INumberBase<T> => T.Parse(s, style, provider);
 
     /// <summary>
     /// Returns a specified number raised to the specified power.
@@ -1254,7 +1252,7 @@ public static class Extensions
     /// <returns>
     /// The number <paramref name="x"/> raised to the power <paramref name="y"/>.
     /// </returns>
-    public static T Pow<T>(this T x, T y) where T : IFloatingPoint<T> => T.Pow(x, y);
+    public static T Pow<T>(this T x, T y) where T : IPowerFunctions<T> => T.Pow(x, y);
 
     /// <summary>
     /// Rounds a value to the nearest integral value, and rounds midpoint values to the nearest even number.
@@ -1278,7 +1276,6 @@ public static class Extensions
     /// the nearest even number.
     /// </summary>
     /// <typeparam name="TSelf">The type of number.</typeparam>
-    /// <typeparam name="TInteger">The type of <paramref name="digits"/>.</typeparam>
     /// <param name="x">A number to be rounded.</param>
     /// <param name="digits">The number of fractional digits in the return value.</param>
     /// <returns>
@@ -1289,9 +1286,8 @@ public static class Extensions
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="digits"/> is less than 0 or greater than 15.
     /// </exception>
-    public static TSelf Round<TSelf, TInteger>(this TSelf x, TInteger digits)
-        where TSelf : IFloatingPoint<TSelf>
-        where TInteger : IBinaryInteger<TInteger> => TSelf.Round(x, digits);
+    public static TSelf Round<TSelf>(this TSelf x, int digits)
+        where TSelf : IFloatingPoint<TSelf> => TSelf.Round(x, digits);
 
     /// <summary>
     /// Rounds a value to the nearest integral value, and uses the specified rounding convention
@@ -1322,7 +1318,6 @@ public static class Extensions
     /// convention for midpoint values.
     /// </summary>
     /// <typeparam name="TSelf">The type of number.</typeparam>
-    /// <typeparam name="TInteger">The type of <paramref name="digits"/>.</typeparam>
     /// <param name="x">A number to be rounded.</param>
     /// <param name="digits">The number of fractional digits in the return value.</param>
     /// <param name="mode">
@@ -1339,9 +1334,8 @@ public static class Extensions
     /// <exception cref="ArgumentException">
     /// <paramref name="mode"/> is not a valid value of <see cref="MidpointRounding"/>.
     /// </exception>
-    public static TSelf Round<TSelf, TInteger>(this TSelf x, TInteger digits, MidpointRounding mode)
-        where TSelf : IFloatingPoint<TSelf>
-        where TInteger : IBinaryInteger<TInteger> => TSelf.Round(x, digits, mode);
+    public static TSelf Round<TSelf>(this TSelf x, int digits, MidpointRounding mode)
+        where TSelf : IFloatingPointIeee754<TSelf> => TSelf.Round(x, digits, mode);
 
     /// <summary>
     /// Rounds this floating-point value to the nearest <see cref="int"/>. Truncates to <see
@@ -1393,7 +1387,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This value.</param>
     /// <returns>The closest <see cref="int"/> to this value.</returns>
-    public static int RoundToInt<T>(this T value) where T : IFloatingPoint<T>, IParseable<T>
+    public static int RoundToInt<T>(this T value) where T : IFloatingPoint<T>, IParsable<T>
     {
         var min = T.CreateSaturating(int.MinValue);
         if (value < min)
@@ -1460,7 +1454,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This value.</param>
     /// <returns>The closest <see cref="long"/> to this value.</returns>
-    public static long RoundToLong<T>(this T value) where T : IFloatingPoint<T>, IParseable<T>
+    public static long RoundToLong<T>(this T value) where T : IFloatingPoint<T>, IParsable<T>
     {
         var min = T.CreateSaturating(long.MinValue);
         if (value < min)
@@ -1527,7 +1521,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This value.</param>
     /// <returns>The closest <see cref="uint"/> to this value.</returns>
-    public static uint RoundToUInt<T>(this T value) where T : IFloatingPoint<T>, IParseable<T>
+    public static uint RoundToUInt<T>(this T value) where T : IFloatingPoint<T>, IParsable<T>
     {
         var min = T.CreateSaturating(uint.MinValue);
         if (value < min)
@@ -1594,7 +1588,7 @@ public static class Extensions
     /// </summary>
     /// <param name="value">This value.</param>
     /// <returns>The closest <see cref="ulong"/> to this value.</returns>
-    public static ulong RoundToULong<T>(this T value) where T : IFloatingPoint<T>, IParseable<T>
+    public static ulong RoundToULong<T>(this T value) where T : IFloatingPoint<T>, IParsable<T>
     {
         var min = T.CreateSaturating(ulong.MinValue);
         if (value < min)
@@ -1615,15 +1609,13 @@ public static class Extensions
     /// Returns x * 2^n computed efficiently.
     /// </summary>
     /// <typeparam name="TSelf">The type of number.</typeparam>
-    /// <typeparam name="TInteger">The type of <paramref name="n"/>.</typeparam>
     /// <param name="x">A number that specifies the base value.</param>
     /// <param name="n">An integer that specifies the power.</param>
     /// <returns>
     /// x * 2^n computed efficiently.
     /// </returns>
-    public static TSelf ScaleB<TSelf, TInteger>(this TSelf x, TInteger n)
-        where TSelf : IFloatingPoint<TSelf>
-        where TInteger : IBinaryInteger<TInteger> => TSelf.ScaleB(x, n);
+    public static TSelf ScaleB<TSelf>(this TSelf x, int n)
+        where TSelf : IFloatingPointIeee754<TSelf> => TSelf.ScaleB(x, n);
 
     /// <summary>
     /// Returns an integer that indicates the sign of a number.
@@ -1652,9 +1644,9 @@ public static class Extensions
     /// </list>
     /// </returns>
     /// <exception cref="ArithmeticException">
-    /// <paramref name="value"/> is <see cref="IFloatingPoint{TSelf}.NaN"/>
+    /// <paramref name="value"/> is <see cref="IFloatingPointIeee754{TSelf}.NaN"/>
     /// </exception>
-    public static T Sign<T>(this T value) where T : INumber<T> => T.Sign(value);
+    public static int Sign<T>(this T value) where T : INumber<T> => T.Sign(value);
 
     /// <summary>
     /// Returns the sine of the specified angle.
@@ -1666,13 +1658,13 @@ public static class Extensions
     /// The sine of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Sin<T>(this T x) where T : IFloatingPoint<T> => T.Sin(x);
+    public static T Sin<T>(this T x) where T : ITrigonometricFunctions<T> => T.Sin(x);
 
     /// <summary>
     /// Returns the hyperbolic sine of the specified angle.
@@ -1684,13 +1676,13 @@ public static class Extensions
     /// The hyperbolic sine of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, this method returns
     /// <paramref name="x"/>.
     /// </para>
     /// </returns>
-    public static T Sinh<T>(this T x) where T : IFloatingPoint<T> => T.Sinh(x);
+    public static T Sinh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Sinh(x);
 
     /// <summary>
     /// Returns <paramref name="target"/> if <paramref name="value"/> is nearly equal to it (cf.
@@ -1781,7 +1773,7 @@ public static class Extensions
     /// Zero, if <paramref name="value"/> is nearly equal to zero; otherwise <paramref
     /// name="value"/>.
     /// </returns>
-    public static T SnapToZero<T>(this T value) where T : IFloatingPoint<T>
+    public static T SnapToZero<T>(this T value) where T : IFloatingPointIeee754<T>
         => value.IsNearlyZero() ? T.Zero : value;
 
     /// <summary>
@@ -1867,19 +1859,19 @@ public static class Extensions
     /// </item>
     /// <item>
     /// <term>Negative</term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NaN"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// </returns>
-    public static T Sqrt<T>(this T x) where T : IFloatingPoint<T> => T.Sqrt(x);
+    public static T Sqrt<T>(this T x) where T : IRootFunctions<T> => T.Sqrt(x);
 
     /// <summary>
     /// Returns the tangent of the specified angle.
@@ -1891,13 +1883,13 @@ public static class Extensions
     /// The tangent of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>,
-    /// <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>, or
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns
-    /// <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>,
+    /// <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>, or
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, this method returns
+    /// <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Tan<T>(this T x) where T : IFloatingPoint<T> => T.Tan(x);
+    public static T Tan<T>(this T x) where T : ITrigonometricFunctions<T> => T.Tan(x);
 
     /// <summary>
     /// Returns the hyperbolic tangent of the specified angle.
@@ -1909,14 +1901,14 @@ public static class Extensions
     /// The hyperbolic tangent of <paramref name="x"/>.
     /// </para>
     /// <para>
-    /// If <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/>,
+    /// If <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/>,
     /// this method returns -1. If <paramref name="x"/> is equal to
-    /// <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/>, this method returns 1. If
-    /// <paramref name="x"/> is equal to <see cref="IFloatingPoint{TSelf}.NaN"/>, this method
-    /// returns <see cref="IFloatingPoint{TSelf}.NaN"/>.
+    /// <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/>, this method returns 1. If
+    /// <paramref name="x"/> is equal to <see cref="IFloatingPointIeee754{TSelf}.NaN"/>, this method
+    /// returns <see cref="IFloatingPointIeee754{TSelf}.NaN"/>.
     /// </para>
     /// </returns>
-    public static T Tanh<T>(this T x) where T : IFloatingPoint<T> => T.Tanh(x);
+    public static T Tanh<T>(this T x) where T : IHyperbolicFunctions<T> => T.Tanh(x);
 
     /// <summary>
     /// Calculates the integral part of a specified number.
@@ -1932,16 +1924,16 @@ public static class Extensions
     /// <description>Return value</description>
     /// </listheader>
     /// <item>
-    /// <term><see cref="IFloatingPoint{TSelf}.NaN"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NaN"/></description>
+    /// <term><see cref="IFloatingPointIeee754{TSelf}.NaN"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NaN"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.NegativeInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.NegativeInfinity"/></description>
     /// </item>
     /// <item>
-    /// <term>Equal to <see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></term>
-    /// <description><see cref="IFloatingPoint{TSelf}.PositiveInfinity"/></description>
+    /// <term>Equal to <see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></term>
+    /// <description><see cref="IFloatingPointIeee754{TSelf}.PositiveInfinity"/></description>
     /// </item>
     /// </list>
     /// <para>
@@ -1964,17 +1956,23 @@ public static class Extensions
     /// <returns>
     /// <see langword="true"/> if the conversion succeeded; otherwise <see langword="false"/>.
     /// </returns>
-    public static bool TryCreate<TSelf, TTarget>(this TSelf value, out TTarget result)
-        where TSelf : INumber<TSelf>
-        where TTarget : INumber<TTarget>
+    public static bool TryCreate<TSelf, TTarget>(this TSelf value, [NotNullWhen(true)] out TTarget? result)
+        where TSelf : INumberBase<TSelf>
+        where TTarget : INumberBase<TTarget>
     {
         try
         {
-            return TTarget.TryCreate(value, out result);
+            result = TTarget.CreateChecked(value);
+            return true;
         }
         catch (NotSupportedException) when (value is ICreateOther<TSelf> createOther)
         {
             return createOther.TryCreate(out result);
+        }
+        catch
+        {
+            result = default;
+            return false;
         }
     }
 
@@ -2010,7 +2008,7 @@ public static class Extensions
         NumberStyles style,
         IFormatProvider? provider,
         out T result)
-        where T : INumber<T> => T.TryParse(s, style, provider, out result);
+        where T : INumberBase<T> => T.TryParse(s, style, provider, out result);
 
     /// <summary>
     /// Converts a character span containing the string representation of a number in a specified
@@ -2044,11 +2042,11 @@ public static class Extensions
         NumberStyles style,
         IFormatProvider? provider,
         out T result)
-        where T : INumber<T> => T.TryParse(s, style, provider, out result);
+        where T : INumberBase<T> => T.TryParse(s, style, provider, out result);
 
     internal static TTarget SafeTypeConvert<TTarget, TOther>(TOther value)
-        where TTarget : INumber<TTarget>
-        where TOther : INumber<TOther> => TTarget.TryCreate(value, out var result)
+        where TTarget : INumberBase<TTarget>
+        where TOther : INumberBase<TOther> => value.TryCreate(out TTarget? result)
         ? result
         : TTarget.Zero;
 

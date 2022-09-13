@@ -1,11 +1,13 @@
-﻿namespace Tavenem.Mathematics;
+﻿using System.Numerics;
+
+namespace Tavenem.Mathematics;
 
 /// <summary>
 /// Provides information about the properties of a geometric shape.
 /// </summary>
 public interface IShape<TSelf, TScalar> : IShape<TScalar>
     where TSelf : IShape<TSelf, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// Gets a deep clone of this instance with its <see cref="IShape{TScalar}.Position"/> set to the given

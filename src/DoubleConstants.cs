@@ -53,7 +53,7 @@ public static class DoubleConstants
     /// <summary>
     /// π+⅓π
     /// </summary>
-    public const double FourThirdsPi = Pi * 4 / 3;
+    public const double FourThirdsPi = Tau * 2 / 3;
 
     /// <summary>
     /// ½π

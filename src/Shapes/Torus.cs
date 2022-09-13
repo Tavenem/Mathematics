@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a torus.
 /// </summary>
 public readonly struct Torus<TScalar> : IShape<Torus<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// A circular radius which fully contains the shape.

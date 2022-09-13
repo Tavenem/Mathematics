@@ -7,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of an ellipsoid.
 /// </summary>
 public readonly struct Ellipsoid<TScalar> : IShape<Ellipsoid<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The length of the X half-axis of the ellipsoid extending from its center

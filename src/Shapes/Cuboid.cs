@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of an cuboid.
 /// </summary>
 public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The length of the cuboid in the X dimension.
@@ -604,7 +605,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
             PmV[jMax].Y,
             PmV[jMax].Z,
         };
-        var fder = TScalar.Create(s) * ((DdUA[k0] * maxSqrLenPmV) - (maxDdPmV * maxPmVA[k0]));
+        var fder = TScalar.CreateChecked(s) * ((DdUA[k0] * maxSqrLenPmV) - (maxDdPmV * maxPmVA[k0]));
         var mMod3 = new int[] { 0, 1, 2, 0 };
 
         if (fder <= TScalar.Zero)
@@ -612,7 +613,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
             jDiff = jMax - polygon[iMax > 0 ? iMax - 1 : polygon.Length - 1];
             s = jDiff > 0 ? 1 : -1;
             k0 = Math.Abs(jDiff) >> 1;
-            fder = TScalar.Create(-s) * ((DdUA[k0] * maxSqrLenPmV) - (maxDdPmV * maxPmVA[k0]));
+            fder = TScalar.CreateChecked(-s) * ((DdUA[k0] * maxSqrLenPmV) - (maxDdPmV * maxPmVA[k0]));
         }
         if (fder > TScalar.Zero)
         {
@@ -642,7 +643,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
             {
                 return true;
             }
-            return TScalar.Create(s) * ((DdUA[k1] * maxPmVA[k2]) - (DdUA[k2] * maxPmVA[k1])) <= TScalar.Zero;
+            return TScalar.CreateChecked(s) * ((DdUA[k1] * maxPmVA[k2]) - (DdUA[k2] * maxPmVA[k1])) <= TScalar.Zero;
         }
         return false;
     }

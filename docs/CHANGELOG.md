@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0-preview.1
+### Updated
+- Update to .NET 7
+- Remove dependency on preview features and experimental NuGet package
+
 ## 2.0.0
 ### Updated
 - Update to release packages

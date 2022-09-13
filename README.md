@@ -47,7 +47,7 @@ Tavenem.Mathematics is available as a [NuGet package](https://www.nuget.org/pack
 
 ## Roadmap
 
-Tavenem.Mathematics is a relatively stable library which sees minimal development. Although additions and bugfixes are always possible, no specific updates are planned at this time.
+Tavenem.Mathematics' latest preview release targets .NET 7, which is also in preview. When a stable release of .NET 7 is published, a new stable release of Tavenem.Mathematics will follow shortly.
 
 ## Contributing
 

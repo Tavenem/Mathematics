@@ -8,13 +8,13 @@ namespace Tavenem.Mathematics;
 /// </summary>
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// The number of values represented by this vector.
     /// </summary>
 #pragma warning disable RCS1158 // Static member in generic type should use a type parameter.
-    public static int Count => 2;
+    public static int Count { get; } = 2;
 #pragma warning restore RCS1158 // Static member in generic type should use a type parameter.
 
     /// <summary>
@@ -535,8 +535,8 @@ public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScal
     /// <param name="value">The value to convert.</param>
     public static implicit operator Vector2<TScalar>(Vector2 value) => new()
     {
-        X = TScalar.Create(value.X),
-        Y = TScalar.Create(value.Y),
+        X = TScalar.CreateChecked(value.X),
+        Y = TScalar.CreateChecked(value.Y),
     };
 
     /// <summary>
@@ -544,8 +544,8 @@ public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector2(Vector2<TScalar> value) => new(
-        value.X.Create<TScalar, float>(),
-        value.Y.Create<TScalar, float>());
+        value.X.CreateChecked<TScalar, float>(),
+        value.Y.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a vector whose elements are the absolute values of each of this instance's

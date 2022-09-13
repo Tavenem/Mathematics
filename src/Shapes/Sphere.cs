@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Numerics;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
@@ -6,7 +7,7 @@ namespace Tavenem.Mathematics;
 /// Provides information about the properties of a sphere.
 /// </summary>
 public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// A circular radius which fully contains the shape.
@@ -78,7 +79,7 @@ public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
 
         HighestPoint = Position + (Vector3<TScalar>.UnitY * radius);
         LowestPoint = Position + (-Vector3<TScalar>.UnitY * radius);
-        Volume = NumberValues.FourThirdsPi< TScalar>() * Radius.Cube();
+        Volume = NumberValues.FourThirdsPi<TScalar>() * Radius.Cube();
     }
 
     /// <summary>

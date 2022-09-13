@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Numerics;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -48,7 +49,7 @@ public class ShapeConverterFactory : JsonConverterFactory
     }
 
     private class ShapeConverter<TScalar> : JsonConverter<IShape<TScalar>>
-         where TScalar : IFloatingPoint<TScalar>
+         where TScalar : IFloatingPointIeee754<TScalar>
     {
         /// <summary>Reads and converts the JSON to an <see cref="IShape{TScalar}"/>.</summary>
         /// <param name="reader">The reader.</param>

@@ -10,14 +10,14 @@ namespace Tavenem.Mathematics;
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Matrix3x2<TScalar> :
     IAdditionOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
-    IEqualityOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
+    IEqualityOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, bool>,
     IMultiplicativeIdentity<Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
     IMultiplyOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
     IMultiplyOperators<Matrix3x2<TScalar>, TScalar, Matrix3x2<TScalar>>,
     ISpanFormattable,
     ISubtractionOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
     IUnaryNegationOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>>
-    where TScalar : IFloatingPoint<TScalar>
+    where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
     /// Returns the multiplicative identity matrix.
@@ -407,7 +407,7 @@ public readonly struct Matrix3x2<TScalar> :
     /// <returns>A rotation matrix.</returns>
     public static Matrix3x2<TScalar> CreateRotation(TScalar radians)
     {
-        radians = TScalar.IEEERemainder(radians, TScalar.Tau);
+        radians = TScalar.Ieee754Remainder(radians, TScalar.Tau);
 
         TScalar c, s;
 
@@ -467,7 +467,7 @@ public readonly struct Matrix3x2<TScalar> :
     /// <returns>A rotation matrix.</returns>
     public static Matrix3x2<TScalar> CreateRotation(TScalar radians, Vector2<TScalar> centerPoint)
     {
-        radians = TScalar.IEEERemainder(radians, TScalar.Tau);
+        radians = TScalar.Ieee754Remainder(radians, TScalar.Tau);
 
         TScalar c, s;
 
@@ -693,12 +693,12 @@ public readonly struct Matrix3x2<TScalar> :
     /// <param name="value">The value to convert.</param>
     public static implicit operator Matrix3x2<TScalar>(Matrix3x2 value) => new()
     {
-        M11 = TScalar.Create(value.M11),
-        M12 = TScalar.Create(value.M12),
-        M21 = TScalar.Create(value.M21),
-        M22 = TScalar.Create(value.M22),
-        M31 = TScalar.Create(value.M31),
-        M32 = TScalar.Create(value.M32),
+        M11 = TScalar.CreateChecked(value.M11),
+        M12 = TScalar.CreateChecked(value.M12),
+        M21 = TScalar.CreateChecked(value.M21),
+        M22 = TScalar.CreateChecked(value.M22),
+        M31 = TScalar.CreateChecked(value.M31),
+        M32 = TScalar.CreateChecked(value.M32),
     };
 
     /// <summary>
@@ -706,12 +706,12 @@ public readonly struct Matrix3x2<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Matrix3x2(Matrix3x2<TScalar> value) => new(
-        value.M11.Create<TScalar, float>(),
-        value.M12.Create<TScalar, float>(),
-        value.M21.Create<TScalar, float>(),
-        value.M22.Create<TScalar, float>(),
-        value.M31.Create<TScalar, float>(),
-        value.M32.Create<TScalar, float>());
+        value.M11.CreateChecked<TScalar, float>(),
+        value.M12.CreateChecked<TScalar, float>(),
+        value.M21.CreateChecked<TScalar, float>(),
+        value.M22.CreateChecked<TScalar, float>(),
+        value.M31.CreateChecked<TScalar, float>(),
+        value.M32.CreateChecked<TScalar, float>());
 
     /// <summary>
     /// Returns a boolean indicating whether the matrix is equal to the other given matrix.

@@ -66,9 +66,9 @@ public static class NumberExtensions
     /// name="y"/>.
     /// </returns>
     /// <remarks>
-    /// For <see cref="IFloatingPoint{TSelf}"/>, this method matches the IEEE 754:2019 maximum
-    /// function. This requires NaN inputs to be propagated back to the caller and for -0.0 to be
-    /// treated as less than +0.0.
+    /// For <see cref="IFloatingPoint{TSelf}"/>, this method matches the IEEE 754:2019
+    /// <c>maximumNumber</c> function. This requires NaN inputs to not be propagated back to the
+    /// caller and for -0.0 to be treated as less than +0.0.
     /// </remarks>
     public static T MaxNumber<T>(this T x, T y) where T : INumber<T> => T.MaxNumber(x, y);
 
@@ -102,8 +102,8 @@ public static class NumberExtensions
     /// </returns>
     /// <remarks>
     /// For <see cref="IFloatingPoint{TSelf}"/>, this method matches the IEEE 754:2019
-    /// <c>minimum</c> function. This requires NaN inputs to be propagated back to the caller and
-    /// for -0.0 to be treated as less than +0.0.
+    /// <c>minimumNumber</c> function. This requires NaN inputs to not be propagated back to the
+    /// caller and for -0.0 to be treated as less than +0.0.
     /// </remarks>
     public static T MinNumber<T>(this T x, T y) where T : INumber<T> => T.MinNumber(x, y);
 

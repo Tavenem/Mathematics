@@ -706,12 +706,12 @@ public readonly struct Matrix3x2<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Matrix3x2(Matrix3x2<TScalar> value) => new(
-        value.M11.CreateChecked<TScalar, float>(),
-        value.M12.CreateChecked<TScalar, float>(),
-        value.M21.CreateChecked<TScalar, float>(),
-        value.M22.CreateChecked<TScalar, float>(),
-        value.M31.CreateChecked<TScalar, float>(),
-        value.M32.CreateChecked<TScalar, float>());
+        float.CreateChecked(value.M11),
+        float.CreateChecked(value.M12),
+        float.CreateChecked(value.M21),
+        float.CreateChecked(value.M22),
+        float.CreateChecked(value.M31),
+        float.CreateChecked(value.M32));
 
     /// <summary>
     /// Returns a boolean indicating whether the matrix is equal to the other given matrix.

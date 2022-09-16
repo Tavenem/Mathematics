@@ -644,10 +644,10 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector4(Vector4<TScalar> value) => new(
-        value.X.CreateChecked<TScalar, float>(),
-        value.Y.CreateChecked<TScalar, float>(),
-        value.Z.CreateChecked<TScalar, float>(),
-        value.W.CreateChecked<TScalar, float>());
+        float.CreateChecked(value.X),
+        float.CreateChecked(value.Y),
+        float.CreateChecked(value.Z),
+        float.CreateChecked(value.W));
 
     /// <summary>
     /// Returns a vector whose elements are the absolute values of each of this instance's

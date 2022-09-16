@@ -2055,22 +2055,22 @@ public struct Matrix4x4<TScalar> :
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Matrix4x4(Matrix4x4<TScalar> value) => new(
-        value.M11.CreateChecked<TScalar, float>(),
-        value.M12.CreateChecked<TScalar, float>(),
-        value.M13.CreateChecked<TScalar, float>(),
-        value.M14.CreateChecked<TScalar, float>(),
-        value.M21.CreateChecked<TScalar, float>(),
-        value.M22.CreateChecked<TScalar, float>(),
-        value.M23.CreateChecked<TScalar, float>(),
-        value.M24.CreateChecked<TScalar, float>(),
-        value.M31.CreateChecked<TScalar, float>(),
-        value.M32.CreateChecked<TScalar, float>(),
-        value.M33.CreateChecked<TScalar, float>(),
-        value.M34.CreateChecked<TScalar, float>(),
-        value.M41.CreateChecked<TScalar, float>(),
-        value.M42.CreateChecked<TScalar, float>(),
-        value.M43.CreateChecked<TScalar, float>(),
-        value.M44.CreateChecked<TScalar, float>());
+        float.CreateChecked(value.M11),
+        float.CreateChecked(value.M12),
+        float.CreateChecked(value.M13),
+        float.CreateChecked(value.M14),
+        float.CreateChecked(value.M21),
+        float.CreateChecked(value.M22),
+        float.CreateChecked(value.M23),
+        float.CreateChecked(value.M24),
+        float.CreateChecked(value.M31),
+        float.CreateChecked(value.M32),
+        float.CreateChecked(value.M33),
+        float.CreateChecked(value.M34),
+        float.CreateChecked(value.M41),
+        float.CreateChecked(value.M42),
+        float.CreateChecked(value.M43),
+        float.CreateChecked(value.M44));
 
     /// <summary>
     /// Returns a boolean indicating whether this matrix instance is equal to the other given matrix.

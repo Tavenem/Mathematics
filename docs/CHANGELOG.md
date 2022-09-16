@@ -13,6 +13,10 @@
 ### Added
 - Made Zero vector and matrix initiatlization explicit rather than the default constructor
 
+## 2.0.0-preview.11
+### Changed
+- Aligned the extensions for the `System.Numerics` interfaces with the new shape of those interfaces.
+
 ## 2.0.0-preview.10
 ### Added
 - `ICreateOther` interface to allow number types to define their own conversion to standard numeric types

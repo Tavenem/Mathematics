@@ -611,9 +611,9 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// </summary>
     /// <param name="value">The value to convert.</param>
     public static explicit operator Vector3(Vector3<TScalar> value) => new(
-        value.X.CreateChecked<TScalar, float>(),
-        value.Y.CreateChecked<TScalar, float>(),
-        value.Z.CreateChecked<TScalar, float>());
+        float.CreateChecked(value.X),
+        float.CreateChecked(value.Y),
+        float.CreateChecked(value.Z));
 
     /// <summary>
     /// Returns a vector whose elements are the absolute values of each of this instance's

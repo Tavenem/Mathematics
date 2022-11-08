@@ -4,12 +4,8 @@ Tavenem.Mathematics
 ==
 
 Tavenem.Mathematics is a collection of math utilities. It includes:
-- An assortment of mathematic and scientific constants, as double, decimal, and
-  [HugeNumber](https://github.com/Tavenem/HugeNumber) values (available in the `DecimalConstants`,
-  `DoubleConstants`, and `HugeNumberConstants` static classes)
-- Versions of some types from the `System.Numerics` namespace, modified to use double, decimal, or
-  [HugeNumber](https://github.com/Tavenem/HugeNumber) as the base value type, for cases when greater
-  precision is required.
+- An assortment of mathematic and scientific constants, as double and decimal values (available in the `DecimalConstants` and `DoubleConstants` static classes)
+- Versions of some types from the `System.Numerics` namespace, modified to use generic math interfaces as the base value type, for cases when greater precision than the `float` of the native `System.Numerics` types is required.
   
   Includes:
     - `Matrix3x2`
@@ -20,12 +16,9 @@ Tavenem.Mathematics is a collection of math utilities. It includes:
     - `Vector3`
     - `Vector4`
   
-  Note that these types are not SIMD-enabled and will not benefit from the high performance of the
-  native `System.Numerics` types. Those should be preferred whenever performance is valued over
-  precision.
+  Note that these types are not SIMD-enabled and will not benefit from the high performance of the native `System.Numerics` types. Those should be preferred whenever performance is valued over precision.
   
-- Classes defining geometric shapes, with versions based on decimal, double, and
-  [HugeNumber](https://github.com/Tavenem/HugeNumber), including:
+- Classes defining geometric shapes, including:
     - `Capsule` (a swept sphere)
     - `Cone`
     - `Cuboid`
@@ -47,7 +40,7 @@ Tavenem.Mathematics is available as a [NuGet package](https://www.nuget.org/pack
 
 ## Roadmap
 
-Tavenem.Mathematics' latest preview release targets .NET 7, which is also in preview. When a stable release of .NET 7 is published, a new stable release of Tavenem.Mathematics will follow shortly.
+Tavenem.Mathematics is a relatively stable library. Although additions and bugfixes are possible at any time, release should generally be expected to folow the .NET release cycle, with one or more preview releases during a framework preview, and a new stable release coinciding with the release of a new .NET framework major version.
 
 ## Contributing
 

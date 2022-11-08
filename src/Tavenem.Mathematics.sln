@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.218
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33027.239
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tavenem.Mathematics", "Tavenem.Mathematics.csproj", "{0C2282A1-F847-48F2-BB46-2A89E0DDB1BF}"
 EndProject
@@ -11,8 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\docs\CHANGELOG.md = ..\docs\CHANGELOG.md
 		..\docs\CODE_OF_CONDUCT.md = ..\docs\CODE_OF_CONDUCT.md
 		..\docs\CONTRIBUTING.md = ..\docs\CONTRIBUTING.md
+		..\Directory.Build.props = ..\Directory.Build.props
 		..\.github\workflows\publish.yml = ..\.github\workflows\publish.yml
 		..\README.md = ..\README.md
+		..\version.json = ..\version.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tavenem.Mathematics.Test", "..\test\Tavenem.Mathematics.Test.csproj", "{749E0BD1-4945-4CA1-BF04-3A7D5985D805}"

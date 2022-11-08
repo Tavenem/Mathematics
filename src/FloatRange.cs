@@ -53,7 +53,7 @@ public readonly struct FloatRange :
     /// Whether this range begins and ends at zero.
     /// </summary>
     /// <remarks>
-    /// Uses <see cref="NumberBaseExtensions.IsNearlyZero(float)"/> to determine near-equivalence with zero,
+    /// Uses <see cref="FloatingPointExtensions.IsNearlyZero(float)"/> to determine near-equivalence with zero,
     /// rather than strict equality.
     /// </remarks>
     public bool IsZero => Min.IsNearlyZero() && Max.IsNearlyZero();

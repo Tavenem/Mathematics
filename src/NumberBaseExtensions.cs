@@ -450,7 +450,7 @@ public static class NumberBaseExtensions
         this ReadOnlySpan<char> s,
         NumberStyles style,
         IFormatProvider? provider,
-        out T result)
+        [MaybeNullWhen(false)] out T result)
         where T : INumberBase<T> => T.TryParse(s, style, provider, out result);
 
     /// <summary>
@@ -479,7 +479,7 @@ public static class NumberBaseExtensions
         [NotNullWhen(true)] this string? s,
         NumberStyles style,
         IFormatProvider? provider,
-        out T result)
+        [MaybeNullWhen(false)] out T result)
         where T : INumberBase<T> => T.TryParse(s, style, provider, out result);
 
     internal static TTarget SafeTypeConvert<TTarget, TOther>(this TOther value)

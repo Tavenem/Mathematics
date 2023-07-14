@@ -7,8 +7,9 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// Provides information about the properties of a single point as a shape.
 /// </summary>
+/// <param name="position">The position of the shape in 3D space.</param>
 [DebuggerDisplay("{Position}")]
-public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScalar>
+public readonly struct SinglePoint<TScalar>(Vector3<TScalar> position) : IShape<SinglePoint<TScalar>, TScalar>
     where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
@@ -40,7 +41,7 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     /// <summary>
     /// The position of the shape in 3D space.
     /// </summary>
-    public Vector3<TScalar> Position { get; init; }
+    public Vector3<TScalar> Position { get; init; } = position;
 
     /// <summary>
     /// The rotation of this shape in 3D space. Always <see cref="Quaternion{TScalar}.MultiplicativeIdentity"/>
@@ -71,12 +72,6 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     /// </summary>
     [JsonIgnore]
     public TScalar Volume => TScalar.Zero;
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="SinglePoint{TScalar}"/>.
-    /// </summary>
-    /// <param name="position">The position of the shape in 3D space.</param>
-    public SinglePoint(Vector3<TScalar> position) => Position = position;
 
     /// <summary>
     /// Gets a deep clone of this instance with its <see cref="Position"/> set to the given
@@ -112,7 +107,7 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => this;
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -159,7 +154,7 @@ public readonly struct SinglePoint<TScalar> : IShape<SinglePoint<TScalar>, TScal
     public SinglePoint<TScalar> GetTypedScaledByDimension(TScalar factor) => this;
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>

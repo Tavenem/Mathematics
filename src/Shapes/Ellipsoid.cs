@@ -215,7 +215,7 @@ public readonly struct Ellipsoid<TScalar> : IShape<Ellipsoid<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -277,7 +277,7 @@ public readonly struct Ellipsoid<TScalar> : IShape<Ellipsoid<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>

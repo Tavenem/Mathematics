@@ -200,7 +200,7 @@ public readonly struct Cone<TScalar> : IShape<Cone<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -257,7 +257,7 @@ public readonly struct Cone<TScalar> : IShape<Cone<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -422,15 +422,15 @@ public readonly struct Cone<TScalar> : IShape<Cone<TScalar>, TScalar>
 
         if (!c2.IsNearlyZero())
         {
-            var discr = (c1 * c1) - (c0 * c2);
-            if (discr < TScalar.Zero)
+            var discriminant = (c1 * c1) - (c0 * c2);
+            if (discriminant < TScalar.Zero)
             {
                 return false;
             }
 
-            if (discr > TScalar.Zero)
+            if (discriminant > TScalar.Zero)
             {
-                var root = TScalar.Sqrt(discr);
+                var root = TScalar.Sqrt(discriminant);
                 var invC2 = TScalar.One / c2;
                 var numIntersects = 0;
 
@@ -448,9 +448,7 @@ public readonly struct Cone<TScalar> : IShape<Cone<TScalar>, TScalar>
 
                 if (numIntersects == 2 && intersects[0] > intersects[1])
                 {
-                    var tmp = intersects[0];
-                    intersects[0] = intersects[1];
-                    intersects[1] = tmp;
+                    (intersects[1], intersects[0]) = (intersects[0], intersects[1]);
                 }
                 else if (numIntersects == 1)
                 {

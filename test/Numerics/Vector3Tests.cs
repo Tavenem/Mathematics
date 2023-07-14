@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tavenem.Mathematics.Test;
+namespace Tavenem.Mathematics.Test.Numerics;
 
 [TestClass]
 public class Vector3Tests
@@ -22,6 +22,12 @@ public class Vector3Tests
         Console.WriteLine(json);
 
         var deserialized = JsonSerializer.Deserialize<Vector3<double>>(json);
+        Assert.AreEqual(v, deserialized);
+
+        json = JsonSerializer.Serialize(v, MathematicsSourceGenerationContext.Default.Vector3Double);
+        Console.WriteLine(json);
+
+        deserialized = JsonSerializer.Deserialize(json, MathematicsSourceGenerationContext.Default.Vector3Double);
         Assert.AreEqual(v, deserialized);
     }
 }

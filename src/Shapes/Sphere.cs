@@ -146,7 +146,7 @@ public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -206,7 +206,7 @@ public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -312,8 +312,8 @@ public readonly struct Sphere<TScalar> : IShape<Sphere<TScalar>, TScalar>
         var diff = line.Position - Position;
         var a0 = Vector3<TScalar>.Dot(diff, diff) - (Radius * Radius);
         var a1 = Vector3<TScalar>.Dot(Vector3<TScalar>.Normalize(line.Path), diff);
-        var discr = (a1 * a1) - a0;
-        if (discr < TScalar.Zero)
+        var discriminant = (a1 * a1) - a0;
+        if (discriminant < TScalar.Zero)
         {
             return false;
         }

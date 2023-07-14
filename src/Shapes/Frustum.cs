@@ -148,8 +148,8 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
         Position = position;
         Rotation = rotation;
 
-        var farPlaneDistSq = Vector3<TScalar>.LengthSquared(Axis);
-        FarPlaneDistance = TScalar.Sqrt(farPlaneDistSq);
+        var farPlaneDistanceSquared = Vector3<TScalar>.LengthSquared(Axis);
+        FarPlaneDistance = TScalar.Sqrt(farPlaneDistanceSquared);
 
         var two = NumberValues.Two<TScalar>();
         var tan = TScalar.Tan(fieldOfViewAngle);
@@ -158,7 +158,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
 
         Volume = tanSq4
             * aspectRatio
-            * ((farPlaneDistSq * FarPlaneDistance) - nearPlaneDistance.Cube())
+            * ((farPlaneDistanceSquared * FarPlaneDistance) - nearPlaneDistance.Cube())
             / NumberValues.Three<TScalar>();
 
         SmallestDimension = aspectRatio <= TScalar.One
@@ -167,7 +167,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
 
         ContainingRadius = TScalar.Sqrt(
             (FarPlaneDistance - nearPlaneDistance).Square()
-            + (tanSq4 * farPlaneDistSq * (TScalar.One + aspectRatio.Square())))
+            + (tanSq4 * farPlaneDistanceSquared * (TScalar.One + aspectRatio.Square())))
             / two;
 
         axis = position - (axis / two);
@@ -185,7 +185,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
             basis2 = new Vector3<TScalar>(TScalar.One - (basis1.X.Square() * a), b, -basis1.X);
             basis3 = new Vector3<TScalar>(b, TScalar.One - (basis1.Y.Square() * a), -basis1.Y);
         }
-        var farY = basis2 * farPlaneDistSq * tanAR;
+        var farY = basis2 * farPlaneDistanceSquared * tanAR;
         var farZ = basis3 * tan * FarPlaneDistance;
         var nearX = basis1 * nearPlaneDistance;
         var nearY = basis2 * nearPlaneDistance.Square() * tanAR;
@@ -481,7 +481,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -554,7 +554,7 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -679,9 +679,9 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
         }
         if (shape is HollowSphere<TScalar> hollowSphere)
         {
-            var dist = GetPointDistance(hollowSphere.Position);
-            return dist <= hollowSphere.ContainingRadius
-                && dist + hollowSphere.InnerRadius < ContainingRadius;
+            var distance = GetPointDistance(hollowSphere.Position);
+            return distance <= hollowSphere.ContainingRadius
+                && distance + hollowSphere.InnerRadius < ContainingRadius;
         }
         if (shape is Line<TScalar> line)
         {
@@ -794,19 +794,19 @@ public readonly struct Frustum<TScalar> : IShape<Frustum<TScalar>, TScalar>
         var pointB = line.HighestPoint;
         for (var i = 0; i < 6; i++)
         {
-            var distA = GetPointDistance(pointA);
-            var distB = GetPointDistance(pointB);
-            if (distA < TScalar.Zero && distB < TScalar.Zero)
+            var distanceA = GetPointDistance(pointA);
+            var distanceB = GetPointDistance(pointB);
+            if (distanceA < TScalar.Zero && distanceB < TScalar.Zero)
             {
                 return false;
             }
-            if (distA * distB > TScalar.Zero)
+            if (distanceA * distanceB > TScalar.Zero)
             {
                 continue;
             }
-            var ratio = TScalar.Abs(distA) / TScalar.Abs(distB);
+            var ratio = TScalar.Abs(distanceA) / TScalar.Abs(distanceB);
             var intersect = Vector3<TScalar>.Lerp(pointA, pointB, ratio);
-            if (distA < TScalar.Zero)
+            if (distanceA < TScalar.Zero)
             {
                 pointA = intersect;
             }

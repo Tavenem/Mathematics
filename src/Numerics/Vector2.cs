@@ -6,8 +6,10 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// A structure encapsulating two values.
 /// </summary>
+/// <param name="x">The X component.</param>
+/// <param name="y">The Y component.</param>
 [DebuggerDisplay("{ToString()}")]
-public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScalar>
+public readonly struct Vector2<TScalar>(TScalar x, TScalar y) : ISpatialVector<Vector2<TScalar>, TScalar>
     where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
@@ -48,12 +50,12 @@ public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScal
     /// <summary>
     /// The X component of the vector.
     /// </summary>
-    public TScalar X { get; init; }
+    public TScalar X { get; init; } = x;
 
     /// <summary>
     /// The Y component of the vector.
     /// </summary>
-    public TScalar Y { get; init; }
+    public TScalar Y { get; init; } = y;
 
     /// <summary>
     /// Provides access to the values of this vector.
@@ -75,17 +77,6 @@ public readonly struct Vector2<TScalar> : ISpatialVector<Vector2<TScalar>, TScal
             }
             throw new IndexOutOfRangeException();
         }
-    }
-
-    /// <summary>
-    /// Creates a new vector with the given values.
-    /// </summary>
-    /// <param name="x">The X component.</param>
-    /// <param name="y">The Y component.</param>
-    public Vector2(TScalar x, TScalar y)
-    {
-        X = x;
-        Y = y;
     }
 
     /// <summary>

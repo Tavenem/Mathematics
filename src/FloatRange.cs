@@ -9,9 +9,17 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// A floating-point value which specifies a minimum, maximum, and average value.
 /// </summary>
+/// <param name="min">The value at which <see cref="Min"/> is to be set.</param>
+/// <param name="average">The value at which <see cref="Average"/> is to be set.</param>
+/// <param name="max">The value at which <see cref="Max"/> is to be set.</param>
+/// <remarks>
+/// The relationship of <paramref name="average"/> to <paramref name="min"/> and <paramref
+/// name="max"/> is not checked. When using the primary constructor, it is left to the implementer
+/// to verify that the given average satisfies any requirements for its usage.
+/// </remarks>
 [JsonConverter(typeof(Converters.FloatRangeConverter))]
 [DebuggerDisplay("{ToString()}")]
-public readonly struct FloatRange :
+public readonly struct FloatRange(float min, float average, float max) :
     IEquatable<FloatRange>,
     IEqualityOperators<FloatRange, FloatRange, bool>,
     IFormattable,
@@ -47,7 +55,7 @@ public readonly struct FloatRange :
     /// <summary>
     /// The average value.
     /// </summary>
-    public float Average { get; }
+    public float Average { get; init; } = average;
 
     /// <summary>
     /// Whether this range begins and ends at zero.
@@ -56,17 +64,18 @@ public readonly struct FloatRange :
     /// Uses <see cref="FloatingPointExtensions.IsNearlyZero(float)"/> to determine near-equivalence with zero,
     /// rather than strict equality.
     /// </remarks>
+    [JsonIgnore]
     public bool IsZero => Min.IsNearlyZero() && Max.IsNearlyZero();
 
     /// <summary>
     /// The maximum value.
     /// </summary>
-    public float Max { get; }
+    public float Max { get; init; } = max;
 
     /// <summary>
     /// The minimum value.
     /// </summary>
-    public float Min { get; }
+    public float Min { get; init; } = min;
 
     /// <summary>
     /// The range of values. (Max-Min, or 1-Min+Max when Min>Max)
@@ -96,24 +105,6 @@ public readonly struct FloatRange :
     /// <paramref name="max"/>.
     /// </remarks>
     public FloatRange(float min, float max) : this(min, (min + max) / 2, max) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="FloatRange"/>.
-    /// </summary>
-    /// <param name="min">The value at which <see cref="Min"/> is to be set.</param>
-    /// <param name="average">The value at which <see cref="Average"/> is to be set.</param>
-    /// <param name="max">The value at which <see cref="Max"/> is to be set.</param>
-    /// <remarks>
-    /// The relationship of <paramref name="average"/> to <paramref name="min"/> and <paramref
-    /// name="max"/> is not checked. When using this constructor, it is left to the implementer to
-    /// verify that the given average satisfies any requirements for its usage.
-    /// </remarks>
-    public FloatRange(float min, float average, float max)
-    {
-        Average = average;
-        Max = max;
-        Min = min;
-    }
 
     /// <summary>
     /// Attempts to parse the given string as a <see cref="FloatRange"/>.

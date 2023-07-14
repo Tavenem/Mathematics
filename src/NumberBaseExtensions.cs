@@ -436,7 +436,7 @@ public static class NumberBaseExtensions
     /// An object that provides culture-specific formatting information about <paramref name="s"/>.
     /// </param>
     /// <param name="result">
-    /// On return, contains the result of succesfully parsing <paramref name="s"/> or an undefined
+    /// On return, contains the result of successfully parsing <paramref name="s"/> or an undefined
     /// value on failure.
     /// </param>
     /// <returns>
@@ -465,7 +465,7 @@ public static class NumberBaseExtensions
     /// An object that provides culture-specific formatting information about <paramref name="s"/>.
     /// </param>
     /// <param name="result">
-    /// On return, contains the result of succesfully parsing <paramref name="s"/> or an undefined
+    /// On return, contains the result of successfully parsing <paramref name="s"/> or an undefined
     /// value on failure.
     /// </param>
     /// <returns>

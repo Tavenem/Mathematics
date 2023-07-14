@@ -453,7 +453,7 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -510,7 +510,7 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -553,12 +553,12 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
     /// </returns>
     public Vector3<TScalar>? GetCollisionPoint(IShape<TScalar> shape)
     {
-        if (!TryGetDistanceToCollisionPoint(shape, out var dist))
+        if (!TryGetDistanceToCollisionPoint(shape, out var distance))
         {
             return null;
         }
 
-        return _start + (Vector3<TScalar>.Normalize(Axis) * dist);
+        return _start + (Vector3<TScalar>.Normalize(Axis) * distance);
     }
 
     /// <summary>
@@ -634,13 +634,13 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
             Vector3<TScalar>.Dot(orthonormalBasis[0], delta));
         var closest = P;
         var sqrRadius = Radius * Radius;
-        var sqrDist = (P.X * P.X) + (P.Y * P.Y);
-        if (sqrDist > sqrRadius)
+        var sqrDistance = (P.X * P.X) + (P.Y * P.Y);
+        if (sqrDistance > sqrRadius)
         {
             return false;
         }
-        var distance = sqrDist.IsNearlyEqualTo(sqrRadius) ? TScalar.Sqrt(sqrDist) - Radius : TScalar.Zero;
-        if (sqrDist.IsNearlyEqualTo(sqrRadius))
+        var distance = sqrDistance.IsNearlyEqualTo(sqrRadius) ? TScalar.Sqrt(sqrDistance) - Radius : TScalar.Zero;
+        if (sqrDistance.IsNearlyEqualTo(sqrRadius))
         {
             var tmp = Radius / distance;
             closest = new Vector3<TScalar>(closest.X * tmp, closest.Y * tmp, closest.Z);
@@ -739,9 +739,9 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
             return false;
         }
         // Substitute the sphere formed by the containing radius.
-        if (Intersects(shape.ContainingRadius, shape.Position, shape.Position, out var dist))
+        if (Intersects(shape.ContainingRadius, shape.Position, shape.Position, out var distance))
         {
-            value = dist;
+            value = distance;
             return true;
         }
         return false;
@@ -752,16 +752,16 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
         distance = TScalar.Zero;
 
         // Get starting sphere in the local coordinates of the box
-        var cdiff = _start - cuboid.Position;
+        var difference = _start - cuboid.Position;
         var orthonormalBasis = new Vector3<TScalar>[]
         {
             Vector3<TScalar>.Transform(Vector3<TScalar>.UnitX, cuboid.Rotation),
             Vector3<TScalar>.Transform(Vector3<TScalar>.UnitY, cuboid.Rotation),
             Vector3<TScalar>.Transform(Vector3<TScalar>.UnitZ, cuboid.Rotation)
         };
-        var ax = Vector3<TScalar>.Dot(cdiff, orthonormalBasis[0]);
-        var ay = Vector3<TScalar>.Dot(cdiff, orthonormalBasis[1]);
-        var az = Vector3<TScalar>.Dot(cdiff, orthonormalBasis[2]);
+        var ax = Vector3<TScalar>.Dot(difference, orthonormalBasis[0]);
+        var ay = Vector3<TScalar>.Dot(difference, orthonormalBasis[1]);
+        var az = Vector3<TScalar>.Dot(difference, orthonormalBasis[2]);
         var bx = Vector3<TScalar>.Dot(Axis, orthonormalBasis[0]);
         var by = Vector3<TScalar>.Dot(Axis, orthonormalBasis[1]);
         var bz = Vector3<TScalar>.Dot(Axis, orthonormalBasis[2]);
@@ -855,16 +855,16 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
         var a0 = (P.X * P.X) + (P.Y * P.Y) - rSqr;
         var a1 = (P.X * D.X) + (P.Y * D.Y);
         var a2 = (D.X * D.X) + (D.Y * D.Y);
-        var discr = (a1 * a1) - (a0 * a2);
+        var discriminant = (a1 * a1) - (a0 * a2);
 
-        if (discr < TScalar.Zero)
+        if (discriminant < TScalar.Zero)
         {
             return false;
         }
 
-        if (discr > TScalar.Zero)
+        if (discriminant > TScalar.Zero)
         {
-            var root = TScalar.Sqrt(discr);
+            var root = TScalar.Sqrt(discriminant);
             var inv = TScalar.One / a2;
             var tValue = (-a1 - root) * inv;
             var zValue = P.Z + (tValue * D.Z);
@@ -917,10 +917,10 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
         var PZpE = P.Z + line.Length;
         a1 += PZpE * D.Z;
         a0 += PZpE * PZpE;
-        discr = (a1 * a1) - a0;
-        if (discr > TScalar.Zero)
+        discriminant = (a1 * a1) - a0;
+        if (discriminant > TScalar.Zero)
         {
-            var root = TScalar.Sqrt(discr);
+            var root = TScalar.Sqrt(discriminant);
             var tValue = -a1 - root;
             var zValue = P.Z + (tValue * D.Z);
             if (zValue <= -line.Length)
@@ -934,7 +934,7 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
                 return true;
             }
         }
-        else if (discr.IsNearlyZero())
+        else if (discriminant.IsNearlyZero())
         {
             var tValue = -a1;
             var zValue = P.Z + (tValue * D.Z);
@@ -957,10 +957,10 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
         // test for intersection with end sphere
         a1 -= NumberValues.Two<TScalar>() * line.Length * D.Z;
         a0 -= NumberValues.Four<TScalar>() * line.Length * P.Z;
-        discr = (a1 * a1) - a0;
-        if (discr > TScalar.Zero)
+        discriminant = (a1 * a1) - a0;
+        if (discriminant > TScalar.Zero)
         {
-            var root = TScalar.Sqrt(discr);
+            var root = TScalar.Sqrt(discriminant);
             var tValue = -a1 - root;
             var zValue = P.Z + (tValue * D.Z);
             if (zValue >= line.Length)
@@ -977,7 +977,7 @@ public readonly struct Capsule<TScalar> : IShape<Capsule<TScalar>, TScalar>
                 return true;
             }
         }
-        else if (discr.IsNearlyZero())
+        else if (discriminant.IsNearlyZero())
         {
             var tValue = -a1;
             var zValue = P.Z + (tValue * D.Z);

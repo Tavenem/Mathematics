@@ -118,7 +118,7 @@ public static class FloatingPointExtensions
     /// <see langword="true"/> if the value is close to 0; otherwise <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Uses <see cref="NumberValues.NearlyZeroDecimal"/> as the threshhold for closeness to zero.
+    /// Uses <see cref="NumberValues.NearlyZeroDecimal"/> as the threshold for closeness to zero.
     /// </remarks>
     public static bool IsNearlyZero(this decimal value) => value is < NumberValues.NearlyZeroDecimal and > (-NumberValues.NearlyZeroDecimal);
 
@@ -130,7 +130,7 @@ public static class FloatingPointExtensions
     /// <see langword="true"/> if the value is close to 0; otherwise <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Uses <see cref="NumberValues.NearlyZeroDouble"/> as the threshhold for closeness to zero.
+    /// Uses <see cref="NumberValues.NearlyZeroDouble"/> as the threshold for closeness to zero.
     /// </remarks>
     public static bool IsNearlyZero(this double value) => value is < NumberValues.NearlyZeroDouble and > (-NumberValues.NearlyZeroDouble);
 
@@ -142,7 +142,7 @@ public static class FloatingPointExtensions
     /// <see langword="true"/> if the value is close to 0; otherwise <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Uses <see cref="NumberValues.NearlyZeroFloat"/> as the threshhold for closeness to zero.
+    /// Uses <see cref="NumberValues.NearlyZeroFloat"/> as the threshold for closeness to zero.
     /// </remarks>
     public static bool IsNearlyZero(this float value) => value is < NumberValues.NearlyZeroFloat and > (-NumberValues.NearlyZeroFloat);
 
@@ -154,7 +154,7 @@ public static class FloatingPointExtensions
     /// <see langword="true"/> if the value is close to 0; otherwise <see langword="false"/>.
     /// </returns>
     /// <remarks>
-    /// Uses <see cref="NumberValues.NearlyZeroDouble"/> as the threshhold for closeness to zero.
+    /// Uses <see cref="NumberValues.NearlyZeroDouble"/> as the threshold for closeness to zero.
     /// </remarks>
     public static bool IsNearlyZero<T>(this T value) where T : IFloatingPoint<T>
     {

@@ -6,8 +6,11 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// A structure encapsulating three values.
 /// </summary>
+/// <param name="x">The X component.</param>
+/// <param name="y">The Y component.</param>
+/// <param name="z">The Z component.</param>
 [DebuggerDisplay("{ToString()}")]
-public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScalar>
+public readonly struct Vector3<TScalar>(TScalar x, TScalar y, TScalar z) : ISpatialVector<Vector3<TScalar>, TScalar>
     where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
@@ -53,17 +56,17 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
     /// <summary>
     /// The X component of the vector.
     /// </summary>
-    public TScalar X { get; init; }
+    public TScalar X { get; init; } = x;
 
     /// <summary>
     /// The Y component of the vector.
     /// </summary>
-    public TScalar Y { get; init; }
+    public TScalar Y { get; init; } = y;
 
     /// <summary>
     /// The Z component of the vector.
     /// </summary>
-    public TScalar Z { get; init; }
+    public TScalar Z { get; init; } = z;
 
     /// <summary>
     /// Provides access to the values of this vector.
@@ -89,19 +92,6 @@ public readonly struct Vector3<TScalar> : ISpatialVector<Vector3<TScalar>, TScal
             }
             throw new IndexOutOfRangeException();
         }
-    }
-
-    /// <summary>
-    /// Creates a new vector with the given values.
-    /// </summary>
-    /// <param name="x">The X component.</param>
-    /// <param name="y">The Y component.</param>
-    /// <param name="z">The Z component.</param>
-    public Vector3(TScalar x, TScalar y, TScalar z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
     }
 
     /// <summary>

@@ -376,7 +376,7 @@ public readonly struct Plane<TScalar> :
     /// This plane must already be normalized, so that its normal vector is of unit length, before this method is called.
     /// </para>
     /// </param>
-    /// <param name="rotation">The wuaternion rotation to apply to the Plane.</param>
+    /// <param name="rotation">The quaternion rotation to apply to the Plane.</param>
     /// <returns>A new plane that results from applying the rotation.</returns>
     public static Plane<TScalar> Transform(Plane<TScalar> plane, Quaternion<TScalar> rotation)
     {
@@ -424,7 +424,7 @@ public readonly struct Plane<TScalar> :
     /// <summary>
     ///  Transforms a normalized plane by a quaternion rotation.
     /// </summary>
-    /// <param name="rotation">The wuaternion rotation to apply to the Plane.</param>
+    /// <param name="rotation">The quaternion rotation to apply to the Plane.</param>
     /// <returns>A new plane that results from applying the rotation.</returns>
     /// <remarks>
     /// This plane must already be normalized, so that its Normal vector is of unit length, before

@@ -197,7 +197,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
     public IShape<TScalar> GetScaledByDimension(TScalar factor) => GetTypedScaledByDimension(factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -259,7 +259,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
     }
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>
@@ -395,7 +395,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
             closest[i] = Vector3<TScalar>.Dot(diff, orthonormalBasis[i]);
         }
 
-        var sqrDist = TScalar.Zero;
+        var sqrDistance = TScalar.Zero;
         var two = NumberValues.Two<TScalar>();
         for (var i = 0; i < 3; i++)
         {
@@ -430,17 +430,17 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
             if (closest[i] < -a)
             {
                 var delta = p + a;
-                sqrDist += delta * delta;
+                sqrDistance += delta * delta;
                 closest[i] = -a;
             }
             else if (p > a)
             {
                 var delta = p - a;
-                sqrDist += delta * delta;
+                sqrDistance += delta * delta;
                 closest[i] = a;
             }
         }
-        return sqrDist <= TScalar.Zero;
+        return sqrDistance <= TScalar.Zero;
     }
 
     private bool Intersects(Cone<TScalar> cone)
@@ -619,7 +619,7 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
         {
             var k1 = mMod3[k0 + 1];
             var k2 = mMod3[k1 + 1];
-            var denom = (DdUA[k1] * maxPmVA[k1]) + (DdUA[k2] * maxPmVA[k2]);
+            var denominator = (DdUA[k1] * maxPmVA[k1]) + (DdUA[k2] * maxPmVA[k2]);
             var MmVA = new TScalar[3] { TScalar.Zero, TScalar.Zero, TScalar.Zero };
             var maxXA = new TScalar[3]
             {
@@ -634,8 +634,8 @@ public readonly struct Cuboid<TScalar> : IShape<Cuboid<TScalar>, TScalar>
                 CmV.Z,
             };
             MmVA[k0] = ((maxPmVA[k1] * maxPmVA[k1]) + (maxPmVA[k2] * maxPmVA[k2])) * DdUA[k0];
-            MmVA[k1] = denom * (maxXA[k1] + CmVA[k1]);
-            MmVA[k2] = denom * (maxXA[k2] + CmVA[k2]);
+            MmVA[k1] = denominator * (maxXA[k1] + CmVA[k1]);
+            MmVA[k2] = denominator * (maxXA[k2] + CmVA[k2]);
             var MmV = new Vector3<TScalar>(MmVA[0], MmVA[1], MmVA[2]);
 
             var DdMmV = Vector3<TScalar>.Dot(DdU, MmV);

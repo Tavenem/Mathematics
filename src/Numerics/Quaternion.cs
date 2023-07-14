@@ -8,8 +8,12 @@ namespace Tavenem.Mathematics;
 /// A structure encapsulating a four-dimensional vector (x,y,z,w), which is used to efficiently
 /// rotate an object about the (x,y,z) vector by the angle theta, where w = cos(theta/2).
 /// </summary>
+/// <param name="x">The X component.</param>
+/// <param name="y">The Y component.</param>
+/// <param name="z">The Z component.</param>
+/// <param name="w">The W component.</param>
 [DebuggerDisplay("{ToString()}")]
-public readonly struct Quaternion<TScalar> :
+public readonly struct Quaternion<TScalar>(TScalar x, TScalar y, TScalar z, TScalar w) :
     IAdditionOperators<Quaternion<TScalar>, Quaternion<TScalar>, Quaternion<TScalar>>,
     IEqualityOperators<Quaternion<TScalar>, Quaternion<TScalar>, bool>,
     IMultiplicativeIdentity<Quaternion<TScalar>, Quaternion<TScalar>>,
@@ -34,37 +38,22 @@ public readonly struct Quaternion<TScalar> :
     /// <summary>
     /// Specifies the X-value of the vector component of the quaternion.
     /// </summary>
-    public TScalar X { get; init; }
+    public TScalar X { get; init; } = x;
 
     /// <summary>
     /// Specifies the Y-value of the vector component of the quaternion.
     /// </summary>
-    public TScalar Y { get; init; }
+    public TScalar Y { get; init; } = y;
 
     /// <summary>
     /// Specifies the Z-value of the vector component of the quaternion.
     /// </summary>
-    public TScalar Z { get; init; }
+    public TScalar Z { get; init; } = z;
 
     /// <summary>
     /// Specifies the rotation component of the quaternion.
     /// </summary>
-    public TScalar W { get; init; }
-
-    /// <summary>
-    /// Creates a new quaternion with the given values.
-    /// </summary>
-    /// <param name="x">The X component.</param>
-    /// <param name="y">The Y component.</param>
-    /// <param name="z">The Z component.</param>
-    /// <param name="w">The W component.</param>
-    public Quaternion(TScalar x, TScalar y, TScalar z, TScalar w)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-        W = w;
-    }
+    public TScalar W { get; init; } = w;
 
     /// <summary>
     /// Creates a new quaternion with the given value for all components.

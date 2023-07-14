@@ -263,7 +263,7 @@ public static class FloatingPointIeee754Extensions
     /// The value which base-radix raised to the power of <paramref name="n"/> multiplies.
     /// </param>
     /// <param name="n">
-    /// The value to which base-radix is raised before multipliying <paramref name="x"/>.
+    /// The value to which base-radix is raised before multiplying <paramref name="x"/>.
     /// </param>
     /// <returns>
     /// The product of <paramref name="x"/> and base-radix raised to the power of <paramref

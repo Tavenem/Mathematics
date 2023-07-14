@@ -7,8 +7,28 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// A structure encapsulating a 4x4 matrix.
 /// </summary>
+/// <param name="value11">The value for the 1x1 position in the matrix.</param>
+/// <param name="value12">The value for the 1x2 position in the matrix.</param>
+/// <param name="value13">The value for the 1x3 position in the matrix.</param>
+/// <param name="value14">The value for the 1x4 position in the matrix.</param>
+/// <param name="value21">The value for the 2x1 position in the matrix.</param>
+/// <param name="value22">The value for the 2x2 position in the matrix.</param>
+/// <param name="value23">The value for the 2x3 position in the matrix.</param>
+/// <param name="value24">The value for the 2x4 position in the matrix.</param>
+/// <param name="value31">The value for the 3x1 position in the matrix.</param>
+/// <param name="value32">The value for the 3x2 position in the matrix.</param>
+/// <param name="value33">The value for the 3x3 position in the matrix.</param>
+/// <param name="value34">The value for the 3x4 position in the matrix.</param>
+/// <param name="value41">The value for the 4x1 position in the matrix.</param>
+/// <param name="value42">The value for the 4x2 position in the matrix.</param>
+/// <param name="value43">The value for the 4x3 position in the matrix.</param>
+/// <param name="value44">The value for the 4x4 position in the matrix.</param>
 [DebuggerDisplay("{ToString()}")]
-public struct Matrix4x4<TScalar> :
+public readonly struct Matrix4x4<TScalar>(
+    TScalar value11, TScalar value12, TScalar value13, TScalar value14,
+    TScalar value21, TScalar value22, TScalar value23, TScalar value24,
+    TScalar value31, TScalar value32, TScalar value33, TScalar value34,
+    TScalar value41, TScalar value42, TScalar value43, TScalar value44) :
     IAdditionOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
     IEqualityOperators<Matrix4x4<TScalar>, Matrix4x4<TScalar>, bool>,
     IMultiplicativeIdentity<Matrix4x4<TScalar>, Matrix4x4<TScalar>>,
@@ -72,134 +92,88 @@ public struct Matrix4x4<TScalar> :
     /// <summary>
     /// Value at row 1, column 1 of the matrix.
     /// </summary>
-    public TScalar M11 { get; init; }
+    public TScalar M11 { get; init; } = value11;
 
     /// <summary>
     /// Value at row 1, column 2 of the matrix.
     /// </summary>
-    public TScalar M12 { get; init; }
+    public TScalar M12 { get; init; } = value12;
 
     /// <summary>
     /// Value at row 1, column 3 of the matrix.
     /// </summary>
-    public TScalar M13 { get; init; }
+    public TScalar M13 { get; init; } = value13;
 
     /// <summary>
     /// Value at row 1, column 4 of the matrix.
     /// </summary>
-    public TScalar M14 { get; init; }
+    public TScalar M14 { get; init; } = value14;
 
     /// <summary>
     /// Value at row 2, column 1 of the matrix.
     /// </summary>
-    public TScalar M21 { get; init; }
+    public TScalar M21 { get; init; } = value21;
 
     /// <summary>
     /// Value at row 2, column 2 of the matrix.
     /// </summary>
-    public TScalar M22 { get; init; }
+    public TScalar M22 { get; init; } = value22;
 
     /// <summary>
     /// Value at row 2, column 3 of the matrix.
     /// </summary>
-    public TScalar M23 { get; init; }
+    public TScalar M23 { get; init; } = value23;
 
     /// <summary>
     /// Value at row 2, column 4 of the matrix.
     /// </summary>
-    public TScalar M24 { get; init; }
+    public TScalar M24 { get; init; } = value24;
 
     /// <summary>
     /// Value at row 3, column 1 of the matrix.
     /// </summary>
-    public TScalar M31 { get; init; }
+    public TScalar M31 { get; init; } = value31;
 
     /// <summary>
     /// Value at row 3, column 2 of the matrix.
     /// </summary>
-    public TScalar M32 { get; init; }
+    public TScalar M32 { get; init; } = value32;
 
     /// <summary>
     /// Value at row 3, column 3 of the matrix.
     /// </summary>
-    public TScalar M33 { get; init; }
+    public TScalar M33 { get; init; } = value33;
 
     /// <summary>
     /// Value at row 3, column 4 of the matrix.
     /// </summary>
-    public TScalar M34 { get; init; }
+    public TScalar M34 { get; init; } = value34;
 
     /// <summary>
     /// Value at row 4, column 1 of the matrix.
     /// </summary>
-    public TScalar M41 { get; init; }
+    public TScalar M41 { get; init; } = value41;
 
     /// <summary>
     /// Value at row 4, column 2 of the matrix.
     /// </summary>
-    public TScalar M42 { get; init; }
+    public TScalar M42 { get; init; } = value42;
 
     /// <summary>
     /// Value at row 4, column 3 of the matrix.
     /// </summary>
-    public TScalar M43 { get; init; }
+    public TScalar M43 { get; init; } = value43;
 
     /// <summary>
     /// Value at row 4, column 4 of the matrix.
     /// </summary>
-    public TScalar M44 { get; init; }
+    public TScalar M44 { get; init; } = value44;
 
     /// <summary>
     /// Gets the translation component of this matrix.
     /// </summary>
     [System.Text.Json.Serialization.JsonIgnore]
     public Vector3<TScalar> Translation => new() { X = M41, Y = M42, Z = M43 };
-
-    /// <summary>
-    /// Create a new <see cref="Matrix4x4{TScalar}"/> instance with the given values.
-    /// </summary>
-    /// <param name="value11">The value for the 1x1 position in the matrix.</param>
-    /// <param name="value12">The value for the 1x2 position in the matrix.</param>
-    /// <param name="value13">The value for the 1x3 position in the matrix.</param>
-    /// <param name="value14">The value for the 1x4 position in the matrix.</param>
-    /// <param name="value21">The value for the 2x1 position in the matrix.</param>
-    /// <param name="value22">The value for the 2x2 position in the matrix.</param>
-    /// <param name="value23">The value for the 2x3 position in the matrix.</param>
-    /// <param name="value24">The value for the 2x4 position in the matrix.</param>
-    /// <param name="value31">The value for the 3x1 position in the matrix.</param>
-    /// <param name="value32">The value for the 3x2 position in the matrix.</param>
-    /// <param name="value33">The value for the 3x3 position in the matrix.</param>
-    /// <param name="value34">The value for the 3x4 position in the matrix.</param>
-    /// <param name="value41">The value for the 4x1 position in the matrix.</param>
-    /// <param name="value42">The value for the 4x2 position in the matrix.</param>
-    /// <param name="value43">The value for the 4x3 position in the matrix.</param>
-    /// <param name="value44">The value for the 4x4 position in the matrix.</param>
-    /// <returns>
-    /// The newly created <see cref="Matrix4x4{TScalar}"/> instance.
-    /// </returns>
-    public Matrix4x4(
-        TScalar value11, TScalar value12, TScalar value13, TScalar value14,
-        TScalar value21, TScalar value22, TScalar value23, TScalar value24,
-        TScalar value31, TScalar value32, TScalar value33, TScalar value34,
-        TScalar value41, TScalar value42, TScalar value43, TScalar value44)
-    {
-        M11 = value11;
-        M12 = value12;
-        M13 = value13;
-        M14 = value14;
-        M21 = value21;
-        M22 = value22;
-        M23 = value23;
-        M24 = value24;
-        M31 = value31;
-        M32 = value32;
-        M33 = value33;
-        M34 = value34;
-        M41 = value41;
-        M42 = value42;
-        M43 = value43;
-        M44 = value44;
-    }
 
     /// <summary>
     /// Create a new <see cref="Matrix4x4{TScalar}"/> instance where all the values
@@ -435,39 +409,39 @@ public struct Matrix4x4<TScalar> :
         Vector3<TScalar> cameraUpVector,
         Vector3<TScalar> cameraForwardVector)
     {
-        var zaxis = Vector3<TScalar>.Create(
+        var zAxis = Vector3<TScalar>.Create(
             objectPosition.X - cameraPosition.X,
             objectPosition.Y - cameraPosition.Y,
             objectPosition.Z - cameraPosition.Z);
 
-        var norm = Vector3<TScalar>.LengthSquared(zaxis);
+        var norm = Vector3<TScalar>.LengthSquared(zAxis);
 
         if (norm < TScalar.One / NumberValues.TenThousand<TScalar>()) // 1e-4
         {
-            zaxis = -cameraForwardVector;
+            zAxis = -cameraForwardVector;
         }
         else
         {
-            zaxis *= TScalar.One / TScalar.Sqrt(norm);
+            zAxis *= TScalar.One / TScalar.Sqrt(norm);
         }
 
-        var xaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(cameraUpVector, zaxis));
+        var xAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(cameraUpVector, zAxis));
 
-        var yaxis = Vector3<TScalar>.Cross(zaxis, xaxis);
+        var yAxis = Vector3<TScalar>.Cross(zAxis, xAxis);
 
         return new()
         {
-            M11 = xaxis.X,
-            M12 = xaxis.Y,
-            M13 = xaxis.Z,
+            M11 = xAxis.X,
+            M12 = xAxis.Y,
+            M13 = xAxis.Z,
             M14 = TScalar.Zero,
-            M21 = yaxis.X,
-            M22 = yaxis.Y,
-            M23 = yaxis.Z,
+            M21 = yAxis.X,
+            M22 = yAxis.Y,
+            M23 = yAxis.Z,
             M24 = TScalar.Zero,
-            M31 = zaxis.X,
-            M32 = zaxis.Y,
-            M33 = zaxis.Z,
+            M31 = zAxis.X,
+            M32 = zAxis.Y,
+            M33 = zAxis.Z,
             M34 = TScalar.Zero,
             M41 = objectPosition.X,
             M42 = objectPosition.Y,
@@ -509,9 +483,9 @@ public struct Matrix4x4<TScalar> :
             faceDir *= TScalar.One / TScalar.Sqrt(norm);
         }
 
-        var yaxis = rotateAxis;
-        Vector3<TScalar> xaxis;
-        Vector3<TScalar> zaxis;
+        var yAxis = rotateAxis;
+        Vector3<TScalar> xAxis;
+        Vector3<TScalar> zAxis;
 
         // Treat the case when angle between faceDir and rotateAxis is too close to 0.
         var dot = Vector3<TScalar>.Dot(rotateAxis, faceDir);
@@ -519,40 +493,40 @@ public struct Matrix4x4<TScalar> :
         var minAngle = TScalar.One - (NumberValues.PiOver180<TScalar>() / NumberValues.Ten<TScalar>()); // 0.1 degrees
         if (TScalar.Abs(dot) > minAngle)
         {
-            zaxis = objectForwardVector;
+            zAxis = objectForwardVector;
 
             // Make sure passed values are useful for compute.
-            dot = Vector3<TScalar>.Dot(rotateAxis, zaxis);
+            dot = Vector3<TScalar>.Dot(rotateAxis, zAxis);
 
             if (TScalar.Abs(dot) > minAngle)
             {
-                zaxis = (TScalar.Abs(rotateAxis.Z) > minAngle)
+                zAxis = (TScalar.Abs(rotateAxis.Z) > minAngle)
                     ? Vector3<TScalar>.UnitX
                     : -Vector3<TScalar>.UnitZ;
             }
 
-            xaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(rotateAxis, zaxis));
-            zaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(xaxis, rotateAxis));
+            xAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(rotateAxis, zAxis));
+            zAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(xAxis, rotateAxis));
         }
         else
         {
-            xaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(rotateAxis, faceDir));
-            zaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(xaxis, yaxis));
+            xAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(rotateAxis, faceDir));
+            zAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(xAxis, yAxis));
         }
 
         return new()
         {
-            M11 = xaxis.X,
-            M12 = xaxis.Y,
-            M13 = xaxis.Z,
+            M11 = xAxis.X,
+            M12 = xAxis.Y,
+            M13 = xAxis.Z,
             M14 = TScalar.Zero,
-            M21 = yaxis.X,
-            M22 = yaxis.Y,
-            M23 = yaxis.Z,
+            M21 = yAxis.X,
+            M22 = yAxis.Y,
+            M23 = yAxis.Z,
             M24 = TScalar.Zero,
-            M31 = zaxis.X,
-            M32 = zaxis.Y,
-            M33 = zaxis.Z,
+            M31 = zAxis.X,
+            M32 = zAxis.Y,
+            M33 = zAxis.Z,
             M34 = TScalar.Zero,
             M41 = objectPosition.X,
             M42 = objectPosition.Y,
@@ -1240,27 +1214,27 @@ public struct Matrix4x4<TScalar> :
         Vector3<TScalar> cameraTarget,
         Vector3<TScalar> cameraUpVector)
     {
-        var zaxis = Vector3<TScalar>.Normalize(cameraPosition - cameraTarget);
-        var xaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(cameraUpVector, zaxis));
-        var yaxis = Vector3<TScalar>.Cross(zaxis, xaxis);
+        var zAxis = Vector3<TScalar>.Normalize(cameraPosition - cameraTarget);
+        var xAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(cameraUpVector, zAxis));
+        var yAxis = Vector3<TScalar>.Cross(zAxis, xAxis);
 
         return new()
         {
-            M11 = xaxis.X,
-            M12 = yaxis.X,
-            M13 = zaxis.X,
+            M11 = xAxis.X,
+            M12 = yAxis.X,
+            M13 = zAxis.X,
             M14 = TScalar.Zero,
-            M21 = xaxis.Y,
-            M22 = yaxis.Y,
-            M23 = zaxis.Y,
+            M21 = xAxis.Y,
+            M22 = yAxis.Y,
+            M23 = zAxis.Y,
             M24 = TScalar.Zero,
-            M31 = xaxis.Z,
-            M32 = yaxis.Z,
-            M33 = zaxis.Z,
+            M31 = xAxis.Z,
+            M32 = yAxis.Z,
+            M33 = zAxis.Z,
             M34 = TScalar.Zero,
-            M41 = -Vector3<TScalar>.Dot(xaxis, cameraPosition),
-            M42 = -Vector3<TScalar>.Dot(yaxis, cameraPosition),
-            M43 = -Vector3<TScalar>.Dot(zaxis, cameraPosition),
+            M41 = -Vector3<TScalar>.Dot(xAxis, cameraPosition),
+            M42 = -Vector3<TScalar>.Dot(yAxis, cameraPosition),
+            M43 = -Vector3<TScalar>.Dot(zAxis, cameraPosition),
             M44 = TScalar.One,
         };
     }
@@ -1274,23 +1248,23 @@ public struct Matrix4x4<TScalar> :
     /// <returns>The world matrix.</returns>
     public static Matrix4x4<TScalar> CreateWorld(Vector3<TScalar> position, Vector3<TScalar> forward, Vector3<TScalar> up)
     {
-        var zaxis = Vector3<TScalar>.Normalize(-forward);
-        var xaxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(up, zaxis));
-        var yaxis = Vector3<TScalar>.Cross(zaxis, xaxis);
+        var zAxis = Vector3<TScalar>.Normalize(-forward);
+        var xAxis = Vector3<TScalar>.Normalize(Vector3<TScalar>.Cross(up, zAxis));
+        var yAxis = Vector3<TScalar>.Cross(zAxis, xAxis);
 
         return new()
         {
-            M11 = xaxis.X,
-            M12 = xaxis.Y,
-            M13 = xaxis.Z,
+            M11 = xAxis.X,
+            M12 = xAxis.Y,
+            M13 = xAxis.Z,
             M14 = TScalar.Zero,
-            M21 = yaxis.X,
-            M22 = yaxis.Y,
-            M23 = yaxis.Z,
+            M21 = yAxis.X,
+            M22 = yAxis.Y,
+            M23 = yAxis.Z,
             M24 = TScalar.Zero,
-            M31 = zaxis.X,
-            M32 = zaxis.Y,
-            M33 = zaxis.Z,
+            M31 = zAxis.X,
+            M32 = zAxis.Y,
+            M33 = zAxis.Z,
             M34 = TScalar.Zero,
             M41 = position.X,
             M42 = position.Y,

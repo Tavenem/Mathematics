@@ -6,8 +6,12 @@ namespace Tavenem.Mathematics;
 /// <summary>
 /// A structure encapsulating four values.
 /// </summary>
+/// <param name="x">The X component.</param>
+/// <param name="y">The Y component.</param>
+/// <param name="z">The Z component.</param>
+/// <param name="w">The W component.</param>
 [DebuggerDisplay("{ToString()}")]
-public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScalar>
+public readonly struct Vector4<TScalar>(TScalar x, TScalar y, TScalar z, TScalar w) : ISpatialVector<Vector4<TScalar>, TScalar>
     where TScalar : IFloatingPointIeee754<TScalar>
 {
     /// <summary>
@@ -58,22 +62,22 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
     /// <summary>
     /// The X component of the vector.
     /// </summary>
-    public TScalar X { get; init; }
+    public TScalar X { get; init; } = x;
 
     /// <summary>
     /// The Y component of the vector.
     /// </summary>
-    public TScalar Y { get; init; }
+    public TScalar Y { get; init; } = y;
 
     /// <summary>
     /// The Z component of the vector.
     /// </summary>
-    public TScalar Z { get; init; }
+    public TScalar Z { get; init; } = z;
 
     /// <summary>
     /// The W component of the vector.
     /// </summary>
-    public TScalar W { get; init; }
+    public TScalar W { get; init; } = w;
 
     /// <summary>
     /// Provides access to the values of this vector.
@@ -103,21 +107,6 @@ public readonly struct Vector4<TScalar> : ISpatialVector<Vector4<TScalar>, TScal
             }
             throw new IndexOutOfRangeException();
         }
-    }
-
-    /// <summary>
-    /// Creates a new vector with the given values.
-    /// </summary>
-    /// <param name="x">The X component.</param>
-    /// <param name="y">The Y component.</param>
-    /// <param name="z">The Z component.</param>
-    /// <param name="w">The W component.</param>
-    public Vector4(TScalar x, TScalar y, TScalar z, TScalar w)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-        W = w;
     }
 
     /// <summary>

@@ -1,14 +1,24 @@
 ﻿using System.Diagnostics;
 using System.Numerics;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Tavenem.Mathematics;
 
 /// <summary>
 /// A structure encapsulating a 3x2 matrix.
 /// </summary>
+/// <param name="value11">The value for the 1x1 position in the matrix.</param>
+/// <param name="value12">The value for the 1x2 position in the matrix.</param>
+/// <param name="value21">The value for the 2x1 position in the matrix.</param>
+/// <param name="value22">The value for the 2x2 position in the matrix.</param>
+/// <param name="value31">The value for the 3x1 position in the matrix.</param>
+/// <param name="value32">The value for the 3x2 position in the matrix.</param>
 [DebuggerDisplay("{ToString()}")]
-public readonly struct Matrix3x2<TScalar> :
+public readonly struct Matrix3x2<TScalar>(
+    TScalar value11, TScalar value12,
+    TScalar value21, TScalar value22,
+    TScalar value31, TScalar value32) :
     IAdditionOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
     IEqualityOperators<Matrix3x2<TScalar>, Matrix3x2<TScalar>, bool>,
     IMultiplicativeIdentity<Matrix3x2<TScalar>, Matrix3x2<TScalar>>,
@@ -42,63 +52,38 @@ public readonly struct Matrix3x2<TScalar> :
     /// <summary>
     /// The first element of the first row.
     /// </summary>
-    public TScalar M11 { get; init; }
+    public TScalar M11 { get; init; } = value11;
 
     /// <summary>
     /// The second element of the first row.
     /// </summary>
-    public TScalar M12 { get; init; }
+    public TScalar M12 { get; init; } = value12;
 
     /// <summary>
     /// The first element of the second row.
     /// </summary>
-    public TScalar M21 { get; init; }
+    public TScalar M21 { get; init; } = value21;
 
     /// <summary>
     /// The second element of the second row.
     /// </summary>
-    public TScalar M22 { get; init; }
+    public TScalar M22 { get; init; } = value22;
 
     /// <summary>
     /// The first element of the third row.
     /// </summary>
-    public TScalar M31 { get; init; }
+    public TScalar M31 { get; init; } = value31;
 
     /// <summary>
     /// The second element of the third row.
     /// </summary>
-    public TScalar M32 { get; init; }
+    public TScalar M32 { get; init; } = value32;
 
     /// <summary>
     /// Gets the translation component of this matrix.
     /// </summary>
-    [System.Text.Json.Serialization.JsonIgnore]
+    [JsonIgnore]
     public Vector2<TScalar> Translation => new() { X = M31, Y = M32 };
-
-    /// <summary>
-    /// Create a new <see cref="Matrix3x2{TScalar}"/> instance with the given values.
-    /// </summary>
-    /// <param name="value11">The value for the 1x1 position in the matrix.</param>
-    /// <param name="value12">The value for the 1x2 position in the matrix.</param>
-    /// <param name="value21">The value for the 2x1 position in the matrix.</param>
-    /// <param name="value22">The value for the 2x2 position in the matrix.</param>
-    /// <param name="value31">The value for the 3x1 position in the matrix.</param>
-    /// <param name="value32">The value for the 3x2 position in the matrix.</param>
-    /// <returns>
-    /// The newly created <see cref="Matrix3x2{TScalar}"/> instance.
-    /// </returns>
-    public Matrix3x2(
-        TScalar value11, TScalar value12,
-        TScalar value21, TScalar value22,
-        TScalar value31, TScalar value32)
-    {
-        M11 = value11;
-        M12 = value12;
-        M21 = value21;
-        M22 = value22;
-        M31 = value31;
-        M32 = value32;
-    }
 
     /// <summary>
     /// Create a new <see cref="Matrix3x2{TScalar}"/> instance where all the values

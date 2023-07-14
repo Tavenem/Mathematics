@@ -107,7 +107,7 @@ public static class TrigonometricFunctionsExtensions
     public static T Cos<T>(this T x) where T : ITrigonometricFunctions<T> => T.Cos(x);
 
     /// <summary>
-    /// Computes the cosine of a value that has been multipled by <c>π</c>.
+    /// Computes the cosine of a value that has been multiplied by <c>π</c>.
     /// </summary>
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">The value, in half-revolutions, whose cosine is to be computed.</param>
@@ -146,15 +146,15 @@ public static class TrigonometricFunctionsExtensions
     public static (T Sin, T Cos) SinCos<T>(this T x) where T : ITrigonometricFunctions<T> => T.SinCos(x);
 
     /// <summary>
-    /// Computes the sine and cosine of a value that has been multipled by <c>π</c>.
+    /// Computes the sine and cosine of a value that has been multiplied by <c>π</c>.
     /// </summary>
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">
-    /// The value, in half-revolutions, that is multipled by <c>π</c> before computing its sine and
+    /// The value, in half-revolutions, that is multiplied by <c>π</c> before computing its sine and
     /// cosine.
     /// </param>
     /// <returns>
-    /// The sine and cosine of <paramref name="x"/> multipled-by <c>π</c>.
+    /// The sine and cosine of <paramref name="x"/> multiplied-by <c>π</c>.
     /// </returns>
     /// <remarks>
     /// This computes <c>(sin(πx), cos(πx))</c>.
@@ -162,11 +162,11 @@ public static class TrigonometricFunctionsExtensions
     public static (T SinPi, T CosPi) SinCosPi<T>(this T x) where T : ITrigonometricFunctions<T> => T.SinCosPi(x);
 
     /// <summary>
-    /// Computes the sine of a value that has been multipled by <c>π</c>.
+    /// Computes the sine of a value that has been multiplied by <c>π</c>.
     /// </summary>
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">
-    /// The value, in half-revolutions, that is multipled by <c>π</c> before computing its sine.
+    /// The value, in half-revolutions, that is multiplied by <c>π</c> before computing its sine.
     /// </param>
     /// <returns>
     /// The sine of <paramref name="x"/> multiplied-by <c>π</c>.
@@ -190,11 +190,11 @@ public static class TrigonometricFunctionsExtensions
     public static T Tan<T>(this T x) where T : ITrigonometricFunctions<T> => T.Tan(x);
 
     /// <summary>
-    /// Computes the tangent of a value that has been multipled by <c>π</c>.
+    /// Computes the tangent of a value that has been multiplied by <c>π</c>.
     /// </summary>
     /// <typeparam name="T">The type of number.</typeparam>
     /// <param name="x">
-    /// The value, in half-revolutions, that is multipled by <c>π</c> before computing its tangent.
+    /// The value, in half-revolutions, that is multiplied by <c>π</c> before computing its tangent.
     /// </param>
     /// <returns>
     /// The tangent of <paramref name="x"/> multiplied-by <c>π</c>.

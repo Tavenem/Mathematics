@@ -43,7 +43,7 @@ public interface IShape<TSelf, TScalar> : IShape<TScalar>
     TSelf GetTypedScaledByDimension(TScalar factor);
 
     /// <summary>
-    /// Gets a copy of this instance whose dimensions have beens scaled such that
+    /// Gets a copy of this instance whose dimensions have been scaled such that
     /// its volume will be multiplied by the given factor.
     /// </summary>
     /// <param name="factor">The amount by which to scale this instance's volume.</param>

@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2
+## 2.2-preview.1
 ### Updated
 - Update to .NET 8
 
@@ -19,7 +19,7 @@
 
 ## 2.0.0-preview.11
 ### Added
-- Made Zero vector and matrix initiatlization explicit rather than the default constructor
+- Made Zero vector and matrix initialization explicit rather than the default constructor
 
 ## 2.0.0-preview.11
 ### Changed

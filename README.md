@@ -1,4 +1,4 @@
-![build](https://img.shields.io/github/workflow/status/Tavenem/Mathematics/publish/main) [![NuGet downloads](https://img.shields.io/nuget/dt/Tavenem.Mathematics)](https://www.nuget.org/packages/Tavenem.Mathematics/)
+![build](https://img.shields.io/github/actions/workflow/status/Tavenem/Mathematics/publish.yml?branch=main) [![NuGet downloads](https://img.shields.io/nuget/dt/Tavenem.Mathematics)](https://www.nuget.org/packages/Tavenem.Mathematics/)
 
 Tavenem.Mathematics
 ==

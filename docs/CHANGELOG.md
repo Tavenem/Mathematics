@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2-preview.1
+## 2.2
 ### Updated
 - Update to .NET 8
 

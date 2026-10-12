@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3
+### Updated
+- Update to .NET 10
+
 ## 2.2
 ### Updated
 - Update to .NET 8
